@@ -2,7 +2,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name = 'Prob-Dists-GB',
+    name = 'Prob_Dists_GB',
     version = '1.0',
     author = 'Ayush Modi',
     author_email = 'hot9cups@yahoo.in',
