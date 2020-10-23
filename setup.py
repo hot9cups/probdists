@@ -1,9 +1,21 @@
-from setuptools import setup
+with open(".\README.md", "r") as fh:
+    long_description = fh.read()
 
-setup(name = 'Prob-Dists-GB',
-      version = '1.0',
-      description = 'Python Package for modelling Gaussian and Binomial distributions',
-      packages = ['Prob-Dists-GB'],
-      author = 'Ayush Modi',
-      author_email = 'hot9cups@yahoo.in',
-      zip_safe=False)
+setuptools.setup(
+    name = 'Prob-Dists-GB',
+    version = '1.0',
+    author = 'Ayush Modi',
+    author_email = 'hot9cups@yahoo.in',
+    description = 'Python Package for modelling Gaussian and Binomial distributions',
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/hot9cups/Prob-Dists",
+    packages=setuptools.find_packages(),
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+    ],
+    python_requires='>=3.6',
+    zip_safe=False
+)
