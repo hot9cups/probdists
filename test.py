@@ -1,7 +1,7 @@
 import unittest
 
-from distributions import Gaussian
-from distributions import Binomial
+from probdists import Gaussian
+from probdists import Binomial
 
 class TestGaussianClass(unittest.TestCase):
     def setUp(self):

@@ -4,14 +4,14 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name = 'Prob_Dists_GB',
-    version = '1.0',
+    name = 'probdists',
+    version = '1.2',
     author = 'Ayush Modi',
     author_email = 'hot9cups@yahoo.in',
     description = 'Python Package for modelling Gaussian and Binomial distributions',
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/hot9cups/Prob-Dists",
+    url="https://github.com/hot9cups/probdists",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
