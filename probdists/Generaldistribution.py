@@ -1,3 +1,6 @@
+from pathlib import Path
+
+
 class Distribution:
     """ Generic distribution class for calculating and
         visualizing a probability distribution.
@@ -26,6 +29,14 @@ class Distribution:
                 None
 
         """
+
+        if file_name == 'demo_gaussian_data':
+            dirname = Path(__file__).parent.absolute()
+            file_name = Path(dirname, 'numbers.txt')
+
+        elif file_name == 'demo_binomial_data':
+            dirname = Path(__file__).parent.absolute()
+            file_name = Path(dirname, 'numbers_binomial.txt')
 
         with open(file_name) as file:
             data_list = []
