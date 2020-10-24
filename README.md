@@ -4,7 +4,7 @@ Python package to model probability distributions.<br>
 Currently supports Gaussian and Binomial Distributions.
 
 # Usage
-Please see [usage](usage)
+Please see [usage](USAGE.md)
 
 # Installation
 
