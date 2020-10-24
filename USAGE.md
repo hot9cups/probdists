@@ -4,7 +4,8 @@
 >>> from probdists import Gaussian
 
 >>> gaussian = Gaussian()
->>> gaussian.read_data_file('numbers.txt')
+>>> gaussian.read_data_file('demo_gaussian_data')
+# for your own file, replace 'demo_gaussian_data' with 'my_text_file.txt'
 
 # to access data
 >>> print(gaussian.data)
@@ -43,7 +44,7 @@
 >>> from probdists import Binomial
 
 >>> binomial = Binomial()
->>> binomial.read_data_file('numbers_binomial.txt')
+>>> binomial.read_data_file('demo_binomial_data')
 
 # to access data
 >>> print(binomial.data)
