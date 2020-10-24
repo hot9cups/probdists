@@ -77,4 +77,10 @@
 0.4
 >>> print(binomial_sum.n)
 80
+
+# plot bar graph of data
+>>> binomial.plot_bar()
+
+# plot bar graph of probability distribution function of data
+>>> binomial.plot_bar_pdf()
 ```
