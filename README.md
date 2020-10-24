@@ -4,7 +4,7 @@ Python package to model probability distributions.<br>
 Currently supports Gaussian and Binomial Distributions.
 
 # Usage
-Please see [usage](Usage.MD)
+Please see [usage](usage.MD)
 
 # Installation
 
@@ -15,7 +15,7 @@ Installing using pip:
 
 Installing using virtual-environment(recommended):
 ```
->>> conda create -n myEnv python=3.7 anaconda
+>>> conda create -n myEnv python=3.6 anaconda
 >>> conda activate myEnv
 >>> pip install probdists
 ```
