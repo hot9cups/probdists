@@ -2,6 +2,7 @@ import unittest
 
 from probdists import Gaussian
 from probdists import Binomial
+from probdists import Exponential 
 
 class TestGaussianClass(unittest.TestCase):
     def setUp(self):
@@ -82,6 +83,34 @@ class TestBinomialClass(unittest.TestCase):
         self.assertEqual(binomial_sum.p, .4)
         self.assertEqual(binomial_sum.n, 80)
         
+class TestExponentialClass(unittest.TestCase):
+    def setup(self):
+        self.exponential = Exponential(0.25)
+        self.exponential.read_data_file('numbers_exponential.txt')
+
+    def test_initialization(self):
+        self.assertEqual(self.exponential.mean, 4.0 , 'incorrect mean')
+        self.assertEqual(self.exponential.stdev, 4.0 , 'incoorect standard deviation')
+
+    def test_readdata(self):
+        self.assertEqual(self.exponential.data, \
+                [1, 3, 99, 100, 120, 32, 330, 23, 76, 44, 31], 'data read incorrectly')
     
+    def test_meancalculation(self):
+        self.assertEqual(self.exponential.calculate_mean(), \
+                (1.0/0.25) , 'calculated mean not as expected')
+
+    def test_stdevcalculation(self):
+        self.assertEqual(self.exponential.calculate_stdev(), \
+                (1.0/0.25), 'calculated standard deviation incorrect')
+
+    def test_pdf(self):
+        self.assertEqual(round(self.exponential.pdf(1), 5, 0.19470, \
+                'pdf function does not give expexted result')
+        self.exponential.calculate_mean()
+        self.exponential.calculate_stdev()
+        self.assertEqual(round(self.exponential.pdf(5), 5), 0.07162, \
+                'pdf function after calculating mean and stdev does not give expected result')
+
 if __name__ == '__main__':
     unittest.main()
