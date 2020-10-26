@@ -37,6 +37,10 @@ class Distribution:
         elif file_name == 'demo_binomial_data':
             dirname = Path(__file__).parent.absolute()
             file_name = Path(dirname, 'numbers_binomial.txt')
+        
+        elif file_name == 'demo_exponential_data':
+            dirname = Path(__file__).parent.absolute()
+            file_name = Path(dirname, 'numbers_exponential.txt')
 
         with open(file_name) as file:
             data_list = []
