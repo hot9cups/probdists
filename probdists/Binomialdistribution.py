@@ -70,6 +70,8 @@ class Binomial(Distribution):
         self.mean = self.calculate_mean()
         self.stdev = self.calculate_stdev()
 
+        return self.p, self.n
+
     def plot_bar(self):
         """Function to output a histogram of the instance variable data using
         matplotlib pyplot library.
