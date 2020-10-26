@@ -95,7 +95,7 @@ class TestBinomialClass(unittest.TestCase):
 
 
 class TestExponentialClass(unittest.TestCase):
-    def setup(self):
+    def setUp(self):
         self.exponential = Exponential(0.25)
         self.exponential.read_data_file('numbers_exponential.txt')
 
