@@ -60,12 +60,11 @@ class Exponential(Distribution):
         Returns: 
             float: probability density function 
         """
-
-        if x < 0: 
-            return 0
-        else: 
-            return self.lmbda*math.exp(-self.lmbda*x)
-    
+        value = 0               # default value of exponential distribution for x < 0
+        if x >= 0:
+            value = self.lmbda*math.exp(-self.lmbda*x)
+        return value
+        
     def plot_bar_pdf(self, points=100):
         """ Method to plot the pdf of the exponential distribution. 
 
@@ -96,11 +95,12 @@ class Exponential(Distribution):
 
         return x, y
 
-
-    def __add__(self, other):
-        """ Method to add together two Exponential distributions with 
-        """
-        pass 
+#
+#   def __add__(self, other):
+#       """ Method to add together two Exponential distributions with 
+#       """
+#       pass 
+#
 
     def __repr__(self):
         """ Method to outputthe characteristics of the Exponential instace. 
