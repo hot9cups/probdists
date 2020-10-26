@@ -90,7 +90,7 @@ class Binomial(Distribution):
         """Probability density function calculator for the gaussian distribution.
 
         Args:
-            x (float): point for calculating the probability density function
+            k (float): point for calculating the probability density function
 
 
         Returns:
@@ -164,7 +164,7 @@ class Binomial(Distribution):
             None
 
         Returns:
-            string: characteristics of the Gaussian
+            string: characteristics of the Binomial
 
         """
 
