@@ -17,14 +17,15 @@ class Distribution:
         self.stdev = sigma
         self.data = []
 
-    def read_data_file(self, file_name):
+    def read_data_file(self, file_name, sep='\n'):
         """Function to read in data from a txt file.
-        The txt file should have one number (float) per line.
         The numbers are stored in the data attribute.
 
         Args:
                 file_name (string): name of a file to read from
-
+		sep (string): seperator specifying how to split the text read from file_name. 
+		Default to newline character ('\n')
+		NOTE: Refrain from using '.' as a seperator (Especially if you work with floating-points).
         Returns:
                 None
 
@@ -42,12 +43,18 @@ class Distribution:
             dirname = Path(__file__).parent.absolute()
             file_name = Path(dirname, 'numbers_exponential.txt')
 
-        with open(file_name) as file:
+        with open(file_name) as file: 
+            # read the data as a single string 
+            txt = file.read()
+            # split into a list seperated by sep 
+            tokens = txt.split(sep)
+            # sanitize the input of empty literals 
+            tokens = [x for x in tokens if x != '']
             data_list = []
-            line = file.readline()
-            while line:
-                data_list.append(int(line))
-                line = file.readline()
-        file.close()
+            # add to data_list 
+            try:
+                data_list = [float(x) for x in tokens]
+            except ValueError:
+                print('[-] Encountered bad token to convert to int')
 
         self.data = data_list
