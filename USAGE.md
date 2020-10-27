@@ -85,3 +85,37 @@
 # plot bar graph of probability distribution function of data
 >>> binomial.plot_bar_pdf()
 ```
+
+# For Exponential Distribution 
+
+```
+>>> from probdists import Exponential 
+
+# default value of lmbda(rate) is 0.5 
+>>> exponential = Exponential()
+
+>>> exp_2 = Exponential(0.25)
+# rate of exp_2 is 0.25 
+
+>>> exponential.read_data_file('demo_exponential_data')
+# pass in your filename to read data from filename
+
+# to access data 
+>>> print(exponential.data)
+[1, 3, 99, 100, 120, 32, 330, 23, 76, 44, 31] 
+
+# to calculate mean
+>>> print(round(exponential.calculate_mean(), 2) 
+2.0 
+
+# to calculate standard deviation 
+>>> print(round(exponential.calculate_stdev(), 2) 
+2.0 
+
+# to calculate pdf 
+>>> print(round(exponential.pdf(5), 5)
+0.04104
+
+# plot pdf of exponential distribution 
+>>> exponential.plot_bar_pdf() 
+```
