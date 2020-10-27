@@ -1,4 +1,3 @@
-
 # Usage
 
 ## For Gaussian Distribution
