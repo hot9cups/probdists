@@ -12,7 +12,12 @@ class Distribution:
     """
 
     def __init__(self, mu=0, sigma=1):
-
+        """ Initialize the generic distribution object. 
+            Recommended that you instantiate one of its children.
+            mu (float): the mean of the distribution
+            sigma (float): the standard deviation of the distribution
+            data (list of float): the data itself
+        """
         self.mean = mu
         self.stdev = sigma
         self.data = []
@@ -23,8 +28,8 @@ class Distribution:
 
         Args:
                 file_name (string): name of a file to read from
-		sep (string): seperator specifying how to split the text read from file_name. 
-		Default to newline character ('\n')
+		sep (string): seperator specifying how to split the text read from file_name.
+                Default to newline character ('\n')
 		NOTE: Refrain from using '.' as a seperator (Especially if you work with floating-points).
         Returns:
                 None
@@ -43,15 +48,15 @@ class Distribution:
             dirname = Path(__file__).parent.absolute()
             file_name = Path(dirname, 'numbers_exponential.txt')
 
-        with open(file_name) as file: 
-            # read the data as a single string 
+        with open(file_name) as file:
+            # read the data as a single string
             txt = file.read()
-            # split into a list seperated by sep 
+            # split into a list seperated by sep
             tokens = txt.split(sep)
-            # sanitize the input of empty literals 
+            # sanitize the input of empty literals
             tokens = [x for x in tokens if x != '']
             data_list = []
-            # add to data_list 
+            # add to data_list
             try:
                 data_list = [float(x) for x in tokens]
             except ValueError:
