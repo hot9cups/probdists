@@ -12,7 +12,7 @@ class Distribution:
     """
 
     def __init__(self, mu=0, sigma=1):
-        """ 
+        """
             Initialize the generic distribution object.
 
             Recommended that you instantiate one of its children.
