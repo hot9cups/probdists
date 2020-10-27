@@ -1,7 +1,7 @@
 # probdists
 
 Python package to model probability distributions.<br>
-Currently supports Gaussian and Binomial Distributions.
+Currently supports Gaussian, Binomial and Exponential Distributions.
 
 # Usage
 Please see [usage](USAGE.md)
