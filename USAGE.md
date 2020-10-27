@@ -108,15 +108,15 @@
 [1, 3, 99, 100, 120, 32, 330, 23, 76, 44, 31] 
 
 # to calculate mean
->>> print(round(exponential.calculate_mean(), 2) 
+>>> print(round(exponential.calculate_mean(), 2))
 2.0 
 
 # to calculate standard deviation 
->>> print(round(exponential.calculate_stdev(), 2) 
+>>> print(round(exponential.calculate_stdev(), 2))
 2.0 
 
 # to calculate pdf 
->>> print(round(exponential.pdf(5), 5)
+>>> print(round(exponential.pdf(5), 5))
 0.04104
 
 # plot pdf of exponential distribution 
