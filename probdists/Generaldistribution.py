@@ -17,7 +17,7 @@ class Distribution:
         self.stdev = sigma
         self.data = []
 
-    def read_data_file(self, file_name):
+    def read_data_file(self, file_name, seperator, header):
         """Function to read in data from a txt file, csv file
         and excel formats (xls, xlsx, xlsm, xlsb, odf, ods and odt)
 
