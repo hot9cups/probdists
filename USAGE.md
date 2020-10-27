@@ -1,4 +1,7 @@
-# For Gaussian Distribution
+
+# Usage
+
+## For Gaussian Distribution
 
 ```
 >>> from probdists import Gaussian
@@ -39,7 +42,8 @@
 >>> gaussian.plot_histogram_pdf(n_spaces = 50)
 ```
 
-# For Binomial Distribution
+## For Binomial Distribution
+
 ```
 >>> from probdists import Binomial
 
@@ -86,7 +90,7 @@
 >>> binomial.plot_bar_pdf()
 ```
 
-# For Exponential Distribution 
+## For Exponential Distribution 
 
 ```
 >>> from probdists import Exponential 
