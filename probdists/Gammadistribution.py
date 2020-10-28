@@ -4,6 +4,7 @@ from .Generaldistribution import Distribution
 
 
 class Gamma(Distribution):
+
     """Gamma distribution class for calculating and visualizing a Gamma distribution.
         Attributes:
             mean (float) representing the mean value of the distribution
@@ -14,7 +15,8 @@ class Gamma(Distribution):
     """
 
     def __init__(self, k=2, theta=2, fit=False, data_file='demo_gamma_data'):
-        """Init function to instantiate Gamma distribution
+        """
+        Init function to instantiate Gamma distribution
             Args:
                 k (float) shape parameter representing shape of distribution (k > 0)
                 theta (float) scale parameter that stretches/shrinks distribution (theta > 0)
@@ -41,7 +43,8 @@ class Gamma(Distribution):
             Distribution.__init__(self, self.calculate_mean(), self.calculate_stdev())
 
     def calculate_mean(self):
-        """Function to calculate the mean of the data set.
+        """
+        Function to calculate the mean of the data set.
             Args:
                  None
             Returns:
@@ -52,7 +55,8 @@ class Gamma(Distribution):
         return self.mean
 
     def calculate_stdev(self):
-        """Function to calculate the standard deviation of the data set.
+        """
+        Function to calculate the standard deviation of the data set.
             Args:
                  sample (bool): whether the data represents a sample or population
             Returns:
@@ -62,7 +66,8 @@ class Gamma(Distribution):
         return self.stdev
 
     def pdf(self, x):
-        """Probability density function calculator for the Gamma distribution.
+        """
+        Probability density function calculator for the Gamma distribution.
             Args:
                 x (float): point for calculating the probability density function
             Returns:
@@ -72,7 +77,8 @@ class Gamma(Distribution):
             math.exp((-1 * x / self.theta)))
 
     def plot_bar_pdf(self, points=25):
-        """ Method to plot the pdf of the exponential distribution.
+        """
+        Method to plot the pdf of the exponential distribution.
             Args:
                 points (int): number of discrete data points
             Returns:
