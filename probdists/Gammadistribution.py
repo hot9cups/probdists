@@ -4,14 +4,14 @@ from .Generaldistribution import Distribution
 
 
 class Gamma(Distribution):
-    """ Gamma distribution class for calculating and visualizing a Gamma distribution.
-
-    Attributes:
-        mean (float) representing the mean value of the distribution
-        stdev (float) representing the standard deviation of the distribution
-        data_list (list of floats) extracted from the data file
-        k (float) shape parameter representing shape of distribution (k > 0)
-        theta (float) scale parameter that stretches/shrinks distribution (theta > 0)
+    """
+    Gamma distribution class for calculating and visualizing a Gamma distribution.
+        Attributes:
+            mean (float) representing the mean value of the distribution
+            stdev (float) representing the standard deviation of the distribution
+            data_list (list of floats) extracted from the data file
+            k (float) shape parameter representing shape of distribution (k > 0)
+            theta (float) scale parameter that stretches/shrinks distribution (theta > 0)
     """
 
     def __init__(self, k=2, theta=2, fit=False, data_file='demo_gamma_data'):
