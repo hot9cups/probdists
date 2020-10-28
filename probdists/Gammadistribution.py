@@ -41,28 +41,29 @@ class Gamma(Distribution):
             self.theta = sample_var / sample_mean
             Distribution.__init__(self, self.calculate_mean(), self.calculate_stdev())
 
-    def calculate_mean(self):
+    def calculate_mean(self, round_to=2):
         """
         Function to calculate the mean of the data set.
             Args:
-                 None
+                 round_to (int): Round the mean value. [Default value: 2 floating point]
             Returns:
                    float: mean of the data set
         """
         avg = self.k * self.theta
         self.mean = avg
-        return self.mean
+        return round(self.mean, round_to)
 
-    def calculate_stdev(self):
+    def calculate_stdev(self, round_to=2):
         """
         Function to calculate the standard deviation of the data set.
             Args:
                  sample (bool): whether the data represents a sample or population
+                 round_to (int): Round the mean value. [Default value: 2 floating point]
             Returns:
                 float: standard deviation of the data set
         """
         self.stdev = math.sqrt(self.k * math.pow(self.theta, 2))
-        return self.stdev
+        return round(self.stdev, round_to)
 
     def pdf(self, x):
         """
