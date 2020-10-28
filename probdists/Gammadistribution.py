@@ -4,8 +4,8 @@ from .Generaldistribution import Distribution
 
 
 class Gamma(Distribution):
-    """ Gamma distribution class for calculating and visualizing a Gamma distribution.
-
+    """
+    Gamma distribution class for calculating and visualizing a Gamma distribution.
     Attributes:
         mean (float) representing the mean value of the distribution
         stdev (float) representing the standard deviation of the distribution
@@ -15,11 +15,10 @@ class Gamma(Distribution):
     """
 
     def __init__(self, k=2, theta=2, fit=False, data_file='demo_gamma_data'):
-        """
-        Init function to instantiate Gamma distribution
-            Args:
-                k (float) shape parameter representing shape of distribution (k > 0)
-                theta (float) scale parameter that stretches/shrinks distribution (theta > 0)
+        """Init function to instantiate Gamma distribution
+        Args:
+            k (float) shape parameter representing shape of distribution (k > 0)
+            theta (float) scale parameter that stretches/shrinks distribution (theta > 0)
         """
         if k <= 0 or theta <= 0:
             raise ValueError
@@ -46,7 +45,6 @@ class Gamma(Distribution):
         """Function to calculate the mean of the data set.
         Args:
              None
-
         Returns:
                float: mean of the data set
         """
@@ -66,11 +64,10 @@ class Gamma(Distribution):
 
     def pdf(self, x):
         """Probability density function calculator for the Gamma distribution.
-                Args:
-                        x (float): point for calculating the
-                                   probability density function
-                Returns:
-                        float: probability density function output
+        Args:
+            x (float): point for calculating the probability density function
+        Returns:
+            float: probability density function output
         """
         return (1 / (math.factorial(self.k - 1) * math.pow(self.theta, self.k))) * (math.pow(x, self.k - 1)) * (
             math.exp((-1 * x / self.theta)))
