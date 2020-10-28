@@ -4,6 +4,7 @@ from .Generaldistribution import Distribution
 
 
 class Gamma(Distribution):
+
     """ Gamma distribution class for calculating and
     visualizing a Gamma distribution.
 
@@ -16,12 +17,16 @@ class Gamma(Distribution):
     """
 
     def __init__(self, k=2, theta=2):
+        """Init function to instantiate Gamma distribution
+
+            Args:
+                k (float) shape parameter representing shape of distribution (k > 0)
+                theta (float) scale parameter that stretches/shrinks distribution (theta > 0)
+        """
         if k <= 0 or theta <= 0:
             raise ValueError
-
         self.k = k
         self.theta = theta
-
         Distribution.__init__(self, self.calculate_mean(), self.calculate_stdev())
 
     def calculate_mean(self):
@@ -33,14 +38,11 @@ class Gamma(Distribution):
         Returns:
                float: mean of the data set
         """
-
         avg = self.k * self.theta
-
         self.mean = avg
-
         return self.mean
 
-    def calculate_stdev(self, sample=True):
+    def calculate_stdev(self):
         """Function to calculate the standard deviation of the data set.
 
         Args:
@@ -49,9 +51,7 @@ class Gamma(Distribution):
         Returns:
             float: standard deviation of the data set
         """
-
         self.stdev = math.sqrt(self.k * math.pow(self.theta, 2))
-
         return self.stdev
 
     def plot_histogram(self):
@@ -63,7 +63,7 @@ class Gamma(Distribution):
 
                 Returns:
                         None
-                """
+        """
         plt.hist(self.data)
         plt.title("Histogram of Data")
         plt.xlabel("data")
@@ -79,12 +79,11 @@ class Gamma(Distribution):
 
                 Returns:
                         float: probability density function output
-                """
-
+        """
         return (1 / (math.factorial(self.k - 1) * math.pow(self.theta, self.k))) * (math.pow(x, self.k - 1)) * (
             math.exp((-1 * x / self.theta)))
 
-    def plot_bar_pdf(self, points=100):
+    def plot_bar_pdf(self, points=20):
         """ Method to plot the pdf of the exponential distribution.
 
         Args:
@@ -95,7 +94,6 @@ class Gamma(Distribution):
             list: y values for the pdf plot
 
         """
-
         x = []
         y = []
 
@@ -111,7 +109,6 @@ class Gamma(Distribution):
         plt.xlabel('x')
 
         plt.show()
-
         return x, y
 
     def __add__(self, other):
@@ -123,7 +120,7 @@ class Gamma(Distribution):
                 Returns:
                         Gamma: Gamma distribution
 
-                """
+        """
         if self.theta == other.theta:
             result = Gamma()
             result.k = self.k + other.k
@@ -131,8 +128,6 @@ class Gamma(Distribution):
             result.calculate_mean()
             result.calculate_stdev()
             return result
-        else:
-            return "Gamma distribution can only be added with the same scale parameter: theta"
 
     def __repr__(self):
         """Function to output the characteristics of the Gamma instance
@@ -143,6 +138,5 @@ class Gamma(Distribution):
                 Returns:
                         string: characteristics of the Gamma
 
-                """
-
+        """
         return "mean {}, standard deviation {}".format(self.mean, self.stdev)
