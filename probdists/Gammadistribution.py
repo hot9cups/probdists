@@ -5,7 +5,8 @@ from .Generaldistribution import Distribution
 
 class Gamma(Distribution):
 
-    """Gamma distribution class for calculating and visualizing a Gamma distribution.
+    """
+    Gamma distribution class for calculating and visualizing a Gamma distribution.
         Attributes:
             mean (float) representing the mean value of the distribution
             stdev (float) representing the standard deviation of the distribution
@@ -15,8 +16,7 @@ class Gamma(Distribution):
     """
 
     def __init__(self, k=2, theta=2, fit=False, data_file='demo_gamma_data'):
-        """
-        Init function to instantiate Gamma distribution
+        """Init function to instantiate Gamma distribution
             Args:
                 k (float) shape parameter representing shape of distribution (k > 0)
                 theta (float) scale parameter that stretches/shrinks distribution (theta > 0)
