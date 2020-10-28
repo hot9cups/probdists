@@ -160,4 +160,11 @@
 
 # plot pdf of exponential distribution 
 >>> gamma.plot_bar_pdf() 
+
+# to add two gamma distributions
+>>> gamma_one = Gamma(2, 2)
+>>> gamma_two = Gamma(1, 2)
+>>> gamma_three = gamma_one + gamma_two
+# The resulting gamma three will have k=3, theta=2. 
+# This add magic method fails if thetas are not equal since they wouldn't be summable
 ```

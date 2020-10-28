@@ -4,8 +4,7 @@ from .Generaldistribution import Distribution
 
 
 class Gamma(Distribution):
-    """
-    Gamma distribution class for calculating and visualizing a Gamma distribution.
+    """ Gamma distribution class for calculating and visualizing a Gamma distribution.
         Attributes:
             mean (float) representing the mean value of the distribution
             stdev (float) representing the standard deviation of the distribution
@@ -23,7 +22,7 @@ class Gamma(Distribution):
         """
         if k <= 0 or theta <= 0:
             raise ValueError
-        if fit is False:
+        if not fit:
             self.fit = False
             self.k = k
             self.theta = theta
