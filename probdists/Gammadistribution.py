@@ -4,9 +4,7 @@ from .Generaldistribution import Distribution
 
 
 class Gamma(Distribution):
-    """
-    Gamma distribution class for calculating and
-    visualizing a Gamma distribution.
+    """ Gamma distribution class for calculating and visualizing a Gamma distribution.
 
     Attributes:
         mean (float) representing the mean value of the distribution
@@ -121,9 +119,9 @@ class Gamma(Distribution):
 
     def __repr__(self):
         """Function to output the characteristics of the Gamma instance
-            Args:
-                None
-            Returns:
-                    string: characteristics of the Gamma
+        Args:
+            None
+        Returns:
+            string: characteristics of the Gamma
         """
         return "mean {}, standard deviation {}".format(self.mean, self.stdev)
