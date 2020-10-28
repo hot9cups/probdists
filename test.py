@@ -3,12 +3,33 @@ import unittest
 from probdists import Gaussian
 from probdists import Binomial
 from probdists import Exponential
+from probdists import Distribution
+
+class TestGeneraldistribution(unittest.TestCase):
+    def setUp(self):
+        self.distribution = Distribution()
+
+    def test_txt(self):
+        self.distribution.read_data_file('probdists/numbers_space.txt')
+        self.assertEqual(self.distribution.data, [1, 2, 3.4, 5.6, 7], 'Txt file not read properly')
+
+    def test_txt_sep(self):
+        self.distribution.read_data_file('probdists/numbers_semicolon.txt', ';')
+        self.assertEqual(self.distribution.data, [1, 2, 2.34, 5.67], 'Txt file wit custom separator not read properly')
+
+    def test_csv(self):
+        self.distribution.read_data_file('probdists/numbers.csv')
+        self.assertEqual(self.distribution.data, [1434.0, 1453.0, 1412.0, 1489.0, 1507.0], 'CSV file not read properly')
+
+    def test_excel(self):
+        self.distribution.read_data_file('probdists/numbers.xls')
+        self.assertEqual(self.distribution.data, [1, 2, 3, 4, 5, 6, 7, 8, 9], 'Xls file not read properly')
 
 
 class TestGaussianClass(unittest.TestCase):
     def setUp(self):
         self.gaussian = Gaussian(25, 2)
-        self.gaussian.read_data_file('numbers.txt')
+        self.gaussian.read_data_file('probdists/numbers.txt')
 
     def test_initialization(self):
         self.assertEqual(self.gaussian.mean, 25, 'incorrect mean')
@@ -53,7 +74,7 @@ class TestGaussianClass(unittest.TestCase):
 class TestBinomialClass(unittest.TestCase):
     def setUp(self):
         self.binomial = Binomial(0.4, 20)
-        self.binomial.read_data_file('numbers_binomial.txt')
+        self.binomial.read_data_file('probdists/numbers_binomial.txt')
 
     def test_initialization(self):
         self.assertEqual(self.binomial.p, 0.4, 'p value incorrect')
@@ -97,7 +118,7 @@ class TestBinomialClass(unittest.TestCase):
 class TestExponentialClass(unittest.TestCase):
     def setUp(self):
         self.exponential = Exponential(0.25)
-        self.exponential.read_data_file('numbers_exponential.txt')
+        self.exponential.read_data_file('probdists/numbers_exponential.txt')
 
     def test_initialization(self):
         self.assertEqual(self.exponential.mean, 4.0, 'incorrect mean')
@@ -127,6 +148,7 @@ class TestExponentialClass(unittest.TestCase):
         self.assertEqual(round(self.exponential.pdf(5), 5), 0.07163,
                          'pdf function after calculating mean and \
                              stdev does not give expected result')
+
 
 
 if __name__ == '__main__':

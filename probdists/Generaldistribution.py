@@ -1,5 +1,6 @@
 from pathlib import Path
 import pandas as pd
+import traceback
 
 class Distribution:
     """ Generic distribution class for calculating and
@@ -17,7 +18,8 @@ class Distribution:
         self.stdev = sigma
         self.data = []
 
-    def read_data_file(self, file_name, seperator, header):
+    def read_data_file(self, file_name, seperator='\\n', header=None):
+
         """Function to read in data from a txt file, csv file
         and excel formats (xls, xlsx, xlsm, xlsb, odf, ods and odt)
 
@@ -66,11 +68,12 @@ class Distribution:
         if extension in excel_formats:
             df = pd.read_excel(file_name, header=header)
             data_list = []
-            for i, row in df.iterrows():
+            for i in df.iterrows():
                 try:
-                    data_list.append(int(float(df.iat[i, 0])))
-                except:
-                    print('Could not convert', df.iat[i, 0], ' to int.')
+                    data_list.append(float(df.iat[i[0], 0]))
+                except:  # pylint: disable=W0702
+                    traceback.print_exc()
+                    print('Could not convert', df.iat[i[0], 0], ' to int.')
         else:
             with open(file_name) as file:
                 data_list = []
@@ -91,8 +94,9 @@ class Distribution:
                         line = line.split(seperator)
                     for number in line:
                         try:
-                            data_list.append(int(float(number)))
-                        except:
+                            data_list.append(float(number))
+                        except:  # pylint: disable=W0702
+                            traceback.print_exc()
                             print('Could not convert', number, ' to int.')
                     line = file.readline()
 
