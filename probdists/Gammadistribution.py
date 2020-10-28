@@ -4,7 +4,6 @@ from .Generaldistribution import Distribution
 
 
 class Gamma(Distribution):
-
     """
     Gamma distribution class for calculating and
     visualizing a Gamma distribution.
@@ -18,7 +17,8 @@ class Gamma(Distribution):
     """
 
     def __init__(self, k=2, theta=2, fit=False, data_file='demo_gamma_data'):
-        """Init function to instantiate Gamma distribution
+        """
+        Init function to instantiate Gamma distribution
             Args:
                 k (float) shape parameter representing shape of distribution (k > 0)
                 theta (float) scale parameter that stretches/shrinks distribution (theta > 0)
@@ -60,7 +60,6 @@ class Gamma(Distribution):
         """Function to calculate the standard deviation of the data set.
         Args:
              sample (bool): whether the data represents a sample or population
-
         Returns:
             float: standard deviation of the data set
         """
@@ -72,8 +71,6 @@ class Gamma(Distribution):
                 Args:
                         x (float): point for calculating the
                                    probability density function
-
-
                 Returns:
                         float: probability density function output
         """
@@ -84,7 +81,6 @@ class Gamma(Distribution):
         """ Method to plot the pdf of the exponential distribution.
         Args:
             points (int): number of discrete data points
-
         Returns:
             list: x values for the pdf plot
             list: y values for the pdf plot
@@ -108,11 +104,12 @@ class Gamma(Distribution):
         return x, y
 
     def __add__(self, other):
-        """Function to add together two Gamma distributions
+        """
+        Function to add together two Gamma distributions
                 Args:
-                        other (Gamma): Gamma instance
+                    other (Gamma): Gamma instance
                 Returns:
-                        Gamma: Gamma distribution
+                    Gamma: Gamma distribution
         """
         if self.theta == other.theta:
             result = Gamma()
@@ -124,10 +121,9 @@ class Gamma(Distribution):
 
     def __repr__(self):
         """Function to output the characteristics of the Gamma instance
-                Args:
-                    None
-
-                Returns:
+            Args:
+                None
+            Returns:
                     string: characteristics of the Gamma
         """
         return "mean {}, standard deviation {}".format(self.mean, self.stdev)
