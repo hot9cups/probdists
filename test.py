@@ -87,6 +87,14 @@ class TestBinomialClass(unittest.TestCase):
         self.assertEqual(round(self.binomial.pdf(5), 5), 0.05439)
         self.assertEqual(round(self.binomial.pdf(3), 5), 0.00472)
 
+    def test_cdf(self):
+        self.assertEqual(round(self.binomial.cdf(5), 5), 0.12560)
+        self.assertEqual(round(self.binomial.cdf(3), 5), 0.01596)
+
+        self.binomial.replace_stats_with_data()
+        self.assertEqual(round(self.binomial.cdf(5), 5), 0.07889)
+        self.assertEqual(round(self.binomial.cdf(3), 5), 0.00561)
+
     def test_add(self):
         binomial_one = Binomial(.4, 20)
         binomial_two = Binomial(.4, 60)
@@ -151,18 +159,22 @@ class TestGammaClass(unittest.TestCase):
                          'data not read in correctly')
 
     def test_fit(self):
-        self.assertEqual(self.gamma_wdata.k, 2, 'approximate fit found incorrectly')
-        self.assertEqual(round(self.gamma_wdata.theta, 2), 2.37, 'approximate fit found incorrectly')
+        self.assertEqual(self.gamma_wdata.k, 2,
+                         'approximate fit found incorrectly')
+        self.assertEqual(round(self.gamma_wdata.theta, 2),
+                         2.37, 'approximate fit found incorrectly')
 
     def test_meancalculation(self):
-        self.assertEqual(self.gamma.calculate_mean(), 4, 'calculated mean not as expected')
+        self.assertEqual(self.gamma.calculate_mean(), 4,
+                         'calculated mean not as expected')
 
     def test_stdevcalculation(self):
         self.gamma.calculate_stdev()
         self.assertEqual(self.gamma.stdev, math.sqrt(8), 'standard deviation incorrect')
 
     def test_pdf(self):
-        self.assertEqual(self.gamma.pdf(4), (1 / (math.exp(2))), 'pdf function does not give expected result')
+        self.assertEqual(self.gamma.pdf(4), (1 / (math.exp(2))),
+                         'pdf function does not give expected result')
 
     def test_add(self):
         gamma_one = Gamma(2, 2)
