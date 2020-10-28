@@ -25,11 +25,11 @@ class Exponential(Distribution):
         Distribution.__init__(self, self.calculate_mean(),
                               self.calculate_stdev())
 
-    def calculate_mean(self):
+    def calculate_mean(self, round_to=2):
         """ Method to calculate the mean from lambda
 
         Args:
-            None
+            round_to (int): Round the mean value. [Default value: 2 floating point]
 
         Returns:
             float: mean of the distribution
@@ -37,13 +37,13 @@ class Exponential(Distribution):
 
         self.mean = (1.0 / self.lmbda)
 
-        return self.mean
+        return round(self.mean, round_to)
 
-    def calculate_stdev(self):
+    def calculate_stdev(self, round_to=2):
         """ Method to calculate the standard deviation from lmbda
 
         Args:
-            None
+            round_to (int): Round the mean value. [Default value: 2 floating point]
 
         Returns:
             float: standard deviation of the distribution
@@ -51,7 +51,7 @@ class Exponential(Distribution):
 
         self.stdev = (1.0 / self.lmbda)
 
-        return self.stdev
+        return round(self.stdev, round_to)
 
     def pdf(self, x):
         """ Probability density function calculator for the exponential distribution.

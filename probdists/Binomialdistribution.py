@@ -23,11 +23,11 @@ class Binomial(Distribution):
         Distribution.__init__(self, self.calculate_mean(),
                               self.calculate_stdev())
 
-    def calculate_mean(self):
+    def calculate_mean(self, round_to=2):
         """Function to calculate the mean from p and n
 
         Args:
-            None
+            round_to (int): Round the mean value. [Default value: 2 floating point]
 
         Returns:
             float: mean of the data set
@@ -36,13 +36,13 @@ class Binomial(Distribution):
 
         self.mean = self.p * self.n
 
-        return self.mean
+        return round(self.mean, round_to)
 
-    def calculate_stdev(self):
+    def calculate_stdev(self, round_to=2):
         """Function to calculate the standard deviation from p and n.
 
         Args:
-            None
+            round_to (int): Round the mean value. [Default value: 2 floating point]
 
         Returns:
             float: standard deviation of the data set
@@ -51,7 +51,7 @@ class Binomial(Distribution):
 
         self.stdev = math.sqrt(self.n * self.p * (1 - self.p))
 
-        return self.stdev
+        return round(self.stdev, round_to)
 
     def replace_stats_with_data(self):
         """Function to calculate p and n from the data set
@@ -67,8 +67,8 @@ class Binomial(Distribution):
 
         self.n = len(self.data)
         self.p = 1.0 * sum(self.data) / len(self.data)
-        self.mean = self.calculate_mean()
-        self.stdev = self.calculate_stdev()
+        self.calculate_mean()
+        self.calculate_stdev()
 
         return self.p, self.n
 
