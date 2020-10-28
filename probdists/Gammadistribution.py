@@ -92,7 +92,6 @@ class Gamma(Distribution):
             x.append(i)
             y.append(self.pdf(i))
 
-
         # make the plots
         plt.bar(x, y)
         plt.title('Probability Density Plot for Gamma Distribution')
