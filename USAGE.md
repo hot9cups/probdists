@@ -14,11 +14,11 @@
 [1, 3, 99, 100, 120, 32, 330, 23, 76, 44, 31]
 
 # to calculate mean
->>> print(round(gaussian.calculate_mean(), 2))
+>>> print(gaussian.calculate_mean())
 78.09
 
 # to calculate standard deviation
->>> print(round(gaussian.calculate_stdev(),2))
+>>> print(gaussian.calculate_stdev())
 92.87
 
 # to calculate pdf
@@ -58,7 +58,7 @@
 8
 
 # to calculate standard deviation
->>> print(round(binomial.calculate_stdev(), 2))
+>>> print(binomial.calculate_stdev())
 2.19
 
 # to calculate p and n from the data set
@@ -108,11 +108,11 @@
 [1, 3, 99, 100, 120, 32, 330, 23, 76, 44, 31] 
 
 # to calculate mean
->>> print(round(exponential.calculate_mean(), 2))
+>>> print(exponential.calculate_mean())
 2.0 
 
 # to calculate standard deviation 
->>> print(round(exponential.calculate_stdev(), 2))
+>>> print(exponential.calculate_stdev())
 2.0 
 
 # to calculate pdf 

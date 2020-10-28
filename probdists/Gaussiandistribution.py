@@ -17,11 +17,11 @@ class Gaussian(Distribution):
 
         Distribution.__init__(self, mu, sigma)
 
-    def calculate_mean(self):
+    def calculate_mean(self, round_to=2):
         """Function to calculate the mean of the data set.
 
         Args:
-             None
+             round_to (int): Round the mean value. [Default value: 2 floating point]
 
         Returns:
                float: mean of the data set
@@ -31,13 +31,14 @@ class Gaussian(Distribution):
 
         self.mean = avg
 
-        return self.mean
+        return round(self.mean, round_to)
 
-    def calculate_stdev(self, sample=True):
+    def calculate_stdev(self, sample=True, round_to=2):
         """Function to calculate the standard deviation of the data set.
 
         Args:
              sample (bool): whether the data represents a sample or population
+             round_to (int): Round the mean value. [Default value: 2 floating point]
 
         Returns:
             float: standard deviation of the data set
@@ -48,7 +49,8 @@ class Gaussian(Distribution):
         else:
             n = len(self.data)
 
-        mean = self.calculate_mean()
+        self.calculate_mean()
+        mean = self.mean
 
         sigma = 0
 
@@ -59,7 +61,7 @@ class Gaussian(Distribution):
 
         self.stdev = sigma
 
-        return self.stdev
+        return round(self.stdev, round_to)
 
     def plot_histogram(self):
         """Function to output a histogram of the instance variable data using
