@@ -1,8 +1,9 @@
 import unittest
-
+import math
 from probdists import Gaussian
 from probdists import Binomial
 from probdists import Exponential
+from probdists import Gamma
 
 
 class TestGaussianClass(unittest.TestCase):
@@ -127,6 +128,45 @@ class TestExponentialClass(unittest.TestCase):
         self.assertEqual(round(self.exponential.pdf(5), 5), 0.07163,
                          'pdf function after calculating mean and \
                              stdev does not give expected result')
+
+
+class TestGammaClass(unittest.TestCase):
+    def setUp(self):
+        self.gamma = Gamma()
+        self.gamma_wdata = Gamma(fit=True)
+        self.gamma.read_data_file('numbers_gamma.txt')
+        self.gamma_wdata.read_data_file('numbers_gamma.txt')
+
+    def test_initialization(self):
+        self.assertEqual(self.gamma.k, 2, 'incorrect k')
+        self.assertEqual(self.gamma.theta, 2,
+                         'incorrect theta')
+
+    def test_readdata(self):
+        self.assertEqual(self.gamma_wdata.data,
+                         [1, 2, 2, 3, 3, 4, 5, 6, 8, 9, 13],
+                         'data not read in correctly')
+
+    def test_fit(self):
+        self.assertEqual(self.gamma_wdata.k, 2, 'approximate fit found incorrectly')
+        self.assertEqual(round(self.gamma_wdata.theta, 2), 2.37, 'approximate fit found incorrectly')
+
+    def test_meancalculation(self):
+        self.assertEqual(self.gamma.calculate_mean(), 4, 'calculated mean not as expected')
+
+    def test_stdevcalculation(self):
+        self.assertEqual(self.gamma.calculate_stdev(), math.sqrt(8), 'standard deviation incorrect')
+
+    def test_pdf(self):
+        self.assertEqual(self.gamma.pdf(4), (1 / (math.exp(2))), 'pdf function does not give expected result')
+
+    def test_add(self):
+        gamma_one = Gamma(2, 2)
+        gamma_two = Gamma(2, 2)
+        gamma_sum = gamma_one + gamma_two
+
+        self.assertEqual(gamma_sum.calculate_mean(), 8)
+        self.assertEqual(gamma_sum.calculate_stdev(), 4)
 
 
 if __name__ == '__main__':
