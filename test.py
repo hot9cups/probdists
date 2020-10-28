@@ -133,17 +133,23 @@ class TestExponentialClass(unittest.TestCase):
 class TestGammaClass(unittest.TestCase):
     def setUp(self):
         self.gamma = Gamma()
+        self.gamma_wdata = Gamma(fit=True)
         self.gamma.read_data_file('numbers_gamma.txt')
+        self.gamma_wdata.read_data_file('numbers_gamma.txt')
 
     def test_initialization(self):
-        self.assertEqual(self.gamma.mean, 4, 'incorrect mean')
-        self.assertEqual(self.gamma.stdev, math.sqrt(8),
-                         'incorrect standard deviation')
+        self.assertEqual(self.gamma.k, 2, 'incorrect k')
+        self.assertEqual(self.gamma.theta, 2,
+                         'incorrect theta')
 
     def test_readdata(self):
-        self.assertEqual(self.gamma.data,
+        self.assertEqual(self.gamma_wdata.data,
                          [1, 2, 2, 3, 3, 4, 5, 6, 8, 9, 13],
                          'data not read in correctly')
+
+    def test_fit(self):
+        self.assertEqual(self.gamma_wdata.k, 2, 'approximate fit found incorrectly')
+        self.assertEqual(round(self.gamma_wdata.theta, 2), 2.37, 'approximate fit found incorrectly')
 
     def test_meancalculation(self):
         self.assertEqual(self.gamma.calculate_mean(), 4, 'calculated mean not as expected')
