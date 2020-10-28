@@ -31,7 +31,6 @@ class Binomial(Distribution):
 
         Returns:
             float: mean of the data set
-
         """
 
         self.mean = self.p * self.n
@@ -46,7 +45,6 @@ class Binomial(Distribution):
 
         Returns:
             float: standard deviation of the data set
-
         """
 
         self.stdev = math.sqrt(self.n * self.p * (1 - self.p))
@@ -62,7 +60,6 @@ class Binomial(Distribution):
         Returns:
             float: the p value
             float: the n value
-
         """
 
         self.n = len(self.data)
@@ -111,12 +108,12 @@ class Binomial(Distribution):
         Args:
             k (float): point for calculating the cumulative distribution function
 
-
         Returns:
             float: cumulative distribution function output
         """
+
         total_p = 0
-        for i in range(0, k+1):
+        for i in range(k+1):
             total_p += self.pdf(i)
         return total_p
 
@@ -129,7 +126,6 @@ class Binomial(Distribution):
         Returns:
             list: x values for the pdf plot
             list: y values for the pdf plot
-
         """
 
         x = []
@@ -158,7 +154,6 @@ class Binomial(Distribution):
 
         Returns:
             Binomial: Binomial distribution
-
         """
 
         try:
@@ -182,7 +177,6 @@ class Binomial(Distribution):
 
         Returns:
             string: characteristics of the Binomial
-
         """
 
         return f'mean {self.mean}, standard deviation {self.stdev}, \
