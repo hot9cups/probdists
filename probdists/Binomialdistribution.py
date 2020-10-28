@@ -105,6 +105,21 @@ class Binomial(Distribution):
 
         return (a / b) * c
 
+    def cdf(self, k):
+        """Cumulative distribution function calculator for the binomial distribution.
+
+        Args:
+            k (float): point for calculating the cumulative distribution function
+
+
+        Returns:
+            float: cumulative distribution function output
+        """
+        total_p = 0
+        for i in range(0, k+1):
+            total_p += self.pdf(i)
+        return total_p
+
     def plot_bar_pdf(self):
         """Function to plot the pdf of the binomial distribution
 
