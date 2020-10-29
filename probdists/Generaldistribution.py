@@ -41,9 +41,14 @@ class Distribution:
         elif file_name == 'demo_exponential_data':
             dirname = Path(__file__).parent.parent.absolute()
             file_name = Path(dirname, 'numbers_exponential.txt')
+
         elif file_name == 'demo_gamma_data':
             dirname = Path(__file__).parent.parent.absolute()
             file_name = Path(dirname, 'numbers_gamma.txt')
+
+        elif file_name == 'demo_bernoulli_data':
+            dirname = Path(__file__).parent.parent.absolute()
+            file_name = Path(dirname, 'numbers_exponential.txt')
 
         with open(file_name) as file:
             data_list = []
