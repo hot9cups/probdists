@@ -34,6 +34,15 @@ class TestGaussianClass(unittest.TestCase):
         self.assertEqual(self.gaussian.calculate_stdev(False),
                          88.55, 'population standard deviation incorrect')
 
+    def test_cdf(self):
+        self.assertEqual(round(self.gaussian.cdf(25), 3), 0.500,
+                         'cdf function does not give expected result')
+        self.gaussian.calculate_mean()
+        self.gaussian.calculate_stdev()
+        self.assertEqual(round(self.gaussian.cdf(75), 3), 0.487,
+                         'cdf function after calculating mean and \
+                             stdev does not give expected result')
+
     def test_pdf(self):
         self.assertEqual(round(self.gaussian.pdf(25), 5), 0.19947,
                          'pdf function does not give expected result')
