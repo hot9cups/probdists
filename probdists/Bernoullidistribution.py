@@ -1,6 +1,7 @@
 import math
 import matplotlib.pyplot as plt
 from .Generaldistribution import Distribution 
+from .Binomialdistribution import Binomial
 
 class Bernoulli(Distribution):
     """ Bernoulli distribution class for calculating and 
@@ -85,7 +86,7 @@ class Bernoulli(Distribution):
         plt.ylabel('count')
 
     def pdf(self, k):
-        """ Probability density function calculator for the bernoulli distribution.
+        """ Method to calculate pdf for the bernoulli distribution.
 
         Args:
             k (float): point for calculating the probability density function. Range of k: {0,1}
@@ -99,10 +100,10 @@ class Bernoulli(Distribution):
         except ValueError: 
             print("Expected k for Bernoulli Distribution: 0, 1")
 
-        return self.p ** k * ( 1 - self.p) ** (1 - k)
+        return (self.p ** k) * ( 1 - self.p) ** (1 - k)
     
     def cdf(self, k):
-        """ Cumulative distribution function calculator for the bernoulli distribution. 
+        """ Method to calculate cdf for the bernoulli distribution.
 
         Args: 
             k (float): point for calculating the cumulative distribution function 
@@ -132,7 +133,7 @@ class Bernoulli(Distribution):
         y = [self.pdf(i) for i in x] 
 
         # draw the plots 
-        plt.ba(x, y)
+        plt.bar(x, y)
         plt.title("Distribution of Outcomes")
         plt.ylabel("Probability")
         plt.xlabel("Outcome")
@@ -145,13 +146,24 @@ class Bernoulli(Distribution):
         """ Method to add together two Bernoulli distributions with equal p
 
         Args: 
-            other (Bernoulli): Bernoulli instance 
+            other (Bernoulli): Bernoulli instance
 
         Returns:
-            Bernoulli: Resultant Bernoulli instance 
+            Binomial: Resultant Binomial instance
         """
-        pass 
 
+        try:
+            assert self.p == other.p, 'p values are not equal'
+        except AssertionError as error
+            raise
+
+        result = Binomial()
+        result.n = 2
+        result.p = self.p
+        result.calculate_mean()
+        result.calculate_stdev()
+
+        return result
 
     def __repr__(self):
         """ Method to output the characteristics of this Bernoulli instance
