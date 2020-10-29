@@ -154,7 +154,7 @@ class Bernoulli(Distribution):
 
         try:
             assert self.p == other.p, 'p values are not equal'
-        except AssertionError as error
+        except AssertionError as error:
             raise
 
         result = Binomial()
