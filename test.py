@@ -167,8 +167,8 @@ class TestGammaClass(unittest.TestCase):
     def setUp(self):
         self.gamma = Gamma()
         self.gamma_wdata = Gamma(fit=True)
-        self.gamma.read_data_file('numbers_gamma.txt')
-        self.gamma_wdata.read_data_file('numbers_gamma.txt')
+        self.gamma.read_data_file('probdists/numbers_gamma.txt')
+        self.gamma_wdata.read_data_file('probdists/numbers_gamma.txt')
 
     def test_initialization(self):
         self.assertEqual(self.gamma.k, 2, 'incorrect k')

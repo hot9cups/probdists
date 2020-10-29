@@ -47,18 +47,20 @@ class Distribution:
         """
         if file_name == 'demo_gaussian_data':
             dirname = Path(__file__).parent.parent.absolute()
-            file_name = Path(dirname, 'numbers.txt')
+            file_name = Path(dirname, 'probdists/numbers.txt')
 
         elif file_name == 'demo_binomial_data':
             dirname = Path(__file__).parent.parent.absolute()
-            file_name = Path(dirname, 'numbers_binomial.txt')
+            file_name = Path(dirname, 'probdists/numbers_binomial.txt')
 
         elif file_name == 'demo_exponential_data':
             dirname = Path(__file__).parent.parent.absolute()
-            file_name = Path(dirname, 'numbers_exponential.txt')
+            file_name = Path(dirname, 'probdists/numbers_exponential.txt')
         elif file_name == 'demo_gamma_data':
             dirname = Path(__file__).parent.parent.absolute()
-            file_name = Path(dirname, 'numbers_gamma.txt')
+            file_name = Path(dirname, 'probdists/numbers_gamma.txt')
+
+        file_name = str(file_name)
 
         # Finding the file extension and selecting seperator for csv file
         extension = file_name.split('.')[-1]
