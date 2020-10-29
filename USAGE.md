@@ -168,3 +168,5 @@
 # The resulting gamma three will have k=3, theta=2. 
 # This add magic method fails if thetas are not equal since they wouldn't be summable
 ```
+
+Just a check, edit later
