@@ -85,12 +85,12 @@ class Binomial(Distribution):
         plt.xlabel('outcome')
         plt.ylabel('count')
 
-    def pdf(self, k):
+    def calculate_pdf(self, k, round_to=2):
         """Probability density function calculator for the gaussian distribution.
 
         Args:
             k (float): point for calculating the probability density function
-
+            round_to (int): Round the mean value. [Default value: 2 floating point]
 
         Returns:
             float: probability density function output
@@ -99,8 +99,9 @@ class Binomial(Distribution):
         a = math.factorial(self.n)
         b = math.factorial(k) * math.factorial(self.n - k)
         c = (self.p ** k) * (1 - self.p) ** (self.n - k)
+        self.pdf = (a / b) * c
 
-        return (a / b) * c
+        return round(self.pdf, round_to)
 
     def cdf(self, k):
         """Cumulative distribution function calculator for the binomial distribution.
@@ -114,7 +115,8 @@ class Binomial(Distribution):
 
         total_p = 0
         for i in range(k+1):
-            total_p += self.pdf(i)
+            self.calculate_pdf(i)
+            total_p += self.pdf
         return total_p
 
     def plot_bar_pdf(self):
@@ -134,7 +136,8 @@ class Binomial(Distribution):
         # calculate the x values to visualize
         for i in range(self.n + 1):
             x.append(i)
-            y.append(self.pdf(i))
+            self.calculate_pdf(i)
+            y.append(self.pdf)
 
         # make the plots
         plt.bar(x, y)

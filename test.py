@@ -57,12 +57,12 @@ class TestGaussianClass(unittest.TestCase):
                          88.55, 'population standard deviation incorrect')
 
     def test_pdf(self):
-        self.assertEqual(round(self.gaussian.pdf(25), 5), 0.19947,
-                         'pdf function does not give expected result')
+        self.assertEqual(self.gaussian.calculate_pdf(25, 5), 0.19947,
+                         'calculate_pdf function does not give expected result')
         self.gaussian.calculate_mean()
         self.gaussian.calculate_stdev()
-        self.assertEqual(round(self.gaussian.pdf(75), 5), 0.00429,
-                         'pdf function after calculating mean and \
+        self.assertEqual(self.gaussian.calculate_pdf(75, 5), 0.00429,
+                         'calculate_pdf function after calculating mean and \
                              stdev does not give expected result')
 
     def test_add(self):
@@ -102,12 +102,12 @@ class TestBinomialClass(unittest.TestCase):
         self.assertEqual(n, 13)
 
     def test_pdf(self):
-        self.assertEqual(round(self.binomial.pdf(5), 5), 0.07465)
-        self.assertEqual(round(self.binomial.pdf(3), 5), 0.01235)
+        self.assertEqual(self.binomial.calculate_pdf(5, 5), 0.07465)
+        self.assertEqual(self.binomial.calculate_pdf(3, 5), 0.01235)
 
         self.binomial.replace_stats_with_data()
-        self.assertEqual(round(self.binomial.pdf(5), 5), 0.05439)
-        self.assertEqual(round(self.binomial.pdf(3), 5), 0.00472)
+        self.assertEqual(self.binomial.calculate_pdf(5, 5), 0.05439)
+        self.assertEqual(self.binomial.calculate_pdf(3, 5), 0.00472)
 
     def test_cdf(self):
         self.assertEqual(round(self.binomial.cdf(5), 5), 0.12560)
@@ -154,12 +154,12 @@ class TestExponentialClass(unittest.TestCase):
                          'calculated standard deviation incorrect')
 
     def test_pdf(self):
-        self.assertEqual(round(self.exponential.pdf(1), 5), 0.19470,
-                         'pdf function does not give expexted result')
+        self.assertEqual(self.exponential.calculate_pdf(1, 5), 0.19470,
+                         'calculate_pdf function does not give expexted result')
         self.exponential.calculate_mean()
         self.exponential.calculate_stdev()
-        self.assertEqual(round(self.exponential.pdf(5), 5), 0.07163,
-                         'pdf function after calculating mean and \
+        self.assertEqual(self.exponential.calculate_pdf(5, 5), 0.07163,
+                         'calculate_pdf function after calculating mean and \
                              stdev does not give expected result')
 
 
@@ -195,8 +195,9 @@ class TestGammaClass(unittest.TestCase):
         self.assertEqual(self.gamma.stdev, math.sqrt(8), 'standard deviation incorrect')
 
     def test_pdf(self):
-        self.assertEqual(self.gamma.pdf(4), (1 / (math.exp(2))),
-                         'pdf function does not give expected result')
+        self.gamma.calculate_pdf(4)
+        self.assertEqual(self.gamma.pdf, (1 / (math.exp(2))),
+                         'calculate_pdf function does not give expected result')
 
     def test_add(self):
         gamma_one = Gamma(2, 2)

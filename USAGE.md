@@ -22,7 +22,7 @@
 92.87
 
 # to calculate pdf
->>> print(gaussian.pdf(25))
+>>> print(gaussian.calculate_pdf(25, 5))
 0.00365
 
 # to add two individual distributions
@@ -69,7 +69,7 @@
 13
         
 # to calculate pdf
->>> print(round(binomial.pdf(5), 5))
+>>> print(binomial.calculate_pdf(5, 5))
 0.07465
 
 # to add two individual distributions
@@ -116,7 +116,7 @@
 2.0 
 
 # to calculate pdf 
->>> print(round(exponential.pdf(5), 5))
+>>> print(exponential.calculate_pdf(5, 5))
 0.04104
 
 # plot pdf of exponential distribution 
@@ -151,7 +151,7 @@
 >>> print(gamma.calculate_stddev())
 
 # to calculate pdf, call function and give argument x
->>> print(gamma.pdf(x))
+>>> print(gamma.calculate_pdf(x, 5))
 0.18165
 
 # to access data 
