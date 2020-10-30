@@ -27,7 +27,7 @@ class Distribution:
         numbers should be seperator seperated.
 
         No need for seperator argument with csv file, it will
-        by default be ',' so csv files shoul have , seperated
+        by default be ',' so csv files should have , seperated
         numbers
 
         For excel file formats. There should only be one column
