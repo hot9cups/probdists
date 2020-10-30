@@ -78,21 +78,19 @@ class Gaussian(Distribution):
         plt.xlabel("data")
         plt.ylabel("count")
 
-    def pdf(self, x):
+    def calculate_pdf(self, x, round_to=2):
         """Probability density function calculator for the gaussian distribution.
 
                 Args:
                         x (float): point for calculating the
                                    probability density function
-
+                        round_to (int): Round the mean value. [Default value: 2 floating point]
 
                 Returns:
                         float: probability density function output
-                """
-
-        return (1.0 / (self.stdev * math.sqrt(2 * math.pi))) * math.exp(
-            -0.5 * ((x - self.mean) / self.stdev) ** 2
-        )
+        """
+        self.pdf = (1.0 / (self.stdev * math.sqrt(2 * math.pi))) * math.exp(-0.5 * ((x - self.mean) / self.stdev) ** 2)
+        return round(self.pdf, round_to)
 
     def plot_histogram_pdf(self, n_spaces=50):
         """Function to plot the normalized histogram of the data and a plot of the
@@ -123,7 +121,8 @@ class Gaussian(Distribution):
         for i in range(n_spaces):
             tmp = min_range + interval * i
             x.append(tmp)
-            y.append(self.pdf(tmp))
+            self.calculate_pdf(tmp)
+            y.append(self.pdf)
 
         # make the plots
         fig, axes = plt.subplots(2, sharex=True)
