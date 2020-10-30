@@ -76,7 +76,7 @@ class Gaussian(Distribution):
                 """
 
         return (0.5 * (1 + math.erf(
-            (x - self.mean) / (self.stdev * math.sqrt(2)) ))
+            (x - self.mean) / (self.stdev * math.sqrt(2))))
         )
 
     def plot_histogram(self):
@@ -122,9 +122,6 @@ class Gaussian(Distribution):
                         list: y values for the pdf plot
 
                 """
-
-        mu = self.mean
-        sigma = self.stdev
 
         min_range = min(self.data)
         max_range = max(self.data)
