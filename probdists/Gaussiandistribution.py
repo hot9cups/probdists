@@ -65,18 +65,13 @@ class Gaussian(Distribution):
 
     def cdf(self, x):
         """Cumulative distribution function calculator for the gaussian distribution.
+        Args:
+            x (float): point for calculating the cumulative distribution function
+        Returns:
+            float: cumulative distribution function output
+        """
 
-                Args:
-                        x (float): point for calculating the
-                                   cumulative distribution function
-
-                Returns:
-                        float: cumulative distribution function output
-                """
-
-        return (0.5 * (1 + math.erf(
-            (x - self.mean) / (self.stdev * math.sqrt(2))))
-        )
+        return 0.5 * (1 + math.erf((x - self.mean) / (self.stdev * math.sqrt(2))))
 
     def plot_histogram(self):
         """Function to output a histogram of the instance variable data using
@@ -104,7 +99,9 @@ class Gaussian(Distribution):
                 Returns:
                         float: probability density function output
         """
-        self.pdf = (1.0 / (self.stdev * math.sqrt(2 * math.pi))) * math.exp(-0.5 * ((x - self.mean) / self.stdev) ** 2)
+        self.pdf = (1.0 / (self.stdev * math.sqrt(2 * math.pi))) * math.exp(
+            -0.5 * ((x - self.mean) / self.stdev) ** 2
+        )
         return round(self.pdf, round_to)
 
     def plot_histogram_pdf(self, n_spaces=50):

@@ -18,12 +18,11 @@ class Exponential(Distribution):
 
     """
 
-    def __init__(self, lmbda=.5):
+    def __init__(self, lmbda=0.5):
 
         self.lmbda = lmbda
 
-        Distribution.__init__(self, self.calculate_mean(),
-                              self.calculate_stdev())
+        Distribution.__init__(self, self.calculate_mean(), self.calculate_stdev())
 
     def calculate_mean(self, round_to=2):
         """ Method to calculate the mean from lambda
@@ -35,7 +34,7 @@ class Exponential(Distribution):
             float: mean of the distribution
         """
 
-        self.mean = (1.0 / self.lmbda)
+        self.mean = 1.0 / self.lmbda
 
         return round(self.mean, round_to)
 
@@ -49,7 +48,7 @@ class Exponential(Distribution):
             float: standard deviation of the distribution
         """
 
-        self.stdev = (1.0 / self.lmbda)
+        self.stdev = 1.0 / self.lmbda
 
         return round(self.stdev, round_to)
 
@@ -92,9 +91,9 @@ class Exponential(Distribution):
 
         # make the plots
         plt.bar(x, y)
-        plt.title('Probability Density Plot for Exponential Distribution')
-        plt.ylabel('Probability')
-        plt.xlabel('x')
+        plt.title("Probability Density Plot for Exponential Distribution")
+        plt.ylabel("Probability")
+        plt.xlabel("x")
 
         plt.show()
 
@@ -106,6 +105,14 @@ class Exponential(Distribution):
     #       """
     #       pass
     #
+    def cdf(self, **kwargs):
+        pass
+
+    def plot_histogram(self, **kwargs):
+        pass
+
+    def plot_histogram_pdf(self, **kwargs):
+        pass
 
     def __repr__(self):
         """ Method to outputthe characteristics of the Exponential instace.
@@ -115,4 +122,6 @@ class Exponential(Distribution):
             string: characteristics of the Exponential
         """
 
-        return "mean {0}, standard deviation {1}, lambda{2}".format(self.mean, self.stdev, self.lmbda)
+        return "mean {0}, standard deviation {1}, lambda{2}".format(
+            self.mean, self.stdev, self.lmbda
+        )

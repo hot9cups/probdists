@@ -15,13 +15,12 @@ class Binomial(Distribution):
         n (int) number of trials
     """
 
-    def __init__(self, prob=.5, size=20):
+    def __init__(self, prob=0.5, size=20):
 
         self.n = size
         self.p = prob
 
-        Distribution.__init__(self, self.calculate_mean(),
-                              self.calculate_stdev())
+        Distribution.__init__(self, self.calculate_mean(), self.calculate_stdev())
 
     def calculate_mean(self, round_to=2):
         """Function to calculate the mean from p and n
@@ -80,10 +79,10 @@ class Binomial(Distribution):
             None
         """
 
-        plt.bar(x=['0', '1'], height=[(1 - self.p) * self.n, self.p * self.n])
-        plt.title('Bar Chart of Data')
-        plt.xlabel('outcome')
-        plt.ylabel('count')
+        plt.bar(x=["0", "1"], height=[(1 - self.p) * self.n, self.p * self.n])
+        plt.title("Bar Chart of Data")
+        plt.xlabel("outcome")
+        plt.ylabel("count")
 
     def calculate_pdf(self, k, round_to=2):
         """Probability density function calculator for the gaussian distribution.
@@ -114,7 +113,7 @@ class Binomial(Distribution):
         """
 
         total_p = 0
-        for i in range(k+1):
+        for i in range(k + 1):
             self.calculate_pdf(i)
             total_p += self.pdf
         return total_p
@@ -141,9 +140,9 @@ class Binomial(Distribution):
 
         # make the plots
         plt.bar(x, y)
-        plt.title('Distribution of Outcomes')
-        plt.ylabel('Probability')
-        plt.xlabel('Outcome')
+        plt.title("Distribution of Outcomes")
+        plt.ylabel("Probability")
+        plt.xlabel("Outcome")
 
         plt.show()
 
@@ -160,7 +159,7 @@ class Binomial(Distribution):
         """
 
         try:
-            assert self.p == other.p, 'p values are not equal'
+            assert self.p == other.p, "p values are not equal"
         except AssertionError as error:
             raise
 
@@ -172,6 +171,12 @@ class Binomial(Distribution):
 
         return result
 
+    def plot_histogram(self, **kwargs):
+        pass
+
+    def plot_histogram_pdf(self, **kwargs):
+        pass
+
     def __repr__(self):
         """Function to output the characteristics of the Binomial instance
 
@@ -182,5 +187,5 @@ class Binomial(Distribution):
             string: characteristics of the Binomial
         """
 
-        return f'mean {self.mean}, standard deviation {self.stdev}, \
-            p {self.p}, n {self.n}'
+        return f"mean {self.mean}, standard deviation {self.stdev}, \
+            p {self.p}, n {self.n}"
