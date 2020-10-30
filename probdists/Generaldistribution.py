@@ -69,9 +69,6 @@ class Distribution:
         Returns:
                 None
         """
-        # if file_name == "demo_gaussian_data":
-        #     dirname = Path(__file__).parent.parent.absolute()
-        #     file_name = Path(dirname, "probdists/numbers.txt")
 
         # Finding the file extension and selecting separator for csv file
         extension = file_path.split(".")[-1]
