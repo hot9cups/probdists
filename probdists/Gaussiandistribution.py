@@ -63,6 +63,21 @@ class Gaussian(Distribution):
 
         return round(self.stdev, round_to)
 
+    def cdf(self, x):
+        """Cumulative distribution function calculator for the gaussian distribution.
+
+                Args:
+                        x (float): point for calculating the
+                                   cumulative distribution function
+
+                Returns:
+                        float: cumulative distribution function output
+                """
+
+        return (0.5 * (1 + math.erf(
+            (x - self.mean) / (self.stdev * math.sqrt(2))))
+        )
+
     def plot_histogram(self):
         """Function to output a histogram of the instance variable data using
                 matplotlib pyplot library.
@@ -104,9 +119,6 @@ class Gaussian(Distribution):
                         list: y values for the pdf plot
 
                 """
-
-        mu = self.mean
-        sigma = self.stdev
 
         min_range = min(self.data)
         max_range = max(self.data)

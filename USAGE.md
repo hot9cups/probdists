@@ -25,6 +25,10 @@
 >>> print(gaussian.calculate_pdf(25, 5))
 0.00365
 
+# to calculate cdf
+>>> print(gaussian.cdf(25))
+0.28378
+
 # to add two individual distributions
 >>> gaussian_one = Gaussian(25, 3)
 >>> gaussian_two = Gaussian(30, 4)
