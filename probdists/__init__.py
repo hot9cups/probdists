@@ -3,3 +3,4 @@ from .Binomialdistribution import Binomial
 from .Exponentialdistribution import Exponential
 from .Generaldistribution import Distribution
 from .Gammadistribution import Gamma
+from .Uniformdistribution import Uniform

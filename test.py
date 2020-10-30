@@ -5,6 +5,7 @@ from probdists import Binomial
 from probdists import Exponential
 from probdists import Distribution
 from probdists import Gamma
+from probdists import Uniform
 
 
 class TestGeneraldistribution(unittest.TestCase):
@@ -170,6 +171,57 @@ class TestExponentialClass(unittest.TestCase):
         self.assertEqual(self.exponential.calculate_pdf(5, 5), 0.07163,
                          'calculate_pdf function after calculating mean and \
                              stdev does not give expected result')
+
+
+class TestUniformClass(unittest.TestCase):
+    def setUp(self):
+        self.uniform = Uniform(0,10)
+        self.uniform.read_data_file('probdists/numbers_uniform.txt')
+
+    def test_initialization(self):
+        self.assertEqual(self.uniform.low, 0, 'incorrect initialization of interval start')
+        self.assertEqual(self.uniform.high, 10, 'incorrect initialization of interval end')
+
+    def test_readdata(self):
+        self.assertEqual(self.uniform.data,
+                         [4, 5, 2, 3, 3, 2, 2, 5, 4, 3, 1, 3, 5, 3, 4],
+                         'data read incorrectly')
+
+    def test_replace_stats_with_data(self):
+        l, h = self.uniform.replace_stats_with_data()
+        self.assertEqual(l, 1)
+        self.assertEqual(h, 5)
+
+
+    def test_meancalculation(self):
+        self.uniform.calculate_mean()
+        self.assertEqual(self.uniform.mean,
+                        5,
+                         'calculated mean not as expected')
+
+    def test_stdevcalculation(self):
+        self.uniform.calculate_stdev()
+        self.assertEqual(round(self.uniform.stdev, 2),
+                         2.89,
+                         'calculated standard deviation incorrect')
+
+    def test_pdf(self):
+        self.assertEqual(self.uniform.calculate_pdf(5), 0.1,
+                         'calculate_pdf function does not give expected result')
+        self.assertEqual(self.uniform.calculate_pdf(15), 0,
+                         'calculate_pdf function does not give expected result')
+        self.uniform.replace_stats_with_data()
+        self.assertEqual(self.uniform.calculate_pdf(5), 0.25,
+                         'calculate_pdf function does not give expected result')
+        self.assertEqual(self.uniform.calculate_pdf(15), 0,
+                         'calculate_pdf function does not give expected result')
+
+    def test_cdf(self):
+        self.uniform.replace_stats_with_data()
+        self.assertEqual(self.uniform.calculate_cdf(0), 0, 'calculate_cdf function does not give expected result')
+        self.assertEqual(self.uniform.calculate_cdf(7), 1, 'calculate_cdf function does not give expected result')
+        self.assertEqual(self.uniform.calculate_cdf(4), 0.75, 'calculate_cdf function does not give expected result')
+
 
 
 class TestGammaClass(unittest.TestCase):
