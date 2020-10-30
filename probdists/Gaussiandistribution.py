@@ -70,7 +70,6 @@ class Gaussian(Distribution):
                         x (float): point for calculating the
                                    cumulative distribution function
 
-
                 Returns:
                         float: cumulative distribution function output
                 """
