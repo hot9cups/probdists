@@ -45,7 +45,7 @@ class TestGeneraldistribution(unittest.TestCase):
         self.distribution = Distribution()
 
     def test_txt(self):
-        self.distribution.read_data_file(get_numbers_spaced_file())
+        self.distribution.read_data_file(get_numbers_spaced_file(), separator=" ")
         self.assertEqual(self.distribution.data, [1, 2, 3.4, 5.6, 7], "Txt file not read properly")
 
     def test_txt_sep(self):
@@ -74,7 +74,7 @@ class TestGeneraldistribution(unittest.TestCase):
 class TestGaussianClass(unittest.TestCase):
     def setUp(self):
         self.gaussian = Gaussian(25, 2)
-        self.gaussian.read_data_file(get_numbers_csv_file())
+        self.gaussian.read_data_file(get_gaussian_data_file())
 
     def test_initialization(self):
         self.assertEqual(self.gaussian.mean, 25, "incorrect mean")
