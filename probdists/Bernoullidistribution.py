@@ -101,21 +101,24 @@ class Bernoulli(Distribution):
         self.pdf = (self.p ** k) * (1 - self.p) ** (1 - k)
         return round(self.pdf, round_to)
 
-    def cdf(self, k):
+    def calculate_cdf(self, k, round_to=2):
         """ Method to calculate cdf for the bernoulli distribution.
 
         Args:
             k (float): point for calculating the cumulative distribution function
+            round_to (int): Round the mean value. [Default value: 2 floating point]
+
         Returns:
             float: cumulative distribution function output
         """
 
         val = 0                 # default value of cdf for k < 0
-        if k >= 0 and k < 1:
+        if 0 <= k < 1:
             val = 1 - self.p
         elif k > 1:
             val = 1
-        return val
+        self.cdf = val
+        return round(self.cdf, round_to)
 
     def plot_bar_pdf(self):
         """ Method to plot the pdf of the bernoulli distribution

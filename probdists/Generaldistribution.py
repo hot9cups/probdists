@@ -12,6 +12,7 @@ class Distribution:
         stdev (float) representing the standard deviation of the distribution
         data (list of floats) extracted from the data file
         pdf (float) representing the Probability density function
+        cdf (float) representing the Cumulative distribution function
     """
 
     def __init__(self, mu=0, sigma=1):
@@ -20,6 +21,7 @@ class Distribution:
         self.stdev = sigma
         self.data = []
         self.pdf = None
+        self.cdf = None
 
     def read_data_file(self, file_name, seperator='\\n', header=None):
 
