@@ -172,3 +172,62 @@
 # The resulting gamma three will have k=3, theta=2. 
 # This add magic method fails if thetas are not equal since they wouldn't be summable
 ```
+
+## For Bernoulli Distribution
+
+```
+>>> from probdists import Bernoulli
+
+>>> bernoulli = Bernoulli(0.3)
+>>> bernoulli.read_data_file('demo_bernoulli_data')
+
+# initialization with default p = 0.5
+>>> bernoulli_noargs = Bernoulli()
+>>> print(bernoulli_noargs.p)
+0.5
+
+# to access data
+>>> print(bernoulli.data)
+[1, 0, 0, 0, 0, 0]
+
+# to calculate mean
+>>> print(bernoulli.calculate_mean())
+0.3
+
+# to calculate standard deviation (with round to passed as arg)
+>>> print(bernoulli.calculate_stdev(round_to=5))
+0.45826
+
+# to calculate p from data
+>>> p = bernoulli.replace_stats_with_data()
+>>> print(p)
+1
+
+# to calculate pdf
+>>> print(bernoulli.pdf(1))
+0.3
+
+# to calculate cdf 
+>>> print(bernoulli.cdf(0.7))
+0.7 
+>>> print(bernoulli.cdf(2))
+1
+
+# to add two Bernoulli distributions
+# NOTE: resultant distribution is a Binomial with n = 2
+>>> bernoulli_one = Bernoulli(0.7)
+>>> bernoulli_two = Bernoulli(0.7)
+>>> bernoulli_sum = bernoulli_one + bernoulli_two
+
+>>> print(bernoulli_sum.p)
+0.7
+
+>>> print(bernoulli_sum.n)
+2
+
+# to plot bar graph of data
+>>> bernoulli.plot_bar()
+
+# plot bar graph of probability distribution function of data
+>>> bernoulli.plot_bar_pdf()
+```
