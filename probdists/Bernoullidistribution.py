@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from .Generaldistribution import Distribution
 from .Binomialdistribution import Binomial
 
+
 class Bernoulli(Distribution):
     """ Bernoulli distribution class for calculating and
     visualizing a Bernoulli distribution.
@@ -34,7 +35,6 @@ class Bernoulli(Distribution):
         self.mean = self.p
 
         return round(self.mean, round_to)
-
 
     def calculate_stdev(self, round_to=2):
         """Function to calculate the standard deviation from p.
@@ -82,11 +82,12 @@ class Bernoulli(Distribution):
         plt.xlabel('outcome')
         plt.ylabel('count')
 
-    def pdf(self, k):
+    def calculate_pdf(self, k, round_to=2):
         """ Method to calculate pdf for the bernoulli distribution.
 
         Args:
             k (float): point for calculating the probability density function. Range of k: {0,1}
+            round_to (int): Round the mean value. [Default value: 2 floating point]
 
         Returns:
             float: probability density function output
@@ -97,23 +98,27 @@ class Bernoulli(Distribution):
         except ValueError:
             print("Expected k for Bernoulli Distribution: 0, 1")
 
-        return (self.p ** k) * (1 - self.p) ** (1 - k)
+        self.pdf = (self.p ** k) * (1 - self.p) ** (1 - k)
+        return round(self.pdf, round_to)
 
-    def cdf(self, k):
+    def calculate_cdf(self, k, round_to=2):
         """ Method to calculate cdf for the bernoulli distribution.
 
         Args:
             k (float): point for calculating the cumulative distribution function
+            round_to (int): Round the mean value. [Default value: 2 floating point]
+
         Returns:
             float: cumulative distribution function output
         """
 
         val = 0                 # default value of cdf for k < 0
-        if k >= 0 and k < 1:
+        if 0 <= k < 1:
             val = 1 - self.p
         elif k > 1:
             val = 1
-        return val
+        self.cdf = val
+        return round(self.cdf, round_to)
 
     def plot_bar_pdf(self):
         """ Method to plot the pdf of the bernoulli distribution
@@ -125,8 +130,11 @@ class Bernoulli(Distribution):
             list: x values for the pdf plot
             list: y values for the pdf plot
         """
-        x = [0,1]
-        y = [self.pdf(i) for i in x]
+        x = [0, 1]
+        y = []
+        for i in x:
+            self.calculate_pdf(i)
+            y.append(self.pdf)
 
         # draw the plots
         plt.bar(x, y)

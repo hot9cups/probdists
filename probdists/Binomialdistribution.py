@@ -103,11 +103,12 @@ class Binomial(Distribution):
 
         return round(self.pdf, round_to)
 
-    def cdf(self, k):
+    def calculate_cdf(self, k, round_to=2):
         """Cumulative distribution function calculator for the binomial distribution.
 
         Args:
             k (float): point for calculating the cumulative distribution function
+            round_to (int): Round the mean value. [Default value: 2 floating point]
 
         Returns:
             float: cumulative distribution function output
@@ -117,7 +118,8 @@ class Binomial(Distribution):
         for i in range(k+1):
             self.calculate_pdf(i)
             total_p += self.pdf
-        return total_p
+        self.cdf = total_p
+        return round(self.cdf, round_to)
 
     def plot_bar_pdf(self):
         """Function to plot the pdf of the binomial distribution

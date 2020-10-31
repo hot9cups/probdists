@@ -26,7 +26,7 @@
 0.00365
 
 # to calculate cdf
->>> print(gaussian.cdf(25))
+>>> print(gaussian.cdf(25, 5))
 0.28378
 
 # to add two individual distributions
@@ -112,11 +112,11 @@
 [1, 3, 99, 100, 120, 32, 330, 23, 76, 44, 31] 
 
 # to calculate mean
->>> print(exponential.calculate_mean())
+>>> print(exponential.calculate_mean(1))
 2.0 
 
 # to calculate standard deviation 
->>> print(exponential.calculate_stdev())
+>>> print(exponential.calculate_stdev(1))
 2.0 
 
 # to calculate pdf 
@@ -204,13 +204,13 @@
 1
 
 # to calculate pdf
->>> print(bernoulli.pdf(1))
+>>> print(bernoulli.calculate_pdf(1, 1))
 0.3
 
 # to calculate cdf 
->>> print(bernoulli.cdf(0.7))
+>>> print(bernoulli.calculate_cdf(0.7))
 0.7 
->>> print(bernoulli.cdf(2))
+>>> print(bernoulli.calculate_cdf(2))
 1
 
 # to add two Bernoulli distributions
