@@ -172,3 +172,46 @@
 # The resulting gamma three will have k=3, theta=2. 
 # This add magic method fails if thetas are not equal since they wouldn't be summable
 ```
+## For Uniform Distribution 
+
+```
+>>> from probdists import Uniform 
+
+# default value of the interval is (1,10)
+>>> uniform = Uniform()
+
+>>> uniform2 = Uniform(1, 5)
+# interval of uniform2 is (1,5) 
+
+>>> uniform.read_data_file('demo_uniform_data')
+# pass in your filename to read data from filename
+
+# to access data 
+>>> print(uniform.data)
+[4,5,2,3,3,2,2,5,4,3,1,3,5,3,4] 
+
+# to calculate mean
+>>> print(uniform.calculate_mean())
+5 
+
+# to calculate standard deviation 
+>>> print(uniform.calculate_stdev())
+2.89 
+
+# to calculate pdf 
+>>> print(uniform.calculate_pdf(5))
+0.1
+
+# to calculate low and high from the data set
+>>> low, high = uniform.replace_stats_with_data()
+>>> print(low)
+1
+>>> print(high)
+5
+
+# plot histogram of data
+>>> uniform.plot_histogram()
+
+# plot pdf of uniform distribution 
+>>> exponential.plot_bar_pdf() 
+```
