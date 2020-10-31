@@ -97,7 +97,7 @@ class Bernoulli(Distribution):
         except ValueError:
             print("Expected k for Bernoulli Distribution: 0, 1")
 
-        return (self.p ** k) * ( 1 - self.p) ** (1 - k)
+        return (self.p ** k) * (1 - self.p) ** (1 - k)
 
     def cdf(self, k):
         """ Method to calculate cdf for the bernoulli distribution.

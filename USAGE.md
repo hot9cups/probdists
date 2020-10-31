@@ -188,7 +188,7 @@
 
 # to access data
 >>> print(bernoulli.data)
-[1]
+[1, 0, 0, 0, 0, 0]
 
 # to calculate mean
 >>> print(bernoulli.calculate_mean())
@@ -206,6 +206,12 @@
 # to calculate pdf
 >>> print(bernoulli.pdf(1))
 0.3
+
+# to calculate cdf 
+>>> print(bernoulli.cdf(0.7))
+0.7 
+>>> print(bernoulli.cdf(2))
+1
 
 # to add two Bernoulli distributions
 # NOTE: resultant distribution is a Binomial with n = 2
