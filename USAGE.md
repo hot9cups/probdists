@@ -2,6 +2,7 @@
 
 ## For Gaussian Distribution
 
+<script src="https://gist.github.com/nicolasalarconrapela/91d36921ab168401f88050929aeab1be.js">
 ```
 >>> from probdists import Gaussian
 
@@ -44,6 +45,7 @@
 # plot normalized histogram of data and plot of pdf along same range
 >>> gaussian.plot_histogram_pdf(n_spaces = 50)
 ```
+</script>
 
 ## For Binomial Distribution
 
