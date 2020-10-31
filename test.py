@@ -58,12 +58,12 @@ class TestGaussianClass(unittest.TestCase):
                          88.55, 'population standard deviation incorrect')
 
     def test_cdf(self):
-        self.assertEqual(round(self.gaussian.cdf(25), 3), 0.500,
-                         'cdf function does not give expected result')
+        self.assertEqual(self.gaussian.calculate_cdf(25, 3), 0.500,
+                         'calculate_cdf function does not give expected result')
         self.gaussian.calculate_mean()
         self.gaussian.calculate_stdev()
-        self.assertEqual(round(self.gaussian.cdf(75), 3), 0.487,
-                         'cdf function after calculating mean and \
+        self.assertEqual(self.gaussian.calculate_cdf(75, 3), 0.487,
+                         'calculate_cdf function after calculating mean and \
                              stdev does not give expected result')
 
     def test_pdf(self):
@@ -82,6 +82,7 @@ class TestGaussianClass(unittest.TestCase):
 
         self.assertEqual(gaussian_sum.mean, 55)
         self.assertEqual(gaussian_sum.stdev, 5)
+
 
 class TestBinomialClass(unittest.TestCase):
     def setUp(self):
@@ -119,12 +120,12 @@ class TestBinomialClass(unittest.TestCase):
         self.assertEqual(self.binomial.calculate_pdf(3, 5), 0.00472)
 
     def test_cdf(self):
-        self.assertEqual(round(self.binomial.cdf(5), 5), 0.12560)
-        self.assertEqual(round(self.binomial.cdf(3), 5), 0.01596)
+        self.assertEqual(self.binomial.calculate_cdf(5, 5), 0.12560)
+        self.assertEqual(self.binomial.calculate_cdf(3, 5), 0.01596)
 
         self.binomial.replace_stats_with_data()
-        self.assertEqual(round(self.binomial.cdf(5), 5), 0.07889)
-        self.assertEqual(round(self.binomial.cdf(3), 5), 0.00561)
+        self.assertEqual(self.binomial.calculate_cdf(5, 5), 0.07889)
+        self.assertEqual(self.binomial.calculate_cdf(3, 5), 0.00561)
 
     def test_add(self):
         binomial_one = Binomial(.4, 20)
@@ -133,6 +134,7 @@ class TestBinomialClass(unittest.TestCase):
 
         self.assertEqual(binomial_sum.p, .4)
         self.assertEqual(binomial_sum.n, 80)
+
 
 class TestExponentialClass(unittest.TestCase):
     def setUp(self):
@@ -169,6 +171,7 @@ class TestExponentialClass(unittest.TestCase):
         self.assertEqual(self.exponential.calculate_pdf(5, 5), 0.07163,
                          'calculate_pdf function after calculating mean and \
                              stdev does not give expected result')
+
 
 class TestGammaClass(unittest.TestCase):
     def setUp(self):
@@ -214,52 +217,53 @@ class TestGammaClass(unittest.TestCase):
         self.assertEqual(gamma_sum.calculate_mean(), 8)
         self.assertEqual(gamma_sum.calculate_stdev(), 4)
 
+
 class TestBernoulliClass(unittest.TestCase):
-        def setUp(self):
-            self.bernoulli = Bernoulli(0.3)
-            self.bernoulli.read_data_file('numbers_bernoulli.txt')
+    def setUp(self):
+        self.bernoulli = Bernoulli(0.3)
+        self.bernoulli.read_data_file('numbers_bernoulli.txt')
 
-        def test_initialization(self):
-            self.assertEqual(self.bernoulli.p, 0.3, 'p value incorrect')
+    def test_initialization(self):
+        self.assertEqual(self.bernoulli.p, 0.3, 'p value incorrect')
 
-        def test_readdata(self):
-            self.assertEqual(self.bernoulli.data, [1.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-                    'data not read in correctly')
+    def test_readdata(self):
+        self.assertEqual(self.bernoulli.data, [1.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                         'data not read in correctly')
 
-        def test_calculatemean(self):
-            self.bernoulli.calculate_mean()
-            self.assertEqual(self.bernoulli.mean, 0.3)
+    def test_calculatemean(self):
+        self.bernoulli.calculate_mean()
+        self.assertEqual(self.bernoulli.mean, 0.3)
 
-        def test_calculatestdev(self):
-            stdev = self.bernoulli.calculate_stdev()
-            self.assertEqual(stdev, 0.46)
+    def test_calculatestdev(self):
+        stdev = self.bernoulli.calculate_stdev()
+        self.assertEqual(stdev, 0.46)
 
-        def test_replace_stats_with_data(self):
-            p = self.bernoulli.replace_stats_with_data()
-            self.assertEqual(round(p,2), 0.17, 'p value not correct after reading data')
+    def test_replace_stats_with_data(self):
+        p = self.bernoulli.replace_stats_with_data()
+        self.assertEqual(round(p, 2), 0.17, 'p value not correct after reading data')
 
-        def test_pdf(self):
-            self.assertEqual(self.bernoulli.pdf(0), 0.7)
-            self.assertEqual(self.bernoulli.pdf(1), 0.3)
+    def test_pdf(self):
+        self.assertEqual(self.bernoulli.calculate_pdf(0, 1), 0.7)
+        self.assertEqual(self.bernoulli.calculate_pdf(1, 1), 0.3)
 
-            self.bernoulli.replace_stats_with_data()
-            self.assertEqual(round(self.bernoulli.pdf(0), 2), 0.83)
-            self.assertEqual(round(self.bernoulli.pdf(1), 2), 0.17)
+        self.bernoulli.replace_stats_with_data()
+        self.assertEqual(self.bernoulli.calculate_pdf(0), 0.83)
+        self.assertEqual(self.bernoulli.calculate_pdf(1), 0.17)
 
-        def test_cdf(self):
-            self.assertEqual(self.bernoulli.cdf(0.5), 0.7)
+    def test_cdf(self):
+        self.assertEqual(self.bernoulli.calculate_cdf(0.5, 1), 0.7)
 
-            self.bernoulli.replace_stats_with_data()
+        self.bernoulli.replace_stats_with_data()
 
-            self.assertEqual(self.bernoulli.cdf(2), 1.0)
+        self.assertEqual(self.bernoulli.calculate_cdf(2, 1), 1.0)
 
-        def test_add(self):
-            bernoulli_one = Bernoulli(0.2)
-            bernoulli_two = Bernoulli(0.2)
-            bernoulli_sum = bernoulli_one + bernoulli_two
+    def test_add(self):
+        bernoulli_one = Bernoulli(0.2)
+        bernoulli_two = Bernoulli(0.2)
+        bernoulli_sum = bernoulli_one + bernoulli_two
 
-            self.assertEqual(bernoulli_sum.p, 0.2)
-            self.assertEqual(bernoulli_sum.n, 2)
+        self.assertEqual(bernoulli_sum.p, 0.2)
+        self.assertEqual(bernoulli_sum.n, 2)
 
 
 if __name__ == '__main__':
