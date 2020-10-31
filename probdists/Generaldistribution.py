@@ -13,6 +13,21 @@ class Distribution:
         pdf (float) representing the Probability density function
     """
 
+    def load_file_name(self, file_name):
+        file_name_map = {
+            'demo_gaussian_data': 'numbers',
+            'demo_binomial_data': 'numbers_binomial',
+            'demo_exponential_data': 'numbers_exponential',
+            'demo_gamma_data': 'numbers_gamma',
+            'demo_uniform_data': 'numbers_uniform'
+        }
+        if file_name in file_name_map:
+            dirname = Path(__file__).parent.parent.absolute()
+            file_path = Path(dirname, 'probdists/'+file_name_map[file_name]+'.txt')
+            return file_path
+        return file_name
+
+
     def __init__(self, mu=0, sigma=1):
 
         self.mean = mu
@@ -47,25 +62,9 @@ class Distribution:
         Returns:
                 None
         """
-        if file_name == 'demo_gaussian_data':
-            dirname = Path(__file__).parent.parent.absolute()
-            file_name = Path(dirname, 'probdists/numbers.txt')
 
-        elif file_name == 'demo_binomial_data':
-            dirname = Path(__file__).parent.parent.absolute()
-            file_name = Path(dirname, 'probdists/numbers_binomial.txt')
-
-        elif file_name == 'demo_exponential_data':
-            dirname = Path(__file__).parent.parent.absolute()
-            file_name = Path(dirname, 'probdists/numbers_exponential.txt')
-        elif file_name == 'demo_gamma_data':
-            dirname = Path(__file__).parent.parent.absolute()
-            file_name = Path(dirname, 'probdists/numbers_gamma.txt')
-        elif file_name == 'demo_uniform_data':
-            dirname = Path(__file__).parent.parent.absolute()
-            file_name = Path(dirname, 'probdists/numbers_uniform.txt')
-
-        file_name = str(file_name)
+        file_path = self.load_file_name(file_name)
+        file_name = str(file_path)
 
         # Finding the file extension and selecting seperator for csv file
         extension = file_name.split('.')[-1]
