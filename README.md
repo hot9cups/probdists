@@ -3,10 +3,10 @@
 Python package to model probability distributions.<br>
 Currently supports Gaussian, Gamma, Binomial and Exponential Distributions.
 
-# Usage
+## Usage
 Please see [usage](USAGE.md)
 
-# Installation
+## Installation
 
 Installing using pip:
 ```
@@ -23,7 +23,7 @@ Installing using virtual-environment(recommended):
 You can find the project on PyPi [here](https://pypi.org/project/probdists/)
 
 
-# Files
+## Files
 
 The main classes are inside the probdists folder
 - [Generaldistribution.py](https://github.com/hot9cups/probdists/blob/main/probdists/Generaldistribution.py) is the base class
@@ -31,6 +31,6 @@ The main classes are inside the probdists folder
 - [numbers.txt](https://github.com/hot9cups/probdists/blob/main/probdists/numbers.txt), [numbers_binomial.txt](https://github.com/hot9cups/probdists/blob/main/probdists/numbers_binomial.txt), [numbers_gamma.txt](https://github.com/hot9cups/probdists/blob/main/probdists/numbers_gamma.txt) and [numbers_exponential.txt](https://github.com/hot9cups/probdists/blob/main/probdists/numbers_exponential.txt) are sample data files
 - [tests.py](https://github.com/hot9cups/probdists/blob/main/test.py) contains unittests for the package
 
-# Licence
+## Licence
 
 [MIT Licence](LICENCE.txt)
