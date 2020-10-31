@@ -123,6 +123,12 @@
 >>> print(exponential.calculate_pdf(5, 5))
 0.04104
 
+# to calculate cdf
+>>> print(exponential.calculate_cdf(9.5, 4))
+0.907
+>>> print(exponential.calculate_cdf(-2))
+0.0
+
 # plot pdf of exponential distribution 
 >>> exponential.plot_bar_pdf() 
 ```

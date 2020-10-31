@@ -165,13 +165,24 @@ class TestExponentialClass(unittest.TestCase):
 
     def test_pdf(self):
         self.assertEqual(self.exponential.calculate_pdf(1, 5), 0.19470,
-                         'calculate_pdf function does not give expexted result')
+                         'calculate_pdf function does not give expected result')
         self.exponential.calculate_mean()
         self.exponential.calculate_stdev()
         self.assertEqual(self.exponential.calculate_pdf(5, 5), 0.07163,
                          'calculate_pdf function after calculating mean and \
                              stdev does not give expected result')
 
+    def test_cdf(self):
+        self.assertEqual(self.exponential.calculate_cdf(-2.5), 0, 'calculate_cdf does not return expected result')
+        self.assertEqual(self.exponential.calculate_cdf(12.3, 5), 0.95381, 'calculate_cdf does not return expected result')
+
+        self.exponential.calculate_mean()
+        self.exponential.calculate_stdev()
+
+        self.assertEqual(self.exponential.calculcate_cdf(-1.3), 0, \
+                'calculate_cdf does not return expected result after calculating mean and stdev')
+        self.assertEqual(self.exponential.calculate_cdf(9.5, 4), 0.907, \
+                'calculate_cdf does not return expected result after calculating mean and stdev')
 
 class TestGammaClass(unittest.TestCase):
     def setUp(self):
