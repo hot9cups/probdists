@@ -69,7 +69,7 @@ class Exponential(Distribution):
         self.pdf = value
         return round(self.pdf, round_to)
 
-    def calculate_cdf(x, round_to=2):
+    def calculate_cdf(self, x, round_to=2):
         """
         Probability density function calculator for the Exponential distribution.
             Args:
