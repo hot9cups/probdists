@@ -18,7 +18,7 @@ class Distribution:
         self.mean = mu
         self.stdev = sigma
         self.data = []
-        self.pdf = None
+        # self.pdf = None - breaks code
 
     def read_data_file(self, file_name, seperator='\\n', header=None):
 
