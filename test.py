@@ -83,7 +83,6 @@ class TestGaussianClass(unittest.TestCase):
         self.assertEqual(gaussian_sum.mean, 55)
         self.assertEqual(gaussian_sum.stdev, 5)
 
-
 class TestBinomialClass(unittest.TestCase):
     def setUp(self):
         self.binomial = Binomial(0.4, 20)
@@ -171,7 +170,6 @@ class TestExponentialClass(unittest.TestCase):
                          'calculate_pdf function after calculating mean and \
                              stdev does not give expected result')
 
-
 class TestGammaClass(unittest.TestCase):
     def setUp(self):
         self.gamma = Gamma()
@@ -216,7 +214,7 @@ class TestGammaClass(unittest.TestCase):
         self.assertEqual(gamma_sum.calculate_mean(), 8)
         self.assertEqual(gamma_sum.calculate_stdev(), 4)
 
-    class TestBernoulliClass(unittest.TestCase):
+class TestBernoulliClass(unittest.TestCase):
         def setUp(self):
             self.bernoulli = Bernoulli(0.3)
             self.bernoulli.read_data_file('numbers_bernoulli.txt')
@@ -225,7 +223,7 @@ class TestGammaClass(unittest.TestCase):
             self.assertEqual(self.bernoulli.p, 0.3, 'p value incorrect')
 
         def test_readdata(self):
-            self.assertEqual(self.bernoulli.data, [1],
+            self.assertEqual(self.bernoulli.data, [1.0, 0.0, 0.0, 0.0, 0.0, 0.0],
                     'data not read in correctly')
 
         def test_calculatemean(self):
@@ -238,15 +236,15 @@ class TestGammaClass(unittest.TestCase):
 
         def test_replace_stats_with_data(self):
             p = self.bernoulli.replace_stats_with_data()
-            self.assertEqual(p, 1.0, 'p value not correct after reading data')
+            self.assertEqual(round(p,2), 0.17, 'p value not correct after reading data')
 
         def test_pdf(self):
             self.assertEqual(self.bernoulli.pdf(0), 0.7)
             self.assertEqual(self.bernoulli.pdf(1), 0.3)
 
             self.bernoulli.replace_stats_with_data()
-            self.assertEqual(self.bernoulli.pdf(0), 0.0)
-            self.assertEqual(self.bernoulli.pdf(1), 1.0)
+            self.assertEqual(round(self.bernoulli.pdf(0), 2), 0.83)
+            self.assertEqual(round(self.bernoulli.pdf(1), 2), 0.17)
 
         def test_cdf(self):
             self.assertEqual(self.bernoulli.cdf(0.5), 0.7)
@@ -262,6 +260,7 @@ class TestGammaClass(unittest.TestCase):
 
             self.assertEqual(bernoulli_sum.p, 0.2)
             self.assertEqual(bernoulli_sum.n, 2)
+
 
 if __name__ == '__main__':
     unittest.main()
