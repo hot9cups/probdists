@@ -92,7 +92,7 @@ class Bernoulli(Distribution):
             float: probability density function output
         """
         try:
-            if k != 0 or k != 1:
+            if k != 0 and k != 1:
                 raise ValueError
         except ValueError:
             print("Expected k for Bernoulli Distribution: 0, 1")
