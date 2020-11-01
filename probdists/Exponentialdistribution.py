@@ -69,6 +69,22 @@ class Exponential(Distribution):
         self.pdf = value
         return round(self.pdf, round_to)
 
+    def calculate_cdf(self, x, round_to=2):
+        """
+        Probability density function calculator for the Exponential distribution.
+            Args:
+                x (float): point for calculating the probability density function
+                round_to (int): Round the mean value. [Default value: 2 floating point]
+
+            Returns:
+                float: probability density function output
+        """
+        val = 0
+        if x >= 0:
+            val = 1 - math.exp(-self.lmbda * x)
+        self.cdf = val
+        return round(self.cdf, round_to)
+
     def plot_bar_pdf(self, points=100):
         """ Method to plot the pdf of the exponential distribution.
 
