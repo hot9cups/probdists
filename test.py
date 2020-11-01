@@ -179,7 +179,7 @@ class TestExponentialClass(unittest.TestCase):
         self.exponential.calculate_mean()
         self.exponential.calculate_stdev()
 
-        self.assertEqual(self.exponential.calculcate_cdf(-1.3), 0, \
+        self.assertEqual(self.exponential.calculate_cdf(-1.3), 0, \
                 'calculate_cdf does not return expected result after calculating mean and stdev')
         self.assertEqual(self.exponential.calculate_cdf(9.5, 4), 0.907, \
                 'calculate_cdf does not return expected result after calculating mean and stdev')
