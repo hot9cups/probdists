@@ -21,7 +21,7 @@ class Exponential(Distribution):
     def __init__(self, lmbda=.5):
 
         self.lmbda = lmbda
-
+        self.cdf = None
         Distribution.__init__(self, self.calculate_mean(),
                               self.calculate_stdev())
 
@@ -82,7 +82,8 @@ class Exponential(Distribution):
         val = 0
         if x >= 0:
             val = 1 - math.exp(-self.lmbda * x)
-        return round(val, round_to)
+        self.cdf = val
+        return round(self.cdf, round_to)
 
     def plot_bar_pdf(self, points=100):
         """ Method to plot the pdf of the exponential distribution.
