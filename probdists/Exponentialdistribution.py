@@ -21,7 +21,7 @@ class Exponential(Distribution):
     def __init__(self, lmbda=.5):
 
         self.lmbda = lmbda
-        self.cdf = None
+
         Distribution.__init__(self, self.calculate_mean(),
                               self.calculate_stdev())
 
