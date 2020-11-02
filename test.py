@@ -194,6 +194,9 @@ class TestUniformClass(unittest.TestCase):
         self.assertEqual(self.uniform.low, 0, 'incorrect initialization of interval start')
         self.assertEqual(self.uniform.high, 10, 'incorrect initialization of interval end')
 
+    def test_invalid_interval_exception(self):
+        self.assertRaises(Exception, Uniform, 5, 5)
+
     def test_readdata(self):
         self.assertEqual(self.uniform.data,
                          [4, 5, 2, 3, 3, 2, 2, 5, 4, 3, 1, 3, 5, 3, 4],
@@ -212,8 +215,7 @@ class TestUniformClass(unittest.TestCase):
                          'calculated mean not as expected')
 
     def test_stdevcalculation(self):
-        self.uniform.calculate_stdev()
-        self.assertEqual(round(self.uniform.stdev, 2),
+        self.assertEqual(self.uniform.calculate_stdev(),
                          2.89,
                          'calculated standard deviation incorrect')
 
