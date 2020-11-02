@@ -25,7 +25,7 @@ class Distribution:
         pass
 
     @abstractmethod
-    def cdf(self, x: float) -> float:
+    def calculate_cdf(self, x: float) -> float:
         pass
 
     @abstractmethod

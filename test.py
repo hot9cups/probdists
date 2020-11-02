@@ -102,12 +102,14 @@ class TestGaussianClass(unittest.TestCase):
 
     def test_cdf(self):
         self.assertEqual(
-            round(self.gaussian.cdf(25), 3), 0.500, "cdf function does not give expected result"
+            round(self.gaussian.calculate_cdf(25), 3),
+            0.500,
+            "cdf function does not give expected result",
         )
         self.gaussian.calculate_mean()
         self.gaussian.calculate_stdev()
         self.assertEqual(
-            round(self.gaussian.cdf(75), 3),
+            round(self.gaussian.calculate_cdf(75), 3),
             0.486,
             "cdf function after calculating mean and \
                              stdev does not give expected result",
@@ -175,12 +177,12 @@ class TestBinomialClass(unittest.TestCase):
         self.assertEqual(self.binomial.calculate_pdf(3, 5), 0.00472)
 
     def test_cdf(self):
-        self.assertEqual(round(self.binomial.cdf(5), 5), 0.12560)
-        self.assertEqual(round(self.binomial.cdf(3), 5), 0.01596)
+        self.assertEqual(round(self.binomial.calculate_cdf(5), 5), 0.12560)
+        self.assertEqual(round(self.binomial.calculate_cdf(3), 5), 0.01596)
 
         self.binomial.replace_stats_with_data()
-        self.assertEqual(round(self.binomial.cdf(5), 5), 0.07889)
-        self.assertEqual(round(self.binomial.cdf(3), 5), 0.00561)
+        self.assertEqual(round(self.binomial.calculate_cdf(5), 5), 0.07889)
+        self.assertEqual(round(self.binomial.calculate_cdf(3), 5), 0.00561)
 
     def test_add(self):
         binomial_one = Binomial(0.4, 20)

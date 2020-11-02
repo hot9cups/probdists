@@ -105,7 +105,7 @@ class Binomial(Distribution):
 
         return round(self.pdf, round_to)
 
-    def cdf(self, x: float) -> float:
+    def calculate_cdf(self, x: float) -> float:
         """Cumulative distribution function calculator for the binomial distribution.
 
         Args:

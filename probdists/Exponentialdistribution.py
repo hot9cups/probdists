@@ -108,7 +108,7 @@ class Exponential(Distribution):
     #       """
     #       pass
     #
-    def cdf(self, x: float) -> float:
+    def calculate_cdf(self, x: float) -> float:
         pass
 
     def plot_histogram(self):

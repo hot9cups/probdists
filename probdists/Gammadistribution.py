@@ -70,7 +70,7 @@ class Gamma(Distribution):
         )
         return round(self.pdf, round_to)
 
-    def cdf(self, x: float) -> float:
+    def calculate_cdf(self, x: float) -> float:
         pass
 
     def plot_bar_pdf(self, points=25):

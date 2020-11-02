@@ -62,7 +62,7 @@ class Gaussian(Distribution):
 
         return round(self.stdev, round_to)
 
-    def cdf(self, x: float) -> float:
+    def calculate_cdf(self, x: float) -> float:
         """Cumulative distribution function calculator for the gaussian distribution.
         Args:
             x (float): point for calculating the cumulative distribution function
