@@ -63,20 +63,19 @@ class Gaussian(Distribution):
 
         return round(self.stdev, round_to)
 
-    def cdf(self, x):
+    def calculate_cdf(self, x, round_to=2):
         """Cumulative distribution function calculator for the gaussian distribution.
 
                 Args:
                         x (float): point for calculating the
                                    cumulative distribution function
+                        round_to (int): Round the mean value. [Default value: 2 floating point]
 
                 Returns:
                         float: cumulative distribution function output
                 """
-
-        return (0.5 * (1 + math.erf(
-            (x - self.mean) / (self.stdev * math.sqrt(2))))
-        )
+        self.cdf = (0.5 * (1 + math.erf((x - self.mean) / (self.stdev * math.sqrt(2)))))
+        return round(self.cdf, round_to)
 
     def plot_histogram(self):
         """Function to output a histogram of the instance variable data using

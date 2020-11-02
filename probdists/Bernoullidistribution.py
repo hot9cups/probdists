@@ -1,76 +1,73 @@
 import math
 import matplotlib.pyplot as plt
 from .Generaldistribution import Distribution
+from .Binomialdistribution import Binomial
 
 
-class Binomial(Distribution):
-    """ Binomial distribution class for calculating and
-    visualizing a Binomial distribution.
+class Bernoulli(Distribution):
+    """ Bernoulli distribution class for calculating and
+    visualizing a Bernoulli distribution.
 
     Attributes:
         mean (float) representing the mean value of the distribution
         stdev (float) representing the standard deviation of the distribution
         data_list (list of floats) to be extracted from the data file
-        p (float) representing the probability of an event occurring
-        n (int) number of trials
+        p (float) representing the probability of an event occurring (1).
     """
 
-    def __init__(self, prob=.5, size=20):
+    def __init__(self, prob=0.5):
 
-        self.n = size
         self.p = prob
 
         Distribution.__init__(self, self.calculate_mean(),
                               self.calculate_stdev())
 
     def calculate_mean(self, round_to=2):
-        """Function to calculate the mean from p and n
+        """ Method to calculate the mean of a Bernoulli distribution
 
         Args:
-            round_to (int): Round the mean value. [Default value: 2 floating point]
+            round_to (int): Round the mean value. Defaults to 2.
 
         Returns:
             float: mean of the data set
         """
 
-        self.mean = self.p * self.n
+        self.mean = self.p
 
         return round(self.mean, round_to)
 
     def calculate_stdev(self, round_to=2):
-        """Function to calculate the standard deviation from p and n.
+        """Function to calculate the standard deviation from p.
 
         Args:
-            round_to (int): Round the mean value. [Default value: 2 floating point]
+            round_to (int): Round the mean value. Defaults to 2.
 
         Returns:
             float: standard deviation of the data set
         """
-
-        self.stdev = math.sqrt(self.n * self.p * (1 - self.p))
+        # variance = p * q or p * ( 1 - p )
+        self.stdev = math.sqrt(self.p * (1 - self.p))
 
         return round(self.stdev, round_to)
 
     def replace_stats_with_data(self):
-        """Function to calculate p and n from the data set
+        """ Method to calculate p from the data set
 
         Args:
             None
 
         Returns:
             float: the p value
-            float: the n value
         """
 
-        self.n = len(self.data)
         self.p = 1.0 * sum(self.data) / len(self.data)
         self.calculate_mean()
         self.calculate_stdev()
 
-        return self.p, self.n
+        return self.p
 
     def plot_bar(self):
-        """Function to output a histogram of the instance variable data using
+        """ Method to plot a histogram of the instance variable data using
         matplotlib pyplot library.
 
         Args:
@@ -80,31 +77,32 @@ class Binomial(Distribution):
             None
         """
 
-        plt.bar(x=['0', '1'], height=[(1 - self.p) * self.n, self.p * self.n])
+        plt.bar(x=['0', '1'], height=[(1 - self.p), self.p])
         plt.title('Bar Chart of Data')
         plt.xlabel('outcome')
         plt.ylabel('count')
 
     def calculate_pdf(self, k, round_to=2):
-        """Probability density function calculator for the binomial distribution.
+        """ Method to calculate pdf for the bernoulli distribution.
 
         Args:
-            k (float): point for calculating the probability density function
+            k (float): point for calculating the probability density function. Range of k: {0,1}
             round_to (int): Round the mean value. [Default value: 2 floating point]
 
         Returns:
             float: probability density function output
         """
+        try:
+            if k != 0 and k != 1:
+                raise ValueError
+        except ValueError:
+            print("Expected k for Bernoulli Distribution: 0, 1")
 
-        a = math.factorial(self.n)
-        b = math.factorial(k) * math.factorial(self.n - k)
-        c = (self.p ** k) * (1 - self.p) ** (self.n - k)
-        self.pdf = (a / b) * c
-
+        self.pdf = (self.p ** k) * (1 - self.p) ** (1 - k)
         return round(self.pdf, round_to)
 
     def calculate_cdf(self, k, round_to=2):
-        """Cumulative distribution function calculator for the binomial distribution.
+        """ Method to calculate cdf for the bernoulli distribution.
 
         Args:
             k (float): point for calculating the cumulative distribution function
@@ -114,15 +112,16 @@ class Binomial(Distribution):
             float: cumulative distribution function output
         """
 
-        total_p = 0
-        for i in range(k+1):
-            self.calculate_pdf(i)
-            total_p += self.pdf
-        self.cdf = total_p
+        val = 0                 # default value of cdf for k < 0
+        if 0 <= k < 1:
+            val = 1 - self.p
+        elif k > 1:
+            val = 1
+        self.cdf = val
         return round(self.cdf, round_to)
 
     def plot_bar_pdf(self):
-        """Function to plot the pdf of the binomial distribution
+        """ Method to plot the pdf of the bernoulli distribution
 
         Args:
             None
@@ -131,43 +130,39 @@ class Binomial(Distribution):
             list: x values for the pdf plot
             list: y values for the pdf plot
         """
-
-        x = []
+        x = [0, 1]
         y = []
-
-        # calculate the x values to visualize
-        for i in range(self.n + 1):
-            x.append(i)
+        for i in x:
             self.calculate_pdf(i)
             y.append(self.pdf)
 
-        # make the plots
+        # draw the plots
         plt.bar(x, y)
-        plt.title('Distribution of Outcomes')
-        plt.ylabel('Probability')
-        plt.xlabel('Outcome')
+        plt.title("Distribution of Outcomes")
+        plt.ylabel("Probability")
+        plt.xlabel("Outcome")
 
         plt.show()
 
         return x, y
 
     def __add__(self, other):
-        """Function to add together two Binomial distributions with equal p
+        """ Method to add together two Bernoulli distributions with equal p
 
         Args:
-            other (Binomial): Binomial instance
+            other (Bernoulli): Bernoulli instance
 
         Returns:
-            Binomial: Binomial distribution
+            Binomial: Resultant Binomial instance
         """
 
         try:
             assert self.p == other.p, 'p values are not equal'
-        except AssertionError as error:
+        except AssertionError:
             raise
 
         result = Binomial()
-        result.n = self.n + other.n
+        result.n = 2
         result.p = self.p
         result.calculate_mean()
         result.calculate_stdev()
@@ -175,14 +170,13 @@ class Binomial(Distribution):
         return result
 
     def __repr__(self):
-        """Function to output the characteristics of the Binomial instance
-
+        """ Method to output the characteristics of this Bernoulli instance
         Args:
             None
 
         Returns:
-            string: characteristics of the Binomial
+            string: characteristics of this Bernoulli instance
         """
 
-        return f'mean {self.mean}, standard deviation {self.stdev}, \
-            p {self.p}, n {self.n}'
+        return 'mean {0}, standard deviation {1}, \
+                p {2}, q {3}'.format(self.mean, self.stdev, self.p, 1.0 - self.p)
