@@ -51,11 +51,8 @@ class Uniform(Distribution):
 
         return self.mean
 
-    def calculate_stdev(self, sample=True):
+    def calculate_stdev(self):
         """Function to calculate the standard deviation of the data set.
-
-        Args:
-             sample (bool): whether the data represents a sample or population
 
         Returns:
             float: standard deviation of the data set

@@ -74,21 +74,17 @@ class Bernoulli(Distribution):
         plt.xlabel("outcome")
         plt.ylabel("count")
 
-    def calculate_pdf(self, k):
+    def calculate_pdf(self, x):
         """ Method to calculate pdf for the bernoulli distribution.
 
         Args:
-            k (float): point for calculating the probability density function. Range of k: {0,1}
+            x (float): point for calculating the probability density function. Range of k: {0,1}
         Returns:
             float: probability density function output
         """
-        try:
-            if k != 0 and k != 1:
-                raise ValueError
-        except ValueError:
-            print("Expected k for Bernoulli Distribution: 0, 1")
-
-        self.pdf = (self.p ** k) * (1 - self.p) ** (1 - k)
+        if x not in [0, 1]:
+            raise ValueError("Expected x for Bernoulli Distribution: 0, 1")
+        self.pdf = (self.p ** x) * (1 - self.p) ** (1 - x)
         return self.pdf
 
     def calculate_cdf(self, x):

@@ -79,7 +79,7 @@ class Binomial(Distribution):
         plt.xlabel("outcome")
         plt.ylabel("count")
 
-    def calculate_pdf(self, k):
+    def calculate_pdf(self, x):
         """Probability density function calculator for the binomial distribution.
 
         Args:
@@ -89,8 +89,8 @@ class Binomial(Distribution):
         """
 
         a = math.factorial(self.n)
-        b = math.factorial(k) * math.factorial(self.n - k)
-        c = (self.p ** k) * (1 - self.p) ** (self.n - k)
+        b = math.factorial(x) * math.factorial(self.n - x)
+        c = (self.p ** x) * (1 - self.p) ** (self.n - x)
         self.pdf = (a / b) * c
 
         return self.pdf

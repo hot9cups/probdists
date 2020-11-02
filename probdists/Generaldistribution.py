@@ -34,7 +34,7 @@ class Distribution:
         pass
 
     @abstractmethod
-    def calculate_pdf(self) -> float:
+    def calculate_pdf(self, x) -> float:
         pass
 
     @abstractmethod
