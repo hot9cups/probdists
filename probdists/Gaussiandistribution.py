@@ -81,7 +81,7 @@ class Gaussian(Distribution):
         plt.xlabel("data")
         plt.ylabel("count")
 
-    def calculate_pdf(self, x):
+    def calculate_pdf(self, x) -> float:
         """Probability density function calculator for the gaussian distribution.
 
         Args:

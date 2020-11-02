@@ -50,7 +50,7 @@ class Gamma(Distribution):
         self.stdev = math.sqrt(self.k * math.pow(self.theta, 2))
         return self.stdev
 
-    def calculate_pdf(self, x):
+    def calculate_pdf(self, x) -> float:
         """
         Probability density function calculator for the Gamma distribution.
             Args:

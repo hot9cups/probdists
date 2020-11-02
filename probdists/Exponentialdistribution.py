@@ -48,7 +48,7 @@ class Exponential(Distribution):
 
         return self.stdev
 
-    def calculate_pdf(self, x):
+    def calculate_pdf(self, x) -> float:
         """ Probability density function calculator for the exponential distribution.
 
         Args:
