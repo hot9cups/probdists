@@ -3,21 +3,6 @@ import pandas as pd
 import traceback
 
 
-def load_file_name(file_name):
-    file_name_map = {
-        'demo_gaussian_data': 'numbers',
-        'demo_binomial_data': 'numbers_binomial',
-        'demo_exponential_data': 'numbers_exponential',
-        'demo_gamma_data': 'numbers_gamma',
-        'demo_uniform_data': 'numbers_uniform',
-        'demo_bernoulli_data': 'numbers_bernoulli'
-    }
-    if file_name in file_name_map:
-        dirname = Path(__file__).parent.parent.absolute()
-        file_path = Path(dirname, 'probdists/' + file_name_map[file_name] + '.txt')
-        return file_path
-    return file_name
-
 class Distribution:
     """ Generic distribution class for calculating and
         visualizing a probability distribution.
@@ -67,8 +52,17 @@ class Distribution:
                 None
         """
 
-        file_path = load_file_name(file_name)
-        file_name = str(file_path)
+        file_name_map = {
+            'demo_gaussian_data': 'numbers',
+            'demo_binomial_data': 'numbers_binomial',
+            'demo_exponential_data': 'numbers_exponential',
+            'demo_gamma_data': 'numbers_gamma',
+            'demo_uniform_data': 'numbers_uniform',
+            'demo_bernoulli_data': 'numbers_bernoulli'
+        }
+        if file_name in file_name_map:
+            dirname = Path(__file__).parent.parent.absolute()
+            file_name = str(Path(dirname, 'probdists/' + file_name_map[file_name] + '.txt'))
 
         # Finding the file extension and selecting seperator for csv file
         extension = file_name.split('.')[-1]
