@@ -26,7 +26,7 @@
 0.00365
 
 # to calculate cdf
->>> print(gaussian.cdf(25))
+>>> print(gaussian.cdf(25, 5))
 0.28378
 
 # to add two individual distributions
@@ -112,16 +112,22 @@
 [1, 3, 99, 100, 120, 32, 330, 23, 76, 44, 31] 
 
 # to calculate mean
->>> print(exponential.calculate_mean())
+>>> print(exponential.calculate_mean(1))
 2.0 
 
 # to calculate standard deviation 
->>> print(exponential.calculate_stdev())
+>>> print(exponential.calculate_stdev(1))
 2.0 
 
 # to calculate pdf 
 >>> print(exponential.calculate_pdf(5, 5))
 0.04104
+
+# to calculate cdf
+>>> print(exponential.calculate_cdf(9.5, 4))
+0.907
+>>> print(exponential.calculate_cdf(-2))
+0.0
 
 # plot pdf of exponential distribution 
 >>> exponential.plot_bar_pdf() 
@@ -214,4 +220,62 @@
 
 # plot pdf of uniform distribution 
 >>> exponential.plot_bar_pdf() 
+```
+## For Bernoulli Distribution
+
+```
+>>> from probdists import Bernoulli
+
+>>> bernoulli = Bernoulli(0.3)
+>>> bernoulli.read_data_file('demo_bernoulli_data')
+
+# initialization with default p = 0.5
+>>> bernoulli_noargs = Bernoulli()
+>>> print(bernoulli_noargs.p)
+0.5
+
+# to access data
+>>> print(bernoulli.data)
+[1, 0, 0, 0, 0, 0]
+
+# to calculate mean
+>>> print(bernoulli.calculate_mean())
+0.3
+
+# to calculate standard deviation (with round to passed as arg)
+>>> print(bernoulli.calculate_stdev(round_to=5))
+0.45826
+
+# to calculate p from data
+>>> p = bernoulli.replace_stats_with_data()
+>>> print(p)
+1
+
+# to calculate pdf
+>>> print(bernoulli.calculate_pdf(1, 1))
+0.3
+
+# to calculate cdf 
+>>> print(bernoulli.calculate_cdf(0.7))
+0.7 
+>>> print(bernoulli.calculate_cdf(2))
+1
+
+# to add two Bernoulli distributions
+# NOTE: resultant distribution is a Binomial with n = 2
+>>> bernoulli_one = Bernoulli(0.7)
+>>> bernoulli_two = Bernoulli(0.7)
+>>> bernoulli_sum = bernoulli_one + bernoulli_two
+
+>>> print(bernoulli_sum.p)
+0.7
+
+>>> print(bernoulli_sum.n)
+2
+
+# to plot bar graph of data
+>>> bernoulli.plot_bar()
+
+# plot bar graph of probability distribution function of data
+>>> bernoulli.plot_bar_pdf()
 ```

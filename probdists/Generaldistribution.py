@@ -2,6 +2,7 @@ from pathlib import Path
 import pandas as pd
 import traceback
 
+
 class Distribution:
     """ Generic distribution class for calculating and
         visualizing a probability distribution.
@@ -9,8 +10,9 @@ class Distribution:
     Attributes:
         mean (float) representing the mean value of the distribution
         stdev (float) representing the standard deviation of the distribution
-        data_list (list of floats) extracted from the data file
+        data (list of floats) extracted from the data file
         pdf (float) representing the Probability density function
+        cdf (float) representing the Cumulative distribution function
     """
 
     def load_file_name(self, file_name):
@@ -19,7 +21,8 @@ class Distribution:
             'demo_binomial_data': 'numbers_binomial',
             'demo_exponential_data': 'numbers_exponential',
             'demo_gamma_data': 'numbers_gamma',
-            'demo_uniform_data': 'numbers_uniform'
+            'demo_uniform_data': 'numbers_uniform',
+            'demo_bernoulli_data': 'numbers_bernoulli'
         }
         if file_name in file_name_map:
             dirname = Path(__file__).parent.parent.absolute()
@@ -34,6 +37,7 @@ class Distribution:
         self.stdev = sigma
         self.data = []
         self.pdf = None
+        self.cdf = None
 
     def read_data_file(self, file_name, seperator='\\n', header=None):
 
