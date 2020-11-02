@@ -1,5 +1,8 @@
 import math
+from typing import List, Tuple
+
 import matplotlib.pyplot as plt
+
 from .Generaldistribution import Distribution
 
 
@@ -18,72 +21,59 @@ class Exponential(Distribution):
 
     """
 
-    def __init__(self, lmbda=.5):
+    def __init__(self, lmbda=0.5):
 
         self.lmbda = lmbda
 
-        Distribution.__init__(self, self.calculate_mean(),
-                              self.calculate_stdev())
+        Distribution.__init__(self, self.calculate_mean(), self.calculate_stdev())
 
-    def calculate_mean(self, round_to=2):
+    def calculate_mean(self):
         """ Method to calculate the mean from lambda
-
-        Args:
-            round_to (int): Round the mean value. [Default value: 2 floating point]
-
         Returns:
             float: mean of the distribution
         """
 
-        self.mean = (1.0 / self.lmbda)
+        self.mean = 1.0 / self.lmbda
 
-        return round(self.mean, round_to)
+        return self.mean
 
-    def calculate_stdev(self, round_to=2):
+    def calculate_stdev(self):
         """ Method to calculate the standard deviation from lmbda
-
-        Args:
-            round_to (int): Round the mean value. [Default value: 2 floating point]
 
         Returns:
             float: standard deviation of the distribution
         """
 
-        self.stdev = (1.0 / self.lmbda)
+        self.stdev = 1.0 / self.lmbda
 
-        return round(self.stdev, round_to)
+        return self.stdev
 
-    def calculate_pdf(self, x, round_to=2):
+    def calculate_pdf(self, x) -> float:
         """ Probability density function calculator for the exponential distribution.
 
         Args:
             x (float): point for caluclating the probability density function
-            round_to (int): Round the mean value. [Default value: 2 floating point]
 
         Returns:
             float: probability density function
         """
-        value = 0  # default value of exponential distribution for x < 0
+        self.pdf = 0  # default value of exponential distribution for x < 0
         if x >= 0:
-            value = self.lmbda * math.exp(-self.lmbda * x)
-        self.pdf = value
-        return round(self.pdf, round_to)
+            self.pdf = self.lmbda * math.exp(-self.lmbda * x)
+        return self.pdf
 
-    def calculate_cdf(self, x, round_to=2):
+    def calculate_cdf(self, x):
         """
         Probability density function calculator for the Exponential distribution.
             Args:
                 x (float): point for calculating the probability density function
-                round_to (int): Round the mean value. [Default value: 2 floating point]
-
             Returns:
                 float: probability density function output
         """
-        val = 0
+        self.cdf = 0
         if x >= 0:
-            val = 1 - math.exp(-self.lmbda * x)
-        self.cdf = val
-        return round(self.cdf, round_to)
+            self.cdf = 1 - math.exp(-self.lmbda * x)
+        return self.cdf
 
     def plot_bar_pdf(self, points=100):
         """ Method to plot the pdf of the exponential distribution.
@@ -108,9 +98,9 @@ class Exponential(Distribution):
 
         # make the plots
         plt.bar(x, y)
-        plt.title('Probability Density Plot for Exponential Distribution')
-        plt.ylabel('Probability')
-        plt.xlabel('x')
+        plt.title("Probability Density Plot for Exponential Distribution")
+        plt.ylabel("Probability")
+        plt.xlabel("x")
 
         plt.show()
 
@@ -122,6 +112,11 @@ class Exponential(Distribution):
     #       """
     #       pass
     #
+    def plot_histogram(self):
+        pass
+
+    def plot_histogram_pdf(self, n_spaces: int) -> Tuple[List[float], List[float]]:
+        pass
 
     def __repr__(self):
         """ Method to outputthe characteristics of the Exponential instace.
@@ -131,4 +126,6 @@ class Exponential(Distribution):
             string: characteristics of the Exponential
         """
 
-        return "mean {0}, standard deviation {1}, lambda{2}".format(self.mean, self.stdev, self.lmbda)
+        return "mean {0}, standard deviation {1}, lambda{2}".format(
+            self.mean, self.stdev, self.lmbda
+        )

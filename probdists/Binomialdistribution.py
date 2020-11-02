@@ -1,5 +1,8 @@
 import math
+from typing import List, Tuple
+
 import matplotlib.pyplot as plt
+
 from .Generaldistribution import Distribution
 
 
@@ -15,41 +18,32 @@ class Binomial(Distribution):
         n (int) number of trials
     """
 
-    def __init__(self, prob=.5, size=20):
+    def __init__(self, prob=0.5, size=20):
 
         self.n = size
         self.p = prob
 
-        Distribution.__init__(self, self.calculate_mean(),
-                              self.calculate_stdev())
+        Distribution.__init__(self, self.calculate_mean(), self.calculate_stdev())
 
-    def calculate_mean(self, round_to=2):
+    def calculate_mean(self):
         """Function to calculate the mean from p and n
-
-        Args:
-            round_to (int): Round the mean value. [Default value: 2 floating point]
-
         Returns:
             float: mean of the data set
         """
 
         self.mean = self.p * self.n
 
-        return round(self.mean, round_to)
+        return self.mean
 
-    def calculate_stdev(self, round_to=2):
+    def calculate_stdev(self):
         """Function to calculate the standard deviation from p and n.
-
-        Args:
-            round_to (int): Round the mean value. [Default value: 2 floating point]
-
         Returns:
             float: standard deviation of the data set
         """
 
         self.stdev = math.sqrt(self.n * self.p * (1 - self.p))
 
-        return round(self.stdev, round_to)
+        return self.stdev
 
     def replace_stats_with_data(self):
         """Function to calculate p and n from the data set
@@ -80,46 +74,43 @@ class Binomial(Distribution):
             None
         """
 
-        plt.bar(x=['0', '1'], height=[(1 - self.p) * self.n, self.p * self.n])
-        plt.title('Bar Chart of Data')
-        plt.xlabel('outcome')
-        plt.ylabel('count')
+        plt.bar(x=["0", "1"], height=[(1 - self.p) * self.n, self.p * self.n])
+        plt.title("Bar Chart of Data")
+        plt.xlabel("outcome")
+        plt.ylabel("count")
 
-    def calculate_pdf(self, k, round_to=2):
+    def calculate_pdf(self, x):
         """Probability density function calculator for the binomial distribution.
 
         Args:
             k (float): point for calculating the probability density function
-            round_to (int): Round the mean value. [Default value: 2 floating point]
-
         Returns:
             float: probability density function output
         """
 
         a = math.factorial(self.n)
-        b = math.factorial(k) * math.factorial(self.n - k)
-        c = (self.p ** k) * (1 - self.p) ** (self.n - k)
+        b = math.factorial(x) * math.factorial(self.n - x)
+        c = (self.p ** x) * (1 - self.p) ** (self.n - x)
         self.pdf = (a / b) * c
 
-        return round(self.pdf, round_to)
+        return self.pdf
 
-    def calculate_cdf(self, k, round_to=2):
+    def calculate_cdf(self, x: float) -> float:
         """Cumulative distribution function calculator for the binomial distribution.
 
         Args:
-            k (float): point for calculating the cumulative distribution function
-            round_to (int): Round the mean value. [Default value: 2 floating point]
+            x (float): point for calculating the cumulative distribution function
 
         Returns:
             float: cumulative distribution function output
         """
 
         total_p = 0
-        for i in range(k+1):
+        for i in range(x + 1):
             self.calculate_pdf(i)
             total_p += self.pdf
         self.cdf = total_p
-        return round(self.cdf, round_to)
+        return self.cdf
 
     def plot_bar_pdf(self):
         """Function to plot the pdf of the binomial distribution
@@ -143,9 +134,9 @@ class Binomial(Distribution):
 
         # make the plots
         plt.bar(x, y)
-        plt.title('Distribution of Outcomes')
-        plt.ylabel('Probability')
-        plt.xlabel('Outcome')
+        plt.title("Distribution of Outcomes")
+        plt.ylabel("Probability")
+        plt.xlabel("Outcome")
 
         plt.show()
 
@@ -162,7 +153,7 @@ class Binomial(Distribution):
         """
 
         try:
-            assert self.p == other.p, 'p values are not equal'
+            assert self.p == other.p, "p values are not equal"
         except AssertionError as error:
             raise
 
@@ -174,6 +165,12 @@ class Binomial(Distribution):
 
         return result
 
+    def plot_histogram(self):
+        pass
+
+    def plot_histogram_pdf(self, n_spaces: int) -> Tuple[List[float], List[float]]:
+        pass
+
     def __repr__(self):
         """Function to output the characteristics of the Binomial instance
 
@@ -184,5 +181,5 @@ class Binomial(Distribution):
             string: characteristics of the Binomial
         """
 
-        return f'mean {self.mean}, standard deviation {self.stdev}, \
-            p {self.p}, n {self.n}'
+        return f"mean {self.mean}, standard deviation {self.stdev}, \
+            p {self.p}, n {self.n}"
