@@ -88,7 +88,7 @@ class Binomial(Distribution):
         plt.ylabel("count")
 
     def calculate_pdf(self, k, round_to=2):
-        """Probability density function calculator for the gaussian distribution.
+        """Probability density function calculator for the binomial distribution.
 
         Args:
             k (float): point for calculating the probability density function
@@ -119,7 +119,8 @@ class Binomial(Distribution):
         for i in range(x + 1):
             self.calculate_pdf(i)
             total_p += self.pdf
-        return total_p
+        self.cdf = total_p
+        return round(self.cdf, round_to)
 
     def plot_bar_pdf(self):
         """Function to plot the pdf of the binomial distribution
