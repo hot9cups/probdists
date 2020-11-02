@@ -1,5 +1,8 @@
 import math
+from typing import List, Tuple
+
 import matplotlib.pyplot as plt
+
 from .Generaldistribution import Distribution
 
 
@@ -102,18 +105,18 @@ class Binomial(Distribution):
 
         return round(self.pdf, round_to)
 
-    def cdf(self, k):
+    def cdf(self, x: float) -> float:
         """Cumulative distribution function calculator for the binomial distribution.
 
         Args:
-            k (float): point for calculating the cumulative distribution function
+            x (float): point for calculating the cumulative distribution function
 
         Returns:
             float: cumulative distribution function output
         """
 
         total_p = 0
-        for i in range(k + 1):
+        for i in range(x + 1):
             self.calculate_pdf(i)
             total_p += self.pdf
         return total_p
@@ -171,10 +174,10 @@ class Binomial(Distribution):
 
         return result
 
-    def plot_histogram(self, **kwargs):
+    def plot_histogram(self):
         pass
 
-    def plot_histogram_pdf(self, **kwargs):
+    def plot_histogram_pdf(self, n_spaces: int) -> Tuple[List[float], List[float]]:
         pass
 
     def __repr__(self):

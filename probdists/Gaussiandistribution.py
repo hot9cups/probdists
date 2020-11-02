@@ -63,7 +63,7 @@ class Gaussian(Distribution):
 
         return round(self.stdev, round_to)
 
-    def cdf(self, x):
+    def cdf(self, x: float) -> float:
         """Cumulative distribution function calculator for the gaussian distribution.
         Args:
             x (float): point for calculating the cumulative distribution function
@@ -104,7 +104,7 @@ class Gaussian(Distribution):
         )
         return round(self.pdf, round_to)
 
-    def plot_histogram_pdf(self, n_spaces=50):
+    def plot_histogram_pdf(self, n_spaces: int = 50) -> Tuple[List[float], List[float]]:
         """Function to plot the normalized histogram of the data and a plot of the
                 probability density function along the same range
 

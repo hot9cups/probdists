@@ -1,8 +1,8 @@
 from pathlib import Path
-import pandas as pd
-import traceback
 from abc import abstractmethod
 from typing import List, Tuple
+import traceback
+import pandas as pd
 
 
 class Distribution:

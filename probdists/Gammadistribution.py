@@ -1,7 +1,9 @@
 import math
+from typing import List, Tuple
+
 import matplotlib.pyplot as plt
+
 from .Generaldistribution import Distribution
-from scipy import stats
 
 
 class Gamma(Distribution):
@@ -98,10 +100,10 @@ class Gamma(Distribution):
         plt.show()
         return x, y
 
-    def plot_histogram(self, **kwargs):
+    def plot_histogram(self):
         pass
 
-    def plot_histogram_pdf(self, **kwargs):
+    def plot_histogram_pdf(self, n_spaces: int) -> Tuple[List[float], List[float]]:
         pass
 
     def __add__(self, other):

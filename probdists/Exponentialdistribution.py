@@ -1,5 +1,8 @@
 import math
+from typing import List, Tuple
+
 import matplotlib.pyplot as plt
+
 from .Generaldistribution import Distribution
 
 
@@ -105,13 +108,13 @@ class Exponential(Distribution):
     #       """
     #       pass
     #
-    def cdf(self, **kwargs):
+    def cdf(self, x: float) -> float:
         pass
 
-    def plot_histogram(self, **kwargs):
+    def plot_histogram(self):
         pass
 
-    def plot_histogram_pdf(self, **kwargs):
+    def plot_histogram_pdf(self, n_spaces: int) -> Tuple[List[float], List[float]]:
         pass
 
     def __repr__(self):
