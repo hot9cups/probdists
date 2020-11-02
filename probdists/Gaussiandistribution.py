@@ -20,11 +20,8 @@ class Gaussian(Distribution):
 
         Distribution.__init__(self, mu, sigma)
 
-    def calculate_mean(self, round_to=2):
+    def calculate_mean(self):
         """Function to calculate the mean of the data set.
-
-        Args:
-             round_to (int): Round the mean value. [Default value: 2 floating point]
 
         Returns:
                float: mean of the data set
@@ -34,13 +31,10 @@ class Gaussian(Distribution):
 
         self.mean = avg
 
-        return round(self.mean, round_to)
+        return self.mean
 
-    def calculate_stdev(self, round_to=2):
+    def calculate_stdev(self):
         """Function to calculate the standard deviation of the data set.
-
-        Args:
-             round_to (int): Round the mean value. [Default value: 2 floating point]
 
         Returns:
             float: standard deviation of the data set
@@ -60,7 +54,7 @@ class Gaussian(Distribution):
 
         self.stdev = sigma
 
-        return round(self.stdev, round_to)
+        return self.stdev
 
     def calculate_cdf(self, x: float) -> float:
         """Cumulative distribution function calculator for the gaussian distribution.
@@ -87,21 +81,19 @@ class Gaussian(Distribution):
         plt.xlabel("data")
         plt.ylabel("count")
 
-    def calculate_pdf(self, x, round_to=2):
+    def calculate_pdf(self, x):
         """Probability density function calculator for the gaussian distribution.
 
-                Args:
-                        x (float): point for calculating the
-                                   probability density function
-                        round_to (int): Round the mean value. [Default value: 2 floating point]
+        Args:
+            x (float): point for calculating the probability density function
 
-                Returns:
-                        float: probability density function output
+        Returns:
+            float: probability density function output
         """
         self.pdf = (1.0 / (self.stdev * math.sqrt(2 * math.pi))) * math.exp(
             -0.5 * ((x - self.mean) / self.stdev) ** 2
         )
-        return round(self.pdf, round_to)
+        return self.pdf
 
     def plot_histogram_pdf(self, n_spaces: int = 50) -> Tuple[List[float], List[float]]:
         """Function to plot the normalized histogram of the data and a plot of the

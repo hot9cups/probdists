@@ -25,33 +25,25 @@ class Binomial(Distribution):
 
         Distribution.__init__(self, self.calculate_mean(), self.calculate_stdev())
 
-    def calculate_mean(self, round_to=2):
+    def calculate_mean(self):
         """Function to calculate the mean from p and n
-
-        Args:
-            round_to (int): Round the mean value. [Default value: 2 floating point]
-
         Returns:
             float: mean of the data set
         """
 
         self.mean = self.p * self.n
 
-        return round(self.mean, round_to)
+        return self.mean
 
-    def calculate_stdev(self, round_to=2):
+    def calculate_stdev(self):
         """Function to calculate the standard deviation from p and n.
-
-        Args:
-            round_to (int): Round the mean value. [Default value: 2 floating point]
-
         Returns:
             float: standard deviation of the data set
         """
 
         self.stdev = math.sqrt(self.n * self.p * (1 - self.p))
 
-        return round(self.stdev, round_to)
+        return self.stdev
 
     def replace_stats_with_data(self):
         """Function to calculate p and n from the data set
@@ -87,13 +79,11 @@ class Binomial(Distribution):
         plt.xlabel("outcome")
         plt.ylabel("count")
 
-    def calculate_pdf(self, k, round_to=2):
+    def calculate_pdf(self, k):
         """Probability density function calculator for the binomial distribution.
 
         Args:
             k (float): point for calculating the probability density function
-            round_to (int): Round the mean value. [Default value: 2 floating point]
-
         Returns:
             float: probability density function output
         """
@@ -103,7 +93,7 @@ class Binomial(Distribution):
         c = (self.p ** k) * (1 - self.p) ** (self.n - k)
         self.pdf = (a / b) * c
 
-        return round(self.pdf, round_to)
+        return self.pdf
 
     def calculate_cdf(self, x: float) -> float:
         """Cumulative distribution function calculator for the binomial distribution.
@@ -120,7 +110,7 @@ class Binomial(Distribution):
             self.calculate_pdf(i)
             total_p += self.pdf
         self.cdf = total_p
-        return round(self.cdf, round_to)
+        return self.cdf
 
     def plot_bar_pdf(self):
         """Function to plot the pdf of the binomial distribution

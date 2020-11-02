@@ -17,11 +17,10 @@ class Uniform(Distribution):
 
     def __init__(self, low=0, high=10):
         if low == high:
-            raise Exception('Invalid interval -  start and end of interval cannot be the same')
+            raise Exception("Invalid interval -  start and end of interval cannot be the same")
         self.low = low
         self.high = high
-        Distribution.__init__(self, self.calculate_mean(),
-                              self.calculate_stdev())
+        Distribution.__init__(self, self.calculate_mean(), self.calculate_stdev())
 
     def replace_stats_with_data(self):
         """Function to calculate low and high from the data set
@@ -36,16 +35,13 @@ class Uniform(Distribution):
         self.low = min(self.data)
         self.high = max(self.data)
         if self.low == self.high:
-            raise Exception('Invalid interval -  start and end of interval cannot be the same')
+            raise Exception("Invalid interval -  start and end of interval cannot be the same")
         self.calculate_mean()
         self.calculate_stdev()
         return self.low, self.high
 
-    def calculate_mean(self, round_to=2):
+    def calculate_mean(self):
         """Function to calculate the mean of the data set.
-
-        Args:
-             round_to (int): Round the mean value. [Default value: 2 floating point]
 
         Returns:
                float: mean of the data set
@@ -53,14 +49,13 @@ class Uniform(Distribution):
 
         self.mean = (self.low + self.high) / 2
 
-        return round(self.mean, round_to)
+        return self.mean
 
-    def calculate_stdev(self, sample=True, round_to=2):
+    def calculate_stdev(self, sample=True):
         """Function to calculate the standard deviation of the data set.
 
         Args:
              sample (bool): whether the data represents a sample or population
-             round_to (int): Round the mean value. [Default value: 2 floating point]
 
         Returns:
             float: standard deviation of the data set
@@ -70,26 +65,25 @@ class Uniform(Distribution):
 
         self.stdev = math.sqrt(sqr_interval / 12)
 
-        return round(self.stdev, round_to)
+        return self.stdev
 
-    def calculate_cdf(self, x, round_to=2):
+    def calculate_cdf(self, x):
         """Cumulative distribution function calculator for the uniform distribution.
 
-                Args:
-                        x (float): point for calculating the
-                                   cumulative distribution function
+        Args:
+            x (float): point for calculating the cumulative distribution function
 
-                Returns:
-                        float: cumulative distribution function output
-                """
+        Returns:
+            float: cumulative distribution function output
+        """
         if x < self.low:
             self.cdf = 0
-        elif self.low<=x<=self.high:
-            self.cdf = (x - self.low)/(self.high-self.low)
+        elif self.low <= x <= self.high:
+            self.cdf = (x - self.low) / (self.high - self.low)
         else:
             self.cdf = 1
 
-        return round(self.cdf, round_to)
+        return self.cdf
 
     def plot_histogram(self):
         """Function to output a histogram of the instance variable data using
@@ -107,19 +101,17 @@ class Uniform(Distribution):
         plt.ylabel("count")
         plt.show()
 
-    def calculate_pdf(self, x, round_to=2):
+    def calculate_pdf(self, x):
         """Probability density function calculator for the uniform distribution.
 
-                Args:
-                        x (float): point for calculating the
-                                   probability density function
-                        round_to (int): Round the mean value. [Default value: 2 floating point]
+        Args:
+            x (float): point for calculating the probability density function
 
-                Returns:
-                        float: probability density function output
+        Returns:
+            float: probability density function output
         """
-        self.pdf = 1/(self.high-self.low) if self.high >= x >= self.low else 0
-        return round(self.pdf, round_to)
+        self.pdf = 1 / (self.high - self.low) if self.high >= x >= self.low else 0
+        return self.pdf
 
     def plot_bar_pdf(self):
         """Function to plot the pdf of the uniform distribution
@@ -136,16 +128,16 @@ class Uniform(Distribution):
         y = []
 
         # calculate the x values to visualize
-        for i in range(int(self.low)-5, int(self.high)+5):
+        for i in range(int(self.low) - 5, int(self.high) + 5):
             x.append(i)
             self.calculate_pdf(i)
             y.append(self.pdf)
 
         # make the plots
         plt.bar(x, y)
-        plt.title('Probability Density for Uniform Distribution')
-        plt.ylabel('Probability')
-        plt.xlabel('x')
+        plt.title("Probability Density for Uniform Distribution")
+        plt.ylabel("Probability")
+        plt.xlabel("x")
 
         plt.show()
 

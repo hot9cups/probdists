@@ -19,28 +19,20 @@ class Bernoulli(Distribution):
 
         self.p = prob
 
-        Distribution.__init__(self, self.calculate_mean(),
-                              self.calculate_stdev())
+        Distribution.__init__(self, self.calculate_mean(), self.calculate_stdev())
 
-    def calculate_mean(self, round_to=2):
+    def calculate_mean(self):
         """ Method to calculate the mean of a Bernoulli distribution
-
-        Args:
-            round_to (int): Round the mean value. Defaults to 2.
-
         Returns:
             float: mean of the data set
         """
 
         self.mean = self.p
 
-        return round(self.mean, round_to)
+        return self.mean
 
-    def calculate_stdev(self, round_to=2):
+    def calculate_stdev(self):
         """Function to calculate the standard deviation from p.
-
-        Args:
-            round_to (int): Round the mean value. Defaults to 2.
 
         Returns:
             float: standard deviation of the data set
@@ -48,7 +40,7 @@ class Bernoulli(Distribution):
         # variance = p * q or p * ( 1 - p )
         self.stdev = math.sqrt(self.p * (1 - self.p))
 
-        return round(self.stdev, round_to)
+        return self.stdev
 
     def replace_stats_with_data(self):
         """ Method to calculate p from the data set
@@ -77,18 +69,16 @@ class Bernoulli(Distribution):
             None
         """
 
-        plt.bar(x=['0', '1'], height=[(1 - self.p), self.p])
-        plt.title('Bar Chart of Data')
-        plt.xlabel('outcome')
-        plt.ylabel('count')
+        plt.bar(x=["0", "1"], height=[(1 - self.p), self.p])
+        plt.title("Bar Chart of Data")
+        plt.xlabel("outcome")
+        plt.ylabel("count")
 
-    def calculate_pdf(self, k, round_to=2):
+    def calculate_pdf(self, k):
         """ Method to calculate pdf for the bernoulli distribution.
 
         Args:
             k (float): point for calculating the probability density function. Range of k: {0,1}
-            round_to (int): Round the mean value. [Default value: 2 floating point]
-
         Returns:
             float: probability density function output
         """
@@ -99,26 +89,31 @@ class Bernoulli(Distribution):
             print("Expected k for Bernoulli Distribution: 0, 1")
 
         self.pdf = (self.p ** k) * (1 - self.p) ** (1 - k)
-        return round(self.pdf, round_to)
+        return self.pdf
 
-    def calculate_cdf(self, k, round_to=2):
+    def calculate_cdf(self, x):
         """ Method to calculate cdf for the bernoulli distribution.
 
         Args:
             k (float): point for calculating the cumulative distribution function
-            round_to (int): Round the mean value. [Default value: 2 floating point]
 
         Returns:
             float: cumulative distribution function output
         """
 
-        val = 0                 # default value of cdf for k < 0
-        if 0 <= k < 1:
+        val = 0  # default value of cdf for k < 0
+        if 0 <= x < 1:
             val = 1 - self.p
-        elif k > 1:
+        elif x > 1:
             val = 1
         self.cdf = val
-        return round(self.cdf, round_to)
+        return self.cdf
+
+    def plot_histogram(self):
+        return super().plot_histogram()
+
+    def plot_histogram_pdf(self, n_spaces):
+        return super().plot_histogram_pdf(n_spaces)
 
     def plot_bar_pdf(self):
         """ Method to plot the pdf of the bernoulli distribution
@@ -157,7 +152,7 @@ class Bernoulli(Distribution):
         """
 
         try:
-            assert self.p == other.p, 'p values are not equal'
+            assert self.p == other.p, "p values are not equal"
         except AssertionError:
             raise
 
@@ -178,5 +173,7 @@ class Bernoulli(Distribution):
             string: characteristics of this Bernoulli instance
         """
 
-        return 'mean {0}, standard deviation {1}, \
-                p {2}, q {3}'.format(self.mean, self.stdev, self.p, 1.0 - self.p)
+        return "mean {0}, standard deviation {1}, \
+                p {2}, q {3}".format(
+            self.mean, self.stdev, self.p, 1.0 - self.p
+        )

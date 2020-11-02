@@ -27,25 +27,18 @@ class Exponential(Distribution):
 
         Distribution.__init__(self, self.calculate_mean(), self.calculate_stdev())
 
-    def calculate_mean(self, round_to=2):
+    def calculate_mean(self):
         """ Method to calculate the mean from lambda
-
-        Args:
-            round_to (int): Round the mean value. [Default value: 2 floating point]
-
         Returns:
             float: mean of the distribution
         """
 
         self.mean = 1.0 / self.lmbda
 
-        return round(self.mean, round_to)
+        return self.mean
 
-    def calculate_stdev(self, round_to=2):
+    def calculate_stdev(self):
         """ Method to calculate the standard deviation from lmbda
-
-        Args:
-            round_to (int): Round the mean value. [Default value: 2 floating point]
 
         Returns:
             float: standard deviation of the distribution
@@ -53,39 +46,34 @@ class Exponential(Distribution):
 
         self.stdev = 1.0 / self.lmbda
 
-        return round(self.stdev, round_to)
+        return self.stdev
 
-    def calculate_pdf(self, x, round_to=2):
+    def calculate_pdf(self, x):
         """ Probability density function calculator for the exponential distribution.
 
         Args:
             x (float): point for caluclating the probability density function
-            round_to (int): Round the mean value. [Default value: 2 floating point]
 
         Returns:
             float: probability density function
         """
-        value = 0  # default value of exponential distribution for x < 0
+        self.pdf = 0  # default value of exponential distribution for x < 0
         if x >= 0:
-            value = self.lmbda * math.exp(-self.lmbda * x)
-        self.pdf = value
-        return round(self.pdf, round_to)
+            self.pdf = self.lmbda * math.exp(-self.lmbda * x)
+        return self.pdf
 
-    def calculate_cdf(self, x, round_to=2):
+    def calculate_cdf(self, x):
         """
         Probability density function calculator for the Exponential distribution.
             Args:
                 x (float): point for calculating the probability density function
-                round_to (int): Round the mean value. [Default value: 2 floating point]
-
             Returns:
                 float: probability density function output
         """
-        val = 0
+        self.cdf = 0
         if x >= 0:
-            val = 1 - math.exp(-self.lmbda * x)
-        self.cdf = val
-        return round(self.cdf, round_to)
+            self.cdf = 1 - math.exp(-self.lmbda * x)
+        return self.cdf
 
     def plot_bar_pdf(self, points=100):
         """ Method to plot the pdf of the exponential distribution.
@@ -124,9 +112,6 @@ class Exponential(Distribution):
     #       """
     #       pass
     #
-    def calculate_cdf(self, x: float) -> float:
-        pass
-
     def plot_histogram(self):
         pass
 

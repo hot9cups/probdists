@@ -29,37 +29,32 @@ class Gamma(Distribution):
         self.theta = theta
         Distribution.__init__(self, self.calculate_mean(), self.calculate_stdev())
 
-    def calculate_mean(self, round_to=2):
+    def calculate_mean(self):
         """
         Function to calculate the mean of the data set.
-            Args:
-                 round_to (int): Round the mean value. [Default value: 2 floating point]
-            Returns:
-                   float: mean of the data set
+        Returns:
+                float: mean of the data set
         """
         avg = self.k * self.theta
         self.mean = avg
-        return round(self.mean, round_to)
+        return self.mean
 
-    def calculate_stdev(self, round_to=2):
+    def calculate_stdev(self):
         """
         Function to calculate the standard deviation of the data set.
             Args:
                  sample (bool): whether the data represents a sample or population
-                 round_to (int): Round the mean value. [Default value: 2 floating point]
             Returns:
                 float: standard deviation of the data set
         """
         self.stdev = math.sqrt(self.k * math.pow(self.theta, 2))
-        return round(self.stdev, round_to)
+        return self.stdev
 
-    def calculate_pdf(self, x, round_to=2):
+    def calculate_pdf(self, x):
         """
         Probability density function calculator for the Gamma distribution.
             Args:
                 x (float): point for calculating the probability density function
-                round_to (int): Round the mean value. [Default value: 2 floating point]
-
             Returns:
                 float: probability density function output
         """
@@ -68,7 +63,7 @@ class Gamma(Distribution):
             * (math.pow(x, self.k - 1))
             * (math.exp((-1 * x / self.theta)))
         )
-        return round(self.pdf, round_to)
+        return self.pdf
 
     def calculate_cdf(self, x: float) -> float:
         pass

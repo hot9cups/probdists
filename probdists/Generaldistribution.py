@@ -5,7 +5,6 @@ import traceback
 import pandas as pd
 
 
-
 class Distribution:
     """ Generic distribution class for calculating and
         visualizing a probability distribution.
@@ -19,11 +18,11 @@ class Distribution:
     """
 
     @abstractmethod
-    def calculate_mean(self, round_to: int = 2) -> float:
+    def calculate_mean(self) -> float:
         pass
 
     @abstractmethod
-    def calculate_stdev(self, round_to: int = 2) -> float:
+    def calculate_stdev(self) -> float:
         pass
 
     @abstractmethod
@@ -35,7 +34,7 @@ class Distribution:
         pass
 
     @abstractmethod
-    def calculate_pdf(self, round_to: int) -> float:
+    def calculate_pdf(self) -> float:
         pass
 
     @abstractmethod

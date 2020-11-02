@@ -38,6 +38,14 @@ def get_numbers_semicolon_file() -> str:
     return Path().absolute().joinpath("fixtures/numbers_semicolon.txt").as_posix()
 
 
+def get_numbers_uniform_file() -> str:
+    return Path().absolute().joinpath("fixtures/numbers_uniform.txt").as_posix()
+
+
+def get_numbers_bernoulli_file() -> str:
+    return Path().absolute().joinpath("fixtures/numbers_bernoulli.txt").as_posix()
+
+
 class TestGeneraldistribution(unittest.TestCase):
     def setUp(self):
         self.distribution = Distribution()
@@ -95,7 +103,9 @@ class TestGaussianClass(unittest.TestCase):
 
     def test_stdevcalculation(self):
         self.assertEqual(
-            self.gaussian.calculate_stdev(), 88.55, "population standard deviation incorrect"
+            round(self.gaussian.calculate_stdev(), 2),
+            88.55,
+            "population standard deviation incorrect",
         )
 
     def test_cdf(self):
@@ -115,14 +125,14 @@ class TestGaussianClass(unittest.TestCase):
 
     def test_pdf(self):
         self.assertEqual(
-            self.gaussian.calculate_pdf(25, 5),
+            round(self.gaussian.calculate_pdf(25), 5),
             0.19947,
             "calculate_pdf function does not give expected result",
         )
         self.gaussian.calculate_mean()
         self.gaussian.calculate_stdev()
         self.assertEqual(
-            self.gaussian.calculate_pdf(75, 5),
+            round(self.gaussian.calculate_pdf(75), 4),
             0.0045,
             "calculate_pdf function after calculating mean and \
                              stdev does not give expected result",
@@ -159,7 +169,7 @@ class TestBinomialClass(unittest.TestCase):
 
     def test_calculatestdev(self):
         stdev = self.binomial.calculate_stdev()
-        self.assertEqual(stdev, 2.19)
+        self.assertEqual(stdev, 2.1908902300206643)
 
     def test_replace_stats_with_data(self):
         p, n = self.binomial.replace_stats_with_data()
@@ -167,12 +177,12 @@ class TestBinomialClass(unittest.TestCase):
         self.assertEqual(n, 13)
 
     def test_pdf(self):
-        self.assertEqual(self.binomial.calculate_pdf(5, 5), 0.07465)
-        self.assertEqual(self.binomial.calculate_pdf(3, 5), 0.01235)
+        self.assertEqual(round(self.binomial.calculate_pdf(5), 5), 0.07465)
+        self.assertEqual(round(self.binomial.calculate_pdf(3), 5), 0.01235)
 
         self.binomial.replace_stats_with_data()
-        self.assertEqual(self.binomial.calculate_pdf(5, 5), 0.05439)
-        self.assertEqual(self.binomial.calculate_pdf(3, 5), 0.00472)
+        self.assertEqual(round(self.binomial.calculate_pdf(5), 5), 0.05439)
+        self.assertEqual(round(self.binomial.calculate_pdf(3), 5), 0.00472)
 
     def test_cdf(self):
         self.assertEqual(round(self.binomial.calculate_cdf(5), 5), 0.12560)
@@ -219,82 +229,117 @@ class TestExponentialClass(unittest.TestCase):
 
     def test_pdf(self):
         self.assertEqual(
-            self.exponential.calculate_pdf(1, 5),
+            round(self.exponential.calculate_pdf(1), 5),
             0.19470,
             "calculate_pdf function does not give expexted result",
         )
         self.exponential.calculate_mean()
         self.exponential.calculate_stdev()
         self.assertEqual(
-            self.exponential.calculate_pdf(5, 5),
+            round(self.exponential.calculate_pdf(5), 5),
             0.07163,
             "calculate_pdf function after calculating mean and \
                              stdev does not give expected result",
         )
 
     def test_cdf(self):
-        self.assertEqual(self.exponential.calculate_cdf(-2.5), 0, 'calculate_cdf does not return expected result')
-        self.assertEqual(self.exponential.calculate_cdf(12.3, 5), 0.95381, 'calculate_cdf does not return expected result')
+        self.assertEqual(
+            self.exponential.calculate_cdf(-2.5),
+            0,
+            "calculate_cdf does not return expected result",
+        )
+        self.assertEqual(
+            round(self.exponential.calculate_cdf(12.3), 5),
+            0.95381,
+            "calculate_cdf does not return expected result",
+        )
 
         self.exponential.calculate_mean()
         self.exponential.calculate_stdev()
 
-        self.assertEqual(self.exponential.calculate_cdf(-1.3), 0, \
-                'calculate_cdf does not return expected result after calculating mean and stdev')
-        self.assertEqual(self.exponential.calculate_cdf(9.5, 4), 0.907, \
-                'calculate_cdf does not return expected result after calculating mean and stdev')
+        self.assertEqual(
+            self.exponential.calculate_cdf(-1.3),
+            0,
+            "calculate_cdf does not return expected result after calculating mean and stdev",
+        )
+        self.assertEqual(
+            round(self.exponential.calculate_cdf(9.5), 3),
+            0.907,
+            "calculate_cdf does not return expected result after calculating mean and stdev",
+        )
+
 
 class TestUniformClass(unittest.TestCase):
     def setUp(self):
-        self.uniform = Uniform(0,10)
-        self.uniform.read_data_file('probdists/numbers_uniform.txt')
+        self.uniform = Uniform(0, 10)
+        self.uniform.read_data_file(get_numbers_uniform_file())
 
     def test_initialization(self):
-        self.assertEqual(self.uniform.low, 0, 'incorrect initialization of interval start')
-        self.assertEqual(self.uniform.high, 10, 'incorrect initialization of interval end')
+        self.assertEqual(self.uniform.low, 0, "incorrect initialization of interval start")
+        self.assertEqual(self.uniform.high, 10, "incorrect initialization of interval end")
 
     def test_invalid_interval_exception(self):
         self.assertRaises(Exception, Uniform, 5, 5)
 
     def test_readdata(self):
-        self.assertEqual(self.uniform.data,
-                         [4, 5, 2, 3, 3, 2, 2, 5, 4, 3, 1, 3, 5, 3, 4],
-                         'data read incorrectly')
+        self.assertEqual(
+            self.uniform.data,
+            [4, 5, 2, 3, 3, 2, 2, 5, 4, 3, 1, 3, 5, 3, 4],
+            "data read incorrectly",
+        )
 
     def test_replace_stats_with_data(self):
         l, h = self.uniform.replace_stats_with_data()
         self.assertEqual(l, 1)
         self.assertEqual(h, 5)
 
-
     def test_meancalculation(self):
         self.uniform.calculate_mean()
-        self.assertEqual(self.uniform.mean,
-                        5,
-                         'calculated mean not as expected')
+        self.assertEqual(self.uniform.mean, 5, "calculated mean not as expected")
 
     def test_stdevcalculation(self):
-        self.assertEqual(self.uniform.calculate_stdev(),
-                         2.89,
-                         'calculated standard deviation incorrect')
+        self.assertEqual(
+            round(self.uniform.calculate_stdev(), 2),
+            2.89,
+            "calculated standard deviation incorrect",
+        )
 
     def test_pdf(self):
-        self.assertEqual(self.uniform.calculate_pdf(5), 0.1,
-                         'calculate_pdf function does not give expected result')
-        self.assertEqual(self.uniform.calculate_pdf(15), 0,
-                         'calculate_pdf function does not give expected result')
+        self.assertEqual(
+            round(self.uniform.calculate_pdf(5), 1),
+            0.1,
+            "calculate_pdf function does not give expected result",
+        )
+        self.assertEqual(
+            round(self.uniform.calculate_pdf(15), 1),
+            0,
+            "calculate_pdf function does not give expected result",
+        )
         self.uniform.replace_stats_with_data()
-        self.assertEqual(self.uniform.calculate_pdf(5), 0.25,
-                         'calculate_pdf function does not give expected result')
-        self.assertEqual(self.uniform.calculate_pdf(15), 0,
-                         'calculate_pdf function does not give expected result')
+        self.assertEqual(
+            self.uniform.calculate_pdf(5),
+            0.25,
+            "calculate_pdf function does not give expected result",
+        )
+        self.assertEqual(
+            self.uniform.calculate_pdf(15),
+            0,
+            "calculate_pdf function does not give expected result",
+        )
 
     def test_cdf(self):
         self.uniform.replace_stats_with_data()
-        self.assertEqual(self.uniform.calculate_cdf(0), 0, 'calculate_cdf function does not give expected result')
-        self.assertEqual(self.uniform.calculate_cdf(7), 1, 'calculate_cdf function does not give expected result')
-        self.assertEqual(self.uniform.calculate_cdf(4), 0.75, 'calculate_cdf function does not give expected result')
-
+        self.assertEqual(
+            self.uniform.calculate_cdf(0), 0, "calculate_cdf function does not give expected result"
+        )
+        self.assertEqual(
+            self.uniform.calculate_cdf(7), 1, "calculate_cdf function does not give expected result"
+        )
+        self.assertEqual(
+            self.uniform.calculate_cdf(4),
+            0.75,
+            "calculate_cdf function does not give expected result",
+        )
 
 
 class TestGammaClass(unittest.TestCase):
@@ -337,18 +382,18 @@ class TestGammaClass(unittest.TestCase):
         self.assertEqual(gamma_sum.calculate_stdev(), 4)
 
 
-
 class TestBernoulliClass(unittest.TestCase):
     def setUp(self):
         self.bernoulli = Bernoulli(0.3)
-        self.bernoulli.read_data_file('numbers_bernoulli.txt')
+        self.bernoulli.read_data_file(get_numbers_bernoulli_file())
 
     def test_initialization(self):
-        self.assertEqual(self.bernoulli.p, 0.3, 'p value incorrect')
+        self.assertEqual(self.bernoulli.p, 0.3, "p value incorrect")
 
     def test_readdata(self):
-        self.assertEqual(self.bernoulli.data, [1.0, 0.0, 0.0, 0.0, 0.0, 0.0],
-                         'data not read in correctly')
+        self.assertEqual(
+            self.bernoulli.data, [1.0, 0.0, 0.0, 0.0, 0.0, 0.0], "data not read in correctly"
+        )
 
     def test_calculatemean(self):
         self.bernoulli.calculate_mean()
@@ -356,26 +401,26 @@ class TestBernoulliClass(unittest.TestCase):
 
     def test_calculatestdev(self):
         stdev = self.bernoulli.calculate_stdev()
-        self.assertEqual(stdev, 0.46)
+        self.assertEqual(stdev, 0.458257569495584)
 
     def test_replace_stats_with_data(self):
         p = self.bernoulli.replace_stats_with_data()
-        self.assertEqual(round(p, 2), 0.17, 'p value not correct after reading data')
+        self.assertEqual(round(p, 2), 0.17, "p value not correct after reading data")
 
     def test_pdf(self):
-        self.assertEqual(self.bernoulli.calculate_pdf(0, 1), 0.7)
-        self.assertEqual(self.bernoulli.calculate_pdf(1, 1), 0.3)
+        self.assertEqual(round(self.bernoulli.calculate_pdf(0), 2), 0.7)
+        self.assertEqual(round(self.bernoulli.calculate_pdf(1), 2), 0.3)
 
         self.bernoulli.replace_stats_with_data()
-        self.assertEqual(self.bernoulli.calculate_pdf(0), 0.83)
-        self.assertEqual(self.bernoulli.calculate_pdf(1), 0.17)
+        self.assertEqual(round(self.bernoulli.calculate_pdf(0), 2), 0.83)
+        self.assertEqual(round(self.bernoulli.calculate_pdf(1), 2), 0.17)
 
     def test_cdf(self):
-        self.assertEqual(self.bernoulli.calculate_cdf(0.5, 1), 0.7)
+        self.assertEqual(round(self.bernoulli.calculate_cdf(0.5), 1), 0.7)
 
         self.bernoulli.replace_stats_with_data()
 
-        self.assertEqual(self.bernoulli.calculate_cdf(2, 1), 1.0)
+        self.assertEqual(self.bernoulli.calculate_cdf(2), 1.0)
 
     def test_add(self):
         bernoulli_one = Bernoulli(0.2)
@@ -386,5 +431,5 @@ class TestBernoulliClass(unittest.TestCase):
         self.assertEqual(bernoulli_sum.n, 2)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
