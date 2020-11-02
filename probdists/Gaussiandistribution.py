@@ -1,5 +1,8 @@
 import math
+from typing import List, Tuple
+
 import matplotlib.pyplot as plt
+
 from .Generaldistribution import Distribution
 
 
@@ -33,21 +36,17 @@ class Gaussian(Distribution):
 
         return round(self.mean, round_to)
 
-    def calculate_stdev(self, round_to=2, sample=True):
+    def calculate_stdev(self, round_to=2):
         """Function to calculate the standard deviation of the data set.
 
         Args:
-             sample (bool): whether the data represents a sample or population
              round_to (int): Round the mean value. [Default value: 2 floating point]
 
         Returns:
             float: standard deviation of the data set
         """
 
-        if sample:
-            n = len(self.data) - 1
-        else:
-            n = len(self.data)
+        n = len(self.data)
 
         self.calculate_mean()
         mean = self.mean

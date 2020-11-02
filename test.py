@@ -97,10 +97,7 @@ class TestGaussianClass(unittest.TestCase):
 
     def test_stdevcalculation(self):
         self.assertEqual(
-            self.gaussian.calculate_stdev(), 92.87, "sample standard deviation incorrect"
-        )
-        self.assertEqual(
-            self.gaussian.calculate_stdev(False), 88.55, "population standard deviation incorrect"
+            self.gaussian.calculate_stdev(), 88.55, "population standard deviation incorrect"
         )
 
     def test_cdf(self):
@@ -111,7 +108,7 @@ class TestGaussianClass(unittest.TestCase):
         self.gaussian.calculate_stdev()
         self.assertEqual(
             round(self.gaussian.cdf(75), 3),
-            0.487,
+            0.486,
             "cdf function after calculating mean and \
                              stdev does not give expected result",
         )
@@ -126,7 +123,7 @@ class TestGaussianClass(unittest.TestCase):
         self.gaussian.calculate_stdev()
         self.assertEqual(
             self.gaussian.calculate_pdf(75, 5),
-            0.00429,
+            0.0045,
             "calculate_pdf function after calculating mean and \
                              stdev does not give expected result",
         )

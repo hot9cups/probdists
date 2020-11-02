@@ -21,7 +21,7 @@ class Distribution:
         pass
 
     @abstractmethod
-    def calculate_stdev(self, sample: bool, round_to: int = 2) -> float:
+    def calculate_stdev(self, round_to: int = 2) -> float:
         pass
 
     @abstractmethod
