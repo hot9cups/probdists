@@ -65,6 +65,9 @@ class Distribution:
         elif file_name == 'demo_gamma_data':
             dirname = Path(__file__).parent.parent.absolute()
             file_name = Path(dirname, 'probdists/numbers_gamma.txt')
+        elif file_name == 'demo_uniform_data':
+            dirname = Path(__file__).parent.parent.absolute()
+            file_name = Path(dirname, 'probdists/numbers_uniform.txt')
 
         elif file_name == 'demo_bernoulli_data':
             dirname = Path(__file__).parent.parent.absolute()
