@@ -16,6 +16,8 @@ class Uniform(Distribution):
     """
 
     def __init__(self, low=0, high=10):
+        if low == high:
+            raise Exception('Invalid interval -  start and end of interval cannot be the same')
         self.low = low
         self.high = high
         Distribution.__init__(self, self.calculate_mean(),
@@ -33,6 +35,8 @@ class Uniform(Distribution):
                 """
         self.low = min(self.data)
         self.high = max(self.data)
+        if self.low == self.high:
+            raise Exception('Invalid interval -  start and end of interval cannot be the same')
         self.calculate_mean()
         self.calculate_stdev()
         return self.low, self.high

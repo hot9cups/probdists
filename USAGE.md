@@ -219,7 +219,16 @@
 >>> uniform.plot_histogram()
 
 # plot pdf of uniform distribution 
->>> exponential.plot_bar_pdf() 
+>>> uniform.plot_bar_pdf() 
+
+# to calculate cdf 
+>>> uniform.replace_stats_with_data()
+>>> print(uniform.calculate_cdf(0))
+0
+>>> print(uniform.calculate_cdf(7))
+1
+>>> print(uniform.calculate_cdf(4))
+0.75
 ```
 ## For Bernoulli Distribution
 
