@@ -3,6 +3,21 @@ import pandas as pd
 import traceback
 
 
+def load_file_name(file_name):
+    file_name_map = {
+        'demo_gaussian_data': 'numbers',
+        'demo_binomial_data': 'numbers_binomial',
+        'demo_exponential_data': 'numbers_exponential',
+        'demo_gamma_data': 'numbers_gamma',
+        'demo_uniform_data': 'numbers_uniform',
+        'demo_bernoulli_data': 'numbers_bernoulli'
+    }
+    if file_name in file_name_map:
+        dirname = Path(__file__).parent.parent.absolute()
+        file_path = Path(dirname, 'probdists/' + file_name_map[file_name] + '.txt')
+        return file_path
+    return file_name
+
 class Distribution:
     """ Generic distribution class for calculating and
         visualizing a probability distribution.
@@ -14,21 +29,6 @@ class Distribution:
         pdf (float) representing the Probability density function
         cdf (float) representing the Cumulative distribution function
     """
-
-    def load_file_name(self, file_name):
-        file_name_map = {
-            'demo_gaussian_data': 'numbers',
-            'demo_binomial_data': 'numbers_binomial',
-            'demo_exponential_data': 'numbers_exponential',
-            'demo_gamma_data': 'numbers_gamma',
-            'demo_uniform_data': 'numbers_uniform',
-            'demo_bernoulli_data': 'numbers_bernoulli'
-        }
-        if file_name in file_name_map:
-            dirname = Path(__file__).parent.parent.absolute()
-            file_path = Path(dirname, 'probdists/'+file_name_map[file_name]+'.txt')
-            return file_path
-        return file_name
 
 
     def __init__(self, mu=0, sigma=1):
@@ -67,7 +67,7 @@ class Distribution:
                 None
         """
 
-        file_path = self.load_file_name(file_name)
+        file_path = load_file_name(file_name)
         file_name = str(file_path)
 
         # Finding the file extension and selecting seperator for csv file
