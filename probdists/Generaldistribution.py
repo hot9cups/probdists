@@ -17,11 +17,11 @@ class Distribution:
     """
 
     @abstractmethod
-    def calculate_mean(self, round_to: int) -> float:
+    def calculate_mean(self, round_to: int = 2) -> float:
         pass
 
     @abstractmethod
-    def calculate_stdev(self, sample: bool, round_to: int) -> float:
+    def calculate_stdev(self, sample: bool, round_to: int = 2) -> float:
         pass
 
     @abstractmethod

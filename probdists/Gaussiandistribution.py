@@ -33,7 +33,7 @@ class Gaussian(Distribution):
 
         return round(self.mean, round_to)
 
-    def calculate_stdev(self, sample=True, round_to=2):
+    def calculate_stdev(self, round_to=2, sample=True):
         """Function to calculate the standard deviation of the data set.
 
         Args:
