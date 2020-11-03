@@ -15,7 +15,6 @@ class Distribution:
         cdf (float) representing the Cumulative distribution function
     """
 
-
     def __init__(self, mu=0, sigma=1):
 
         self.mean = mu
@@ -24,15 +23,15 @@ class Distribution:
         self.pdf = None
         self.cdf = None
 
-    def read_data_file(self, file_name, seperator='\\n', header=None):
+    def read_data_file(self, file_name, separator='\\n', header=None):
 
         """Function to read in data from a txt file, csv file
         and excel formats (xls, xlsx, xlsm, xlsb, odf, ods and odt)
 
         The txt file should have one number (float) per line or
-        numbers should be seperator seperated.
+        numbers should be separator seperated.
 
-        No need for seperator argument with csv file, it will
+        No need for separator argument with csv file, it will
         by default be ',' so csv files should have , seperated
         numbers
 
@@ -45,29 +44,29 @@ class Distribution:
 
         Args:
                 file_name (string): name of a file to read from
-                seperator (character): custom seperator to use if required
-                header (int or by default None): to specify if header is there in
-                excel file.
+                separator (character): custom separator to use if required
+                header (int or by default None): to specify if excel file
+                contains header.
         Returns:
                 None
         """
 
         file_name_map = {
-            'demo_gaussian_data': 'numbers',
-            'demo_binomial_data': 'numbers_binomial',
-            'demo_exponential_data': 'numbers_exponential',
-            'demo_gamma_data': 'numbers_gamma',
-            'demo_uniform_data': 'numbers_uniform',
-            'demo_bernoulli_data': 'numbers_bernoulli'
+            'demo_gaussian_data': 'numbers.txt',
+            'demo_binomial_data': 'numbers_binomial.txt',
+            'demo_exponential_data': 'numbers_exponential.txt',
+            'demo_gamma_data': 'numbers_gamma.txt',
+            'demo_uniform_data': 'numbers_uniform.txt',
+            'demo_bernoulli_data': 'numbers_bernoulli.txt'
         }
         if file_name in file_name_map:
             dirname = Path(__file__).parent.parent.absolute()
-            file_name = str(Path(dirname, 'probdists/' + file_name_map[file_name] + '.txt'))
+            file_name = str(Path(dirname, 'probdists/' + file_name_map[file_name]))
 
-        # Finding the file extension and selecting seperator for csv file
+        # Finding the file extension and selecting separator for csv file
         extension = file_name.split('.')[-1]
         if extension == 'csv':
-            seperator = ','
+            separator = ','
 
         excel_formats = {'xls', 'xlsx', 'xlsm', 'xlsb',
                          'odf', 'ods', 'odt'}
@@ -93,12 +92,12 @@ class Distribution:
                     line = line.strip()
 
                     # If text is space or newline seperated
-                    if seperator == '\\n' or seperator == ' ':
+                    if separator == '\\n' or separator == ' ':
                         # Splitting text with space seperaor
                         line = line.split()
                     else:
-                        # Splitting text based on custom seperator
-                        line = line.split(seperator)
+                        # Splitting text based on custom separator
+                        line = line.split(separator)
                     for number in line:
                         try:
                             data_list.append(float(number))
