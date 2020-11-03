@@ -1,4 +1,4 @@
-import setuptools
+import setuptools                        #import python library
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -24,3 +24,5 @@ setuptools.setup(
     ],
     zip_safe=False
 )
+
+# End of the code...
