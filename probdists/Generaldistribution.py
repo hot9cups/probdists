@@ -73,6 +73,10 @@ class Distribution:
             dirname = Path(__file__).parent.parent.absolute()
             file_name = Path(dirname, 'probdists/numbers_bernoulli.txt')
 
+        elif file_name == 'demo_triangular_data':
+            dirname = Path(__file__).parent.parent.absolute()
+            file_name = Path(dirname, 'probdists/numbers_triangular.txt')
+
         file_name = str(file_name)
 
         # Finding the file extension and selecting seperator for csv file
