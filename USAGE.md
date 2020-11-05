@@ -288,3 +288,46 @@
 # plot bar graph of probability distribution function of data
 >>> bernoulli.plot_bar_pdf()
 ```
+
+## For Triangular Distribution
+```
+>>> from probdists import Triangular
+
+# By default Triangular will create a triangular dist. with minimum a=0, maximum b=1 and mode=0.5
+# This is useful if you want a simple Triangular distribution
+>>> triangle = Triangular()
+
+# To specify your own lower (a) and upper (b) limit, and mode
+# Note that a <= mode <= b
+>>> triangle = Triangular(a=2, b=12, mode=7)
+
+>>> triangle.read_data_file('demo_triangular_data')
+>>> triangle.replace_stats_with_data()
+# pass in your filename to read data from filename and update values
+
+# to calculate mean:
+>>> print(triangle.calculate_mean())
+0.5
+
+# to calculate standard deviation:
+>>> print(triangle.calculate_stddev())
+0.2
+
+# to calculate pdf:
+>>> print(triangle.calculate_pdf(0.5))
+2
+
+# to calculate cdf 
+>>> print(triangle.calculate_cdf(0.5))
+0.5
+>>> print(triangle.calculate_cdf(1))
+1
+
+# to access data 
+>>> print(triangle.data)
+[1, 2, 3, 4, 5, 5, 6, 8, 9, 13]
+
+# plot pdf of triangular distribution 
+>>> triangle.plot_bar_pdf() 
+
+```
