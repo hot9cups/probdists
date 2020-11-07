@@ -23,7 +23,7 @@ class Triangular(Distribution):
     """
 
     def __init__(self, a=0, b=1, mode=0.5):
-        if mode < a or b < mode:
+        if b < mode < a or a == b:
             raise ValueError
 
         self.a = a
@@ -99,11 +99,11 @@ class Triangular(Distribution):
         Returns:
             float: mode of data
         """
-        data = Counter(self.data)
-        dict_data = dict(data)
+        frequency_dict = dict(Counter(self.data))
+        max_frequency = max(list(frequency_dict.values()))
 
         # Create list of modes from data
-        mode = [k for k, v in dict_data.items() if v == max(list(data.values()))]
+        mode = [k for k, v in frequency_dict.items() if v == max_frequency]
 
         if len(mode) == 1:
             self.mode = mode[0]
@@ -125,9 +125,11 @@ class Triangular(Distribution):
             float: probability density function
         """
         value = 0  # default value for when x < min or x > max
-        if self.a <= x <= self.mode:
+        if self.a <= x < self.mode:
             value = (2 * (x - self.a)) / (
                     (self.b - self.a) * (self.mode - self.a))
+        elif self.mode == x:
+            value = 2 / (self.b - self.a)
         elif self.mode < x <= self.b:
             value = (2 * (self.b - x)) / (
                     (self.b - self.a) * (self.b - self.mode))
