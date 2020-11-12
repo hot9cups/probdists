@@ -102,6 +102,34 @@ class Gamma(Distribution):
         plt.show()
         return x, y
 
+    def cdf_lower(self, x):
+        """
+        Cumulative density function calculator for the Gamma distribution.
+            Args:
+                x (float): point for calculating the cumulative distribution function
+            Returns:
+                float: lower cumulative distribution function output (1-cdf)
+        """
+        #initiate cdf variable
+        cdf = 0
+        for i in range (self.k):
+            cdf += (math.pow((x / self.theta), i) * math.exp(-1 * x / self.theta)) / math.factorial(i) 
+        return 1-cdf
+
+    def cdf_upper(self, x):
+        """
+        Cumulative density function calculator for the Gamma distribution.
+            Args:
+                x (float): point for calculating the cumulative distribution function
+            Returns:
+                float: upper cumulative distribution function output (cdf)
+        """
+        #initiate cdf variable
+        cdf = 0
+        for i in range (self.k):
+            cdf += (math.pow((x / self.theta), i) * math.exp(-1 * x / self.theta)) / math.factorial(i) 
+        return cdf
+
     def __add__(self, other):
         """
         Function to add together two Gamma distributions
