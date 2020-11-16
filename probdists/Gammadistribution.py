@@ -127,7 +127,6 @@ class Gamma(Distribution):
             raise Exception('limit needs to be a string type: "upper" or "lower"')
         return results
 
-
     def __add__(self, other):
         """
         Function to add together two Gamma distributions
