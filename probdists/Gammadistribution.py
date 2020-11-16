@@ -114,13 +114,13 @@ class Gamma(Distribution):
         if limit == 'upper' or limit == 'lower':
             if x >= 0:
                 #initiate cdf variable
-                cdf = 0
+                cdfvalue = 0
                 for i in range (self.k):
-                    cdf += (math.pow((x / self.theta), i) * math.exp(-1 * x / self.theta)) / math.factorial(i)
+                    cdfvalue += (math.pow((x / self.theta), i) * math.exp(-1 * x / self.theta)) / math.factorial(i)
                 if limit == 'upper':
-                    return cdf
+                    return cdfvalue
                 elif limit == 'lower':
-                    return 1 - cdf
+                    return 1 - cdfvalue
             else:
                 raise Exception ('x has to be a positive real number')
         else:
