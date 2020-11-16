@@ -102,29 +102,31 @@ class Gamma(Distribution):
         plt.show()
         return x, y
 
-    def cdf(self, limit, x):
+    def cdf(self, limitType, x):
         """
         Cumulative density function calculator for the Gamma distribution.
             Args:
-                limit (string): indicate 'upper' or 'lower' cdf function
+                limitType (string): indicate 'upper' or 'lower' cdf function
                 x (float): point for calculating the cumulative distribution function
             Returns:
                 float: lower cumulative distribution function output (1-cdf)
         """
-        if limit == 'upper' or limit == 'lower':
+        if limitType == 'upper' or limitType == 'lower':
             if x >= 0:
                 #initiate cdf variable
                 cdfvalue = 0
                 for i in range (self.k):
                     cdfvalue += (math.pow((x / self.theta), i) * math.exp(-1 * x / self.theta)) / math.factorial(i)
-                if limit == 'upper':
-                    return cdfvalue
-                elif limit == 'lower':
-                    return 1 - cdfvalue
+                if limitType == 'upper':
+                    results = cdfvalue
+                elif limitType == 'lower':
+                    results = 1 - cdfvalue
             else:
                 raise Exception ('x has to be a positive real number')
         else:
             raise Exception('limit needs to be a string type: "upper" or "lower"')
+        return results
+
 
     def __add__(self, other):
         """
