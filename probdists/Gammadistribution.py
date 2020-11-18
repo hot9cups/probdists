@@ -65,16 +65,19 @@ class Gamma(Distribution):
         self.stdev = math.sqrt(self.k * math.pow(self.theta, 2))
         return round(self.stdev, round_to)
 
-    def pdf(self, x):
+    def calculate_pdf(self, x, round_to=2):
         """
         Probability density function calculator for the Gamma distribution.
             Args:
                 x (float): point for calculating the probability density function
+                round_to (int): Round the mean value. [Default value: 2 floating point]
+
             Returns:
                 float: probability density function output
         """
-        return (1 / (math.factorial(self.k - 1) * math.pow(self.theta, self.k))) * (math.pow(x, self.k - 1)) * (
+        self.pdf = (1 / (math.factorial(self.k - 1) * math.pow(self.theta, self.k))) * (math.pow(x, self.k - 1)) * (
             math.exp((-1 * x / self.theta)))
+        return round(self.pdf, round_to)
 
     def plot_bar_pdf(self, points=25):
         """
@@ -91,7 +94,8 @@ class Gamma(Distribution):
         # calculate the x values to visualize (doesn't reuse the old data)
         for i in range(points + 1):
             x.append(i)
-            y.append(self.pdf(i))
+            self.calculate_pdf(i)
+            y.append(self.pdf)
 
         # make the plots
         plt.bar(x, y)
