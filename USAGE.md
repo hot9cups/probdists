@@ -161,12 +161,13 @@
 >>> print(gamma.calculate_stddev())
 
 # to calculate pdf, call function and give argument x
+# optional argument round_to = 'int', defaults to 2
 >>> print(gamma.calculate_pdf(x, 5))
 0.18165
 
 # to calculate cdf, call function and give argument x
 # optional argument is_upper=False for lower CDF, the default will return the upper CDF
-# optional argument round_to = 'int', the default will return 2 decimal places
+# optional argument round_to = 'int', defaults to 2
 >>> print(gamma.calculate_cdf(x, False, 5))
 0.59399
 
