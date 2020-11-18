@@ -57,7 +57,7 @@
 >>> print(binomial.data)
 [0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0]
 
-# to calculate mean    
+# to calculate mean
 >>> print(binomial.calculate_mean())
 8
 
@@ -71,7 +71,7 @@
 0.615
 >>> print(n)
 13
-        
+
 # to calculate pdf
 >>> print(binomial.calculate_pdf(5, 5))
 0.07465
@@ -80,7 +80,7 @@
 >>> binomial_one = Binomial(.4, 20)
 >>> binomial_two = Binomial(.4, 60)
 >>> binomial_sum = binomial_one + binomial_two
-        
+
 >>> print(binomial_sum.p)
 0.4
 >>> print(binomial_sum.n)
@@ -93,23 +93,23 @@
 >>> binomial.plot_bar_pdf()
 ```
 
-## For Exponential Distribution 
+## For Exponential Distribution
 
 ```
->>> from probdists import Exponential 
+>>> from probdists import Exponential
 
-# default value of lmbda(rate) is 0.5 
+# default value of lmbda(rate) is 0.5
 >>> exponential = Exponential()
 
 >>> exp_2 = Exponential(0.25)
-# rate of exp_2 is 0.25 
+# rate of exp_2 is 0.25
 
 >>> exponential.read_data_file('demo_exponential_data')
 # pass in your filename to read data from filename
 
-# to access data 
+# to access data
 >>> print(exponential.data)
-[1, 3, 99, 100, 120, 32, 330, 23, 76, 44, 31] 
+[1, 3, 99, 100, 120, 32, 330, 23, 76, 44, 31]
 
 # to calculate mean
 >>> print(exponential.calculate_mean(1))
@@ -144,12 +144,12 @@
 
 # To use of the sample data or your own data, and approximate a gamma fit to that data:
 >>> gamma = Gamma(fit=True, data_file='demo_gamma_data')
-# for your own file, replace 'demo_gamma_data' with 'my_data_file.txt' 
+# for your own file, replace 'demo_gamma_data' with 'my_data_file.txt'
 # Ensure there is no extra whitespace at end of file
 # The sample data will fit k=2 (rounded to integer), theta~=2.37
 
-# The above is IMPORTANT. 
-# If you don't specify fit=true the Gamma distribution won't fit 
+# The above is IMPORTANT.
+# If you don't specify fit=true the Gamma distribution won't fit
 # but will model using default or inputted k & theta
 # If you specify fit, Gamma distribution will fit and disregard any k,theta argument
 # To provide data for fitting a new Gamma instance will need to be made
@@ -161,21 +161,28 @@
 >>> print(gamma.calculate_stddev())
 
 # to calculate pdf, call function and give argument x
+# optional argument round_to = 'int', defaults to 2
 >>> print(gamma.calculate_pdf(x, 5))
 0.18165
 
-# to access data 
+# to calculate cdf, call function and give argument x
+# optional argument is_upper=False for lower CDF, the default will return the upper CDF
+# optional argument round_to = 'int', defaults to 2
+>>> print(gamma.calculate_cdf(x, False, 5))
+0.59399
+
+# to access data
 >>> print(gamma.data)
 [1, 2, 2, 3, 3, 4, 5, 6, 8, 9, 13]
 
-# plot pdf of exponential distribution 
->>> gamma.plot_bar_pdf() 
+# plot pdf of exponential distribution
+>>> gamma.plot_bar_pdf()
 
 # to add two gamma distributions
 >>> gamma_one = Gamma(2, 2)
 >>> gamma_two = Gamma(1, 2)
 >>> gamma_three = gamma_one + gamma_two
-# The resulting gamma three will have k=3, theta=2. 
+# The resulting gamma three will have k=3, theta=2.
 # This add magic method fails if thetas are not equal since they wouldn't be summable
 ```
 ## For Uniform Distribution 

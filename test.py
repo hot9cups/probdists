@@ -274,6 +274,12 @@ class TestGammaClass(unittest.TestCase):
         self.assertEqual(self.gamma.pdf, (1 / (math.exp(2))),
                          'calculate_pdf function does not give expected result')
 
+    def test_cdf(self):
+        self.assertEqual(self.gamma.calculate_cdf(4, False, 5), 1 - round(3/math.exp(2), 5),
+                         'cdf function does not give expected result')
+        self.assertEqual(self.gamma.calculate_cdf(4), round(3/math.exp(2), 2),
+                         'cdf function does not give expected result')
+
     def test_add(self):
         gamma_one = Gamma(2, 2)
         gamma_two = Gamma(2, 2)

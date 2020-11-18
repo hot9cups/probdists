@@ -106,6 +106,31 @@ class Gamma(Distribution):
         plt.show()
         return x, y
 
+    def calculate_cdf(self, x, is_upper=True, round_to=2):
+        """
+        Cumulative density function calculator for the Gamma distribution.
+            Args:
+                x (float): Point for calculating the cumulative distribution function
+                is_upper (boolean): Upper or lower CDF results. [Default value: True]
+                round_to (int): Round the CDF results. [Default value: 2]
+            Returns:
+                float: CDF output based on 'is_upper' argument rounded to 'round_to'
+        """
+        #initialize and declare the return variable self.cdf
+        self.cdf = 0
+        if x >= 0:
+            #initiate cdfvalue variable
+            cdfvalue = 0
+            for i in range (self.k):
+                cdfvalue += (math.pow((x / self.theta), i) * math.exp(-1 * x / self.theta)) / math.factorial(i)
+            if is_upper == True:
+                self.cdf = cdfvalue
+            elif is_upper == False:
+                self.cdf = 1 - cdfvalue
+        else:
+            raise Exception ('x has to be a positive real number')
+        return round(self.cdf, round_to)
+
     def __add__(self, other):
         """
         Function to add together two Gamma distributions
