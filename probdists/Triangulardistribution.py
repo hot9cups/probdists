@@ -26,6 +26,9 @@ class Triangular(Distribution):
         if b < mode < a or a == b:
             raise ValueError
 
+        if a == b or a == mode or b == mode:
+            raise TriangularValueException()
+
         self.a = a
         self.b = b
         self.mode = mode
@@ -80,11 +83,18 @@ class Triangular(Distribution):
         """
         if not self.data:
             # Use default values
-            self.a, self.b, self.mode = 0, 1, 0.5
+            min_a, max_b, mode = 0, 1, 0.5
         else:
-            self.a = min(self.data)
-            self.b = max(self.data)
-            self.calculate_mode()
+            min_a = min(self.data)
+            max_b = max(self.data)
+            mode = self.calculate_mode()
+
+        if min == max or min == mode or max == mode:
+            raise TriangularValueException()
+
+        self.a = min_a
+        self.b = max_b
+        self.mode = mode
 
         return self.a, self.b, self.mode
 
@@ -106,12 +116,11 @@ class Triangular(Distribution):
         mode = [k for k, v in frequency_dict.items() if v == max_frequency]
 
         if len(mode) == 1:
-            self.mode = mode[0]
+            return mode[0]
         else:
             # Multiple modes
-            # Approximates mode using mean
-            self.mode = sum(self.data) / len(self.data)
-        return round(self.mode, round_to)
+            msg = f"""Multiple modes found: {str(mode)}, Triangular Distribution requires single mode"""
+            raise TriangularValueException(msg)
 
     def calculate_pdf(self, x, round_to=2):
         """
@@ -124,6 +133,10 @@ class Triangular(Distribution):
         Returns:
             float: probability density function
         """
+        # Check equivalence
+        if self.a == self.b or self.a == self.mode or self.b == self.mode:
+            raise TriangularValueException()
+
         value = 0  # default value for when x < min or x > max
         if self.a <= x < self.mode:
             value = (2 * (x - self.a)) / (
@@ -148,6 +161,10 @@ class Triangular(Distribution):
         Returns:
             float: cumulative density function output
         """
+        # Check equivalence
+        if self.a == self.b or self.a == self.mode or self.b == self.mode:
+            raise TriangularValueException()
+
         if x < self.a:
             value = 0
         elif self.a <= x <= self.mode:
@@ -199,3 +216,24 @@ class Triangular(Distribution):
 
         return f"minimum: {self.a}, maximum: {self.b}, mode: {self.mode}, " \
                f"mean: {self.mean}, standard deviation: {self.stdev}"
+
+
+class TriangularValueException(Exception):
+    """
+        Defines Exception raised when minimum, maximum or mode values are equal
+        and TriangularDistribution instance cannot be created
+
+        Attributes:
+            message (str): Error message to return
+    """
+
+    def __init__(self, msg=None):
+        if msg is not None:
+            self.message = msg
+        else:
+            self.message = "Minimum, Maximum, or Mode cannot be equivalent"
+
+    def __str__(self):
+        if self.message:
+            return f"""TriangularValueException: {self.message}"""
+        return f"""TriangularValueException Raised"""

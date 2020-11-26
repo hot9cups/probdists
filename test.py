@@ -7,7 +7,7 @@ from probdists import Distribution
 from probdists import Gamma
 from probdists import Bernoulli
 from probdists import Uniform
-from probdists import Triangular
+from probdists import Triangular, TriangularValueException
 
 
 class TestGeneraldistribution(unittest.TestCase):
@@ -368,7 +368,8 @@ class TestTriangularClass(unittest.TestCase):
         self.assertEqual(self.triangle.calculate_mode(), 1)
 
         self.triangle.data = [0, 1, 2, 2, 1]
-        self.assertEqual(self.triangle.calculate_mode(), 1.2)
+        with self.assertRaises(TriangularValueException):
+            self.triangle.calculate_mode()
 
         self.triangle.read_data_file('probdists/numbers_triangular.txt')
         self.assertEqual(self.triangle.calculate_mode(), 7)
