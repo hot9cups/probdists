@@ -57,7 +57,8 @@ class Distribution:
             'demo_exponential_data': 'numbers_exponential.txt',
             'demo_gamma_data': 'numbers_gamma.txt',
             'demo_uniform_data': 'numbers_uniform.txt',
-            'demo_bernoulli_data': 'numbers_bernoulli.txt'
+            'demo_bernoulli_data': 'numbers_bernoulli.txt',
+            'demo_triangular_data': 'numbers_triangular.txt'
         }
         if file_name in file_name_map:
             dirname = Path(__file__).parent.parent.absolute()

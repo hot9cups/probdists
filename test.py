@@ -7,6 +7,7 @@ from probdists import Distribution
 from probdists import Gamma
 from probdists import Bernoulli
 from probdists import Uniform
+from probdists import Triangular, TriangularValueException
 
 
 class TestGeneraldistribution(unittest.TestCase):
@@ -335,6 +336,75 @@ class TestBernoulliClass(unittest.TestCase):
 
         self.assertEqual(bernoulli_sum.p, 0.2)
         self.assertEqual(bernoulli_sum.n, 2)
+
+
+class TestTriangularClass(unittest.TestCase):
+    def setUp(self):
+        self.triangle = Triangular()
+        self.triangle.read_data_file('probdists/numbers_triangular.txt')
+
+    def test_initialization(self):
+        self.assertEqual(self.triangle.a, 0, 'a (min) value incorrect')
+        self.assertEqual(self.triangle.b, 1, 'b (max) value incorrect')
+        self.assertEqual(self.triangle.mode, 0.5, 'mode value incorrect')
+
+    def test_readdata(self):
+        file_data = [2, 3, 3, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 6,
+                     7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 9, 9, 9, 9,
+                     10, 10, 10, 11, 11, 12]
+        self.assertEqual(self.triangle.data, file_data,
+                         'data not read in correctly')
+
+    def test_calculatemean(self):
+        self.triangle.calculate_mean()
+        self.assertEqual(self.triangle.mean, 0.5)
+
+    def test_calculatestdev(self):
+        stdev = self.triangle.calculate_stdev()
+        self.assertEqual(stdev, 0.2)
+
+    def test_replace_stats_with_data(self):
+        [a, b, mode] = self.triangle.replace_stats_with_data()
+        self.assertEqual(a, 2, 'a (min) value incorrect after reading data')
+        self.assertEqual(b, 12, 'b (max) value incorrect after reading data')
+        self.assertEqual(mode, 7, 'mode value incorrect after reading data')
+
+    def test_calculate_mode(self):
+        self.triangle.data = [0, 1, 1, 2]
+        self.assertEqual(self.triangle.calculate_mode(), 1)
+
+        self.triangle.data = [0, 1, 2, 2, 1]
+        with self.assertRaises(TriangularValueException):
+            self.triangle.calculate_mode()
+
+        self.triangle.read_data_file('probdists/numbers_triangular.txt')
+        self.assertEqual(self.triangle.calculate_mode(), 7)
+
+    def test_pdf(self):
+        self.assertEqual(self.triangle.calculate_pdf(0, 1), 0.0)
+        self.assertEqual(self.triangle.calculate_pdf(0.5, 1), 2)
+        self.assertEqual(self.triangle.calculate_pdf(1, 1), 0.0)
+
+        self.triangle.replace_stats_with_data()
+
+        self.assertEqual(self.triangle.calculate_pdf(2), 0)
+        self.assertEqual(self.triangle.calculate_pdf(3), 0.04)
+        self.assertEqual(self.triangle.calculate_pdf(7), 0.2)
+        self.assertEqual(self.triangle.calculate_pdf(9), 0.12)
+        self.assertEqual(self.triangle.calculate_pdf(12), 0)
+
+    def test_cdf(self):
+        self.assertEqual(self.triangle.calculate_cdf(0, 1), 0)
+        self.assertEqual(self.triangle.calculate_cdf(0.5, 1), 0.5)
+        self.assertEqual(self.triangle.calculate_cdf(1, 1), 1)
+
+        self.triangle.replace_stats_with_data()
+
+        self.assertEqual(self.triangle.calculate_cdf(2), 0)
+        self.assertEqual(self.triangle.calculate_cdf(4), 0.08)
+        self.assertEqual(self.triangle.calculate_cdf(7), 0.5)
+        self.assertEqual(self.triangle.calculate_cdf(9), 0.82)
+        self.assertEqual(self.triangle.calculate_cdf(12), 1)
 
 
 if __name__ == '__main__':
