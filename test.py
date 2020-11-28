@@ -293,7 +293,7 @@ class TestGammaClass(unittest.TestCase):
 class TestBernoulliClass(unittest.TestCase):
     def setUp(self):
         self.bernoulli = Bernoulli(0.3)
-        self.bernoulli.read_data_file('numbers_bernoulli.txt')
+        self.bernoulli.read_data_file('probdists/numbers_bernoulli.txt')
 
     def test_initialization(self):
         self.assertEqual(self.bernoulli.p, 0.3, 'p value incorrect')
