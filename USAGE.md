@@ -1,7 +1,8 @@
 # Usage
-
-## For Gaussian Distribution
-
+<details>
+<summary>
+  <h2> For Gaussian Distribution</h2>
+</summary>
 ```
 >>> from probdists import Gaussian
 
@@ -44,6 +45,7 @@
 # plot normalized histogram of data and plot of pdf along same range
 >>> gaussian.plot_histogram_pdf(n_spaces = 50)
 ```
+</details>
 
 ## For Binomial Distribution
 
