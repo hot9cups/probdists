@@ -2,6 +2,7 @@ import math
 import matplotlib.pyplot as plt
 from .Generaldistribution import Distribution
 from collections import Counter
+import seaborn as sns
 
 
 class Triangular(Distribution):
@@ -33,8 +34,7 @@ class Triangular(Distribution):
         self.b = b
         self.mode = mode
 
-        Distribution.__init__(self, self.calculate_mean(),
-                              self.calculate_stdev())
+        Distribution.__init__(self, self.calculate_mean(), self.calculate_stdev())
 
     def calculate_mean(self, round_to=2):
         """
@@ -47,7 +47,7 @@ class Triangular(Distribution):
             float: mean of the data set
         """
 
-        self.mean = 1/3 * (self.a + self.b + self.mode)
+        self.mean = 1 / 3 * (self.a + self.b + self.mode)
 
         return round(self.mean, round_to)
 
@@ -62,16 +62,21 @@ class Triangular(Distribution):
             float: standard deviation of the data set
         """
 
-        summation = (self.a ** 2) + (self.b ** 2) + (self.mode ** 2) - \
-                    (self.a * self.b) - (self.a * self.mode) - \
-                    (self.b * self.mode)
+        summation = (
+            (self.a ** 2)
+            + (self.b ** 2)
+            + (self.mode ** 2)
+            - (self.a * self.b)
+            - (self.a * self.mode)
+            - (self.b * self.mode)
+        )
         variance = summation / 18
         self.stdev = math.sqrt(variance)
 
         return round(self.stdev, round_to)
 
     def replace_stats_with_data(self):
-        """ Method to calculate a, b, mode from the data set
+        """Method to calculate a, b, mode from the data set
 
         Args:
             None
@@ -139,13 +144,11 @@ class Triangular(Distribution):
 
         value = 0  # default value for when x < min or x > max
         if self.a <= x < self.mode:
-            value = (2 * (x - self.a)) / (
-                    (self.b - self.a) * (self.mode - self.a))
+            value = (2 * (x - self.a)) / ((self.b - self.a) * (self.mode - self.a))
         elif self.mode == x:
             value = 2 / (self.b - self.a)
         elif self.mode < x <= self.b:
-            value = (2 * (self.b - x)) / (
-                    (self.b - self.a) * (self.b - self.mode))
+            value = (2 * (self.b - x)) / ((self.b - self.a) * (self.b - self.mode))
 
         self.pdf = value
         return round(self.pdf, round_to)
@@ -168,11 +171,11 @@ class Triangular(Distribution):
         if x < self.a:
             value = 0
         elif self.a <= x <= self.mode:
-            num = ((x - self.a) ** 2)
+            num = (x - self.a) ** 2
             den = (self.b - self.a) * (self.mode - self.a)
             value = num / den
         elif self.mode < x <= self.b:
-            num = ((self.b - x) ** 2)
+            num = (self.b - x) ** 2
             den = (self.b - self.a) * (self.b - self.mode)
             value = 1 - (num / den)
         else:
@@ -195,10 +198,11 @@ class Triangular(Distribution):
         peak = 2 / (self.b - self.a)
         y = [0, peak, 0]
 
-        plt.plot(x, y)
-        plt.title('Probability Density Plot for Triangular Distribution')
-        plt.xlabel('Probability')
-        plt.ylabel('x')
+        sns.lineplot(x, y).set(
+            title="Probability Density Plot for Triangular Distribution",
+            xlabel="Probability",
+            ylabel="x",
+        )
 
         plt.show()
 
@@ -214,17 +218,19 @@ class Triangular(Distribution):
             string: characteristics of the Triangle
         """
 
-        return f"minimum: {self.a}, maximum: {self.b}, mode: {self.mode}, " \
-               f"mean: {self.mean}, standard deviation: {self.stdev}"
+        return (
+            f"minimum: {self.a}, maximum: {self.b}, mode: {self.mode}, "
+            f"mean: {self.mean}, standard deviation: {self.stdev}"
+        )
 
 
 class TriangularValueException(Exception):
     """
-        Defines Exception raised when minimum, maximum or mode values are equal
-        and TriangularDistribution instance cannot be created
+    Defines Exception raised when minimum, maximum or mode values are equal
+    and TriangularDistribution instance cannot be created
 
-        Attributes:
-            message (str): Error message to return
+    Attributes:
+        message (str): Error message to return
     """
 
     def __init__(self, msg=None):
