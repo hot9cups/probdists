@@ -163,7 +163,7 @@ class Gaussian(Distribution):
         # axes[0].set_title("Normed Histogram of Data")
         # axes[0].set_ylabel("Density")
         sns.lineplot(ax=axes[1], x=x, y=y).set(
-            title="Normal Distribution for \n \ Sample Mean and Sample Standard Deviation",
+            title="Normal Distribution for \n  Sample Mean and Sample Standard Deviation",
             ylabel="Density",
         )
         # axes[1].plot(x, y)

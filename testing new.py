@@ -1,7 +1,7 @@
-from probdists import Gaussian
+from probdists import Binomial
 
-gaussian = Gaussian()
-gaussian.read_data_file("./probdists/numbers.txt")
+binomial = Binomial()
+binomial.read_data_file("./probdists/numbers.csv")
 
-print(gaussian.data)
-gaussian.plot_histogram_pdf()
+print(binomial.data)
+binomial.plot_bar_pdf()
