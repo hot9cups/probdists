@@ -79,11 +79,9 @@ class Binomial(Distribution):
         Returns:
             None
         """
-        # sns.barplot(x=[0, 1], height=[(1 - self.p) * self.n, self.p * self.n])
         sns.barplot(x=[0, 1], y=[(1 - self.p) * self.n, self.p * self.n]).set(
             title="Bar Chart of Data", xlabel="outcome", ylabel="count"
         )
-        # plt.bar(x=["0", "1"], height=[(1 - self.p) * self.n, self.p * self.n])
         plt.show()
 
     def calculate_pdf(self, k, round_to=2):

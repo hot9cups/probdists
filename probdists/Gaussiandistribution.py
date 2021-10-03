@@ -78,22 +78,6 @@ class Gaussian(Distribution):
         self.cdf = 0.5 * (1 + math.erf((x - self.mean) / (self.stdev * math.sqrt(2))))
         return round(self.cdf, round_to)
 
-    # def plot_histogram(self):
-    #     """Function to output a histogram of the instance variable data using
-    #             matplotlib pyplot library.
-
-    #             Args:
-    #                     None
-
-    #             Returns:
-    #                     None
-    #             """
-    #     plt.hist(self.data)
-    #     plt.title("Histogram of Data")
-    #     plt.xlabel("data")
-    #     plt.ylabel("count")
-    #     plt.show()
-
     def plot_histogram(self):
         """Function to output a histogram of the instance variable data using
         seaborn  library.
@@ -159,19 +143,10 @@ class Gaussian(Distribution):
         sns.histplot(ax=axes[0], data=self.data).set(
             title="Normed Histogram of Data", ylabel="Density"
         )
-        # axes[0].hist(self.data, density=True)
-        # axes[0].set_title("Normed Histogram of Data")
-        # axes[0].set_ylabel("Density")
         sns.lineplot(ax=axes[1], x=x, y=y).set(
             title="Normal Distribution for \n  Sample Mean and Sample Standard Deviation",
             ylabel="Density",
         )
-        # axes[1].plot(x, y)
-        # axes[1].set_title(
-        #     "Normal Distribution for \n \
-        #     Sample Mean and Sample Standard Deviation"
-        # )
-        # axes[0].set_ylabel("Density")
         plt.show()
 
         return x, y
