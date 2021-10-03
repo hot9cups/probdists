@@ -1,19 +1,20 @@
 import math
 import matplotlib.pyplot as plt
 from .Generaldistribution import Distribution
+import seaborn as sns
 
 
 class Gamma(Distribution):
-    """ Gamma distribution class for calculating and visualizing a Gamma distribution.
-        Attributes:
-            mean (float) representing the mean value of the distribution
-            stdev (float) representing the standard deviation of the distribution
-            data_list (list of floats) extracted from the data file
-            k (float) shape parameter representing shape of distribution (k > 0)
-            theta (float) scale parameter that stretches/shrinks distribution (theta > 0)
+    """Gamma distribution class for calculating and visualizing a Gamma distribution.
+    Attributes:
+        mean (float) representing the mean value of the distribution
+        stdev (float) representing the standard deviation of the distribution
+        data_list (list of floats) extracted from the data file
+        k (float) shape parameter representing shape of distribution (k > 0)
+        theta (float) scale parameter that stretches/shrinks distribution (theta > 0)
     """
 
-    def __init__(self, k=2, theta=2, fit=False, data_file='demo_gamma_data'):
+    def __init__(self, k=2, theta=2, fit=False, data_file="demo_gamma_data"):
         """
         Init function to instantiate Gamma distribution
             Args:
@@ -35,7 +36,7 @@ class Gamma(Distribution):
             sample_mean = total / float(len(self.data))
             running = 0
             for each in self.data:
-                running += math.pow((each-sample_mean), 2)
+                running += math.pow((each - sample_mean), 2)
             sample_var = running / float(len(self.data))
             self.k = round(math.pow(sample_mean, 2) / sample_var)
             self.theta = sample_var / sample_mean
@@ -75,8 +76,11 @@ class Gamma(Distribution):
             Returns:
                 float: probability density function output
         """
-        self.pdf = (1 / (math.factorial(self.k - 1) * math.pow(self.theta, self.k))) * (math.pow(x, self.k - 1)) * (
-            math.exp((-1 * x / self.theta)))
+        self.pdf = (
+            (1 / (math.factorial(self.k - 1) * math.pow(self.theta, self.k)))
+            * (math.pow(x, self.k - 1))
+            * (math.exp((-1 * x / self.theta)))
+        )
         return round(self.pdf, round_to)
 
     def plot_bar_pdf(self, points=25):
@@ -98,10 +102,11 @@ class Gamma(Distribution):
             y.append(self.pdf)
 
         # make the plots
-        plt.bar(x, y)
-        plt.title('Probability Density Plot for Gamma Distribution')
-        plt.ylabel('Probability')
-        plt.xlabel('x')
+        sns.barplot(x, y).set(
+            title="Probability Density Plot for Gamma Distribution",
+            ylabel="Probability",
+            xlabel="x",
+        )
 
         plt.show()
         return x, y
@@ -116,19 +121,21 @@ class Gamma(Distribution):
             Returns:
                 float: CDF output based on 'is_upper' argument rounded to 'round_to'
         """
-        #initialize and declare the return variable self.cdf
+        # initialize and declare the return variable self.cdf
         self.cdf = 0
         if x >= 0:
-            #initiate cdfvalue variable
+            # initiate cdfvalue variable
             cdfvalue = 0
-            for i in range (self.k):
-                cdfvalue += (math.pow((x / self.theta), i) * math.exp(-1 * x / self.theta)) / math.factorial(i)
+            for i in range(self.k):
+                cdfvalue += (
+                    math.pow((x / self.theta), i) * math.exp(-1 * x / self.theta)
+                ) / math.factorial(i)
             if is_upper == True:
                 self.cdf = cdfvalue
             elif is_upper == False:
                 self.cdf = 1 - cdfvalue
         else:
-            raise Exception ('x has to be a positive real number')
+            raise Exception("x has to be a positive real number")
         return round(self.cdf, round_to)
 
     def __add__(self, other):
