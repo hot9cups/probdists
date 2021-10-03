@@ -1,10 +1,11 @@
 import math
 import matplotlib.pyplot as plt
 from .Generaldistribution import Distribution
+import seaborn as sns
 
 
 class Exponential(Distribution):
-    """ Exponential distribution class for calculating and
+    """Exponential distribution class for calculating and
     visualizing a Exponential distribution.
 
     Attributes:
@@ -18,15 +19,14 @@ class Exponential(Distribution):
 
     """
 
-    def __init__(self, lmbda=.5):
+    def __init__(self, lmbda=0.5):
 
         self.lmbda = lmbda
 
-        Distribution.__init__(self, self.calculate_mean(),
-                              self.calculate_stdev())
+        Distribution.__init__(self, self.calculate_mean(), self.calculate_stdev())
 
     def calculate_mean(self, round_to=2):
-        """ Method to calculate the mean from lambda
+        """Method to calculate the mean from lambda
 
         Args:
             round_to (int): Round the mean value. [Default value: 2 floating point]
@@ -35,12 +35,12 @@ class Exponential(Distribution):
             float: mean of the distribution
         """
 
-        self.mean = (1.0 / self.lmbda)
+        self.mean = 1.0 / self.lmbda
 
         return round(self.mean, round_to)
 
     def calculate_stdev(self, round_to=2):
-        """ Method to calculate the standard deviation from lmbda
+        """Method to calculate the standard deviation from lmbda
 
         Args:
             round_to (int): Round the mean value. [Default value: 2 floating point]
@@ -49,12 +49,12 @@ class Exponential(Distribution):
             float: standard deviation of the distribution
         """
 
-        self.stdev = (1.0 / self.lmbda)
+        self.stdev = 1.0 / self.lmbda
 
         return round(self.stdev, round_to)
 
     def calculate_pdf(self, x, round_to=2):
-        """ Probability density function calculator for the exponential distribution.
+        """Probability density function calculator for the exponential distribution.
 
         Args:
             x (float): point for caluclating the probability density function
@@ -86,7 +86,7 @@ class Exponential(Distribution):
         return round(self.cdf, round_to)
 
     def plot_bar_pdf(self, points=100):
-        """ Method to plot the pdf of the exponential distribution.
+        """Method to plot the pdf of the exponential distribution.
 
         Args:
             points (int): number of discrete data points
@@ -107,10 +107,12 @@ class Exponential(Distribution):
             y.append(self.pdf)
 
         # make the plots
-        plt.bar(x, y)
-        plt.title('Probability Density Plot for Exponential Distribution')
-        plt.ylabel('Probability')
-        plt.xlabel('x')
+        sns.barplot(x, y).set(
+            title="Probability Density Plot for Exponential Distribution",
+            ylabel="Probability",
+            xlabel="x",
+        )
+        print(y)
 
         plt.show()
 
@@ -124,11 +126,13 @@ class Exponential(Distribution):
     #
 
     def __repr__(self):
-        """ Method to outputthe characteristics of the Exponential instace.
+        """Method to outputthe characteristics of the Exponential instace.
         Args:
             None
         Returns:
             string: characteristics of the Exponential
         """
 
-        return "mean {0}, standard deviation {1}, lambda{2}".format(self.mean, self.stdev, self.lmbda)
+        return "mean {0}, standard deviation {1}, lambda{2}".format(
+            self.mean, self.stdev, self.lmbda
+        )

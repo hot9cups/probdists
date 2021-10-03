@@ -1,7 +1,7 @@
-from probdists import Binomial
+from probdists import Exponential
 
-binomial = Binomial()
-binomial.read_data_file("./probdists/numbers.csv")
+exponential = Exponential()
+exponential.read_data_file("./probdists/numbers.csv")
 
-print(binomial.data)
-binomial.plot_bar_pdf()
+print(exponential.data)
+exponential.plot_bar_pdf()
