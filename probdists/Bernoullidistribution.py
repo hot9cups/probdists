@@ -2,10 +2,11 @@ import math
 import matplotlib.pyplot as plt
 from .Generaldistribution import Distribution
 from .Binomialdistribution import Binomial
+import seaborn as sns
 
 
 class Bernoulli(Distribution):
-    """ Bernoulli distribution class for calculating and
+    """Bernoulli distribution class for calculating and
     visualizing a Bernoulli distribution.
 
     Attributes:
@@ -19,11 +20,10 @@ class Bernoulli(Distribution):
 
         self.p = prob
 
-        Distribution.__init__(self, self.calculate_mean(),
-                              self.calculate_stdev())
+        Distribution.__init__(self, self.calculate_mean(), self.calculate_stdev())
 
     def calculate_mean(self, round_to=2):
-        """ Method to calculate the mean of a Bernoulli distribution
+        """Method to calculate the mean of a Bernoulli distribution
 
         Args:
             round_to (int): Round the mean value. Defaults to 2.
@@ -51,7 +51,7 @@ class Bernoulli(Distribution):
         return round(self.stdev, round_to)
 
     def replace_stats_with_data(self):
-        """ Method to calculate p from the data set
+        """Method to calculate p from the data set
 
         Args:
             None
@@ -67,8 +67,8 @@ class Bernoulli(Distribution):
         return self.p
 
     def plot_bar(self):
-        """ Method to plot a histogram of the instance variable data using
-        matplotlib pyplot library.
+        """Method to plot a histogram of the instance variable data using
+        seaborn pyplot library.
 
         Args:
             None
@@ -77,13 +77,12 @@ class Bernoulli(Distribution):
             None
         """
 
-        plt.bar(x=['0', '1'], height=[(1 - self.p), self.p])
-        plt.title('Bar Chart of Data')
-        plt.xlabel('outcome')
-        plt.ylabel('count')
+        sns.barplot(x=["0", "1"], height=[(1 - self.p), self.p]).set(
+            title="Bar Chart of Data", xlabel="outcome", ylabel="count"
+        )
 
     def calculate_pdf(self, k, round_to=2):
-        """ Method to calculate pdf for the bernoulli distribution.
+        """Method to calculate pdf for the bernoulli distribution.
 
         Args:
             k (float): point for calculating the probability density function. Range of k: {0,1}
@@ -102,7 +101,7 @@ class Bernoulli(Distribution):
         return round(self.pdf, round_to)
 
     def calculate_cdf(self, k, round_to=2):
-        """ Method to calculate cdf for the bernoulli distribution.
+        """Method to calculate cdf for the bernoulli distribution.
 
         Args:
             k (float): point for calculating the cumulative distribution function
@@ -112,7 +111,7 @@ class Bernoulli(Distribution):
             float: cumulative distribution function output
         """
 
-        val = 0                 # default value of cdf for k < 0
+        val = 0  # default value of cdf for k < 0
         if 0 <= k < 1:
             val = 1 - self.p
         elif k > 1:
@@ -121,7 +120,7 @@ class Bernoulli(Distribution):
         return round(self.cdf, round_to)
 
     def plot_bar_pdf(self):
-        """ Method to plot the pdf of the bernoulli distribution
+        """Method to plot the pdf of the bernoulli distribution
 
         Args:
             None
@@ -137,17 +136,15 @@ class Bernoulli(Distribution):
             y.append(self.pdf)
 
         # draw the plots
-        plt.bar(x, y)
-        plt.title("Distribution of Outcomes")
-        plt.ylabel("Probability")
-        plt.xlabel("Outcome")
-
+        plt.barplot(x, y).set(
+            title="Distribution of Outcomes", ylabel="Probability", xlabel="Outcome"
+        )
         plt.show()
 
         return x, y
 
     def __add__(self, other):
-        """ Method to add together two Bernoulli distributions with equal p
+        """Method to add together two Bernoulli distributions with equal p
 
         Args:
             other (Bernoulli): Bernoulli instance
@@ -157,7 +154,7 @@ class Bernoulli(Distribution):
         """
 
         try:
-            assert self.p == other.p, 'p values are not equal'
+            assert self.p == other.p, "p values are not equal"
         except AssertionError:
             raise
 
@@ -170,7 +167,7 @@ class Bernoulli(Distribution):
         return result
 
     def __repr__(self):
-        """ Method to output the characteristics of this Bernoulli instance
+        """Method to output the characteristics of this Bernoulli instance
         Args:
             None
 
@@ -178,5 +175,7 @@ class Bernoulli(Distribution):
             string: characteristics of this Bernoulli instance
         """
 
-        return 'mean {0}, standard deviation {1}, \
-                p {2}, q {3}'.format(self.mean, self.stdev, self.p, 1.0 - self.p)
+        return "mean {0}, standard deviation {1}, \
+                p {2}, q {3}".format(
+            self.mean, self.stdev, self.p, 1.0 - self.p
+        )
