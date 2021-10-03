@@ -1,10 +1,11 @@
 import math
 import matplotlib.pyplot as plt
 from .Generaldistribution import Distribution
+import seaborn as sns
 
 
 class Gaussian(Distribution):
-    """ Gaussian distribution class for calculating and
+    """Gaussian distribution class for calculating and
     visualizing a Gaussian distribution.
 
     Attributes:
@@ -66,58 +67,75 @@ class Gaussian(Distribution):
     def calculate_cdf(self, x, round_to=2):
         """Cumulative distribution function calculator for the gaussian distribution.
 
-                Args:
-                        x (float): point for calculating the
-                                   cumulative distribution function
-                        round_to (int): Round the mean value. [Default value: 2 floating point]
+        Args:
+                x (float): point for calculating the
+                           cumulative distribution function
+                round_to (int): Round the mean value. [Default value: 2 floating point]
 
-                Returns:
-                        float: cumulative distribution function output
-                """
-        self.cdf = (0.5 * (1 + math.erf((x - self.mean) / (self.stdev * math.sqrt(2)))))
+        Returns:
+                float: cumulative distribution function output
+        """
+        self.cdf = 0.5 * (1 + math.erf((x - self.mean) / (self.stdev * math.sqrt(2))))
         return round(self.cdf, round_to)
+
+    # def plot_histogram(self):
+    #     """Function to output a histogram of the instance variable data using
+    #             matplotlib pyplot library.
+
+    #             Args:
+    #                     None
+
+    #             Returns:
+    #                     None
+    #             """
+    #     plt.hist(self.data)
+    #     plt.title("Histogram of Data")
+    #     plt.xlabel("data")
+    #     plt.ylabel("count")
+    #     plt.show()
 
     def plot_histogram(self):
         """Function to output a histogram of the instance variable data using
-                matplotlib pyplot library.
+        seaborn  library.
 
-                Args:
-                        None
+        Args:
+                None
 
-                Returns:
-                        None
-                """
-        plt.hist(self.data)
-        plt.title("Histogram of Data")
-        plt.xlabel("data")
-        plt.ylabel("count")
+        Returns:
+                None
+        """
+        ax = sns.histplot(data=self.data)
+        ax.set(xlabel="data", ylabel="count", title="Histogram")
+        plt.show()
 
     def calculate_pdf(self, x, round_to=2):
         """Probability density function calculator for the gaussian distribution.
 
-                Args:
-                        x (float): point for calculating the
-                                   probability density function
-                        round_to (int): Round the mean value. [Default value: 2 floating point]
+        Args:
+                x (float): point for calculating the
+                           probability density function
+                round_to (int): Round the mean value. [Default value: 2 floating point]
 
-                Returns:
-                        float: probability density function output
+        Returns:
+                float: probability density function output
         """
-        self.pdf = (1.0 / (self.stdev * math.sqrt(2 * math.pi))) * math.exp(-0.5 * ((x - self.mean) / self.stdev) ** 2)
+        self.pdf = (1.0 / (self.stdev * math.sqrt(2 * math.pi))) * math.exp(
+            -0.5 * ((x - self.mean) / self.stdev) ** 2
+        )
         return round(self.pdf, round_to)
 
     def plot_histogram_pdf(self, n_spaces=50):
         """Function to plot the normalized histogram of the data and a plot of the
-                probability density function along the same range
+        probability density function along the same range
 
-                Args:
-                        n_spaces (int): number of data points
+        Args:
+                n_spaces (int): number of data points
 
-                Returns:
-                        list: x values for the pdf plot
-                        list: y values for the pdf plot
+        Returns:
+                list: x values for the pdf plot
+                list: y values for the pdf plot
 
-                """
+        """
 
         min_range = min(self.data)
         max_range = max(self.data)
@@ -138,16 +156,22 @@ class Gaussian(Distribution):
         # make the plots
         fig, axes = plt.subplots(2, sharex=True)
         fig.subplots_adjust(hspace=0.5)
-        axes[0].hist(self.data, density=True)
-        axes[0].set_title("Normed Histogram of Data")
-        axes[0].set_ylabel("Density")
-
-        axes[1].plot(x, y)
-        axes[1].set_title(
-            "Normal Distribution for \n \
-            Sample Mean and Sample Standard Deviation"
+        sns.histplot(ax=axes[0], data=self.data).set(
+            title="Normed Histogram of Data", ylabel="Density"
         )
-        axes[0].set_ylabel("Density")
+        # axes[0].hist(self.data, density=True)
+        # axes[0].set_title("Normed Histogram of Data")
+        # axes[0].set_ylabel("Density")
+        sns.lineplot(ax=axes[1], x=x, y=y).set(
+            title="Normal Distribution for \n \ Sample Mean and Sample Standard Deviation",
+            ylabel="Density",
+        )
+        # axes[1].plot(x, y)
+        # axes[1].set_title(
+        #     "Normal Distribution for \n \
+        #     Sample Mean and Sample Standard Deviation"
+        # )
+        # axes[0].set_ylabel("Density")
         plt.show()
 
         return x, y
@@ -155,13 +179,13 @@ class Gaussian(Distribution):
     def __add__(self, other):
         """Function to add together two Gaussian distributions
 
-                Args:
-                        other (Gaussian): Gaussian instance
+        Args:
+                other (Gaussian): Gaussian instance
 
-                Returns:
-                        Gaussian: Gaussian distribution
+        Returns:
+                Gaussian: Gaussian distribution
 
-                """
+        """
 
         result = Gaussian()
         result.mean = self.mean + other.mean
@@ -172,12 +196,12 @@ class Gaussian(Distribution):
     def __repr__(self):
         """Function to output the characteristics of the Gaussian instance
 
-                Args:
-                        None
+        Args:
+                None
 
-                Returns:
-                        string: characteristics of the Gaussian
+        Returns:
+                string: characteristics of the Gaussian
 
-                """
+        """
 
         return "mean {}, standard deviation {}".format(self.mean, self.stdev)
