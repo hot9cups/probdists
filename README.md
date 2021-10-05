@@ -3,7 +3,7 @@
 Python package to model probability distributions.<br>
 Currently supports Gaussian, Gamma, Binomial, Bernoulli, Triangular, Uniform and Exponential Distributions.
 
-## Usage
+## Usageasdasdasd
 Please see [usage](https://github.com/hot9cups/probdists/blob/main/USAGE.md)
 
 ## Installation
