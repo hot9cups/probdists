@@ -21,7 +21,7 @@ setuptools.setup(
     python_requires='>=3.6',
     install_requires=[
         'matplotlib',
-        "seaborn"
+        'seaborn'
     ],
     zip_safe=False
 )
