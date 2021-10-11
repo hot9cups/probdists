@@ -8,6 +8,7 @@ from probdists import Gamma
 from probdists import Bernoulli
 from probdists import Uniform
 from probdists import Triangular, TriangularValueException
+from probdists import Poisson
 
 
 class TestGeneraldistribution(unittest.TestCase):
@@ -185,6 +186,55 @@ class TestExponentialClass(unittest.TestCase):
                 'calculate_cdf does not return expected result after calculating mean and stdev')
         self.assertEqual(self.exponential.calculate_cdf(9.5, 4), 0.907, \
                 'calculate_cdf does not return expected result after calculating mean and stdev')
+
+class TestPoissonClass(unittest.TestCase):
+    def setUp(self):
+        self.poisson = Poisson(50)
+        self.poisson.read_data_file('probdists/numbers_poisson.txt')
+
+    def test_initialization(self):
+        self.assertEqual(self.poisson.mean, 7.07, 'incorrect mean')
+        self.assertEqual(self.poisson.stdev, 7.07,
+                         'incoorect standard deviation')
+
+    def test_readdata(self):
+        self.assertEqual(self.exponential.data,
+                         [i for i in range(1,101)],
+                         'data read incorrectly')
+
+    def test_meancalculation(self):
+        self.poisson.calculate_mean()
+        self.assertEqual(self.poisson.mean,
+                         7.07,
+                         'calculated mean not as expected')
+
+    def test_stdevcalculation(self):
+        self.poisson.calculate_stdev()
+        self.assertEqual(self.poisson.stdev,
+                         7.07,
+                         'calculated standard deviation incorrect')
+
+    def test_pdf(self):
+        self.assertEqual(self.poisson.calculate_pdf(50, 5), 0.05632,
+                         'calculate_pdf function does not give expected result')
+        self.poisson.calculate_mean()
+        self.poisson.calculate_stdev()
+        self.assertEqual(self.poisson.calculate_pdf(75, 5), 0.00021,
+                         'calculate_pdf function after calculating mean and \
+                             stdev does not give expected result')
+
+    def test_cdf(self):
+        self.assertEqual(self.poisson.calculate_cdf(25), 0.0, 'calculate_cdf does not return expected result')
+        self.assertEqual(self.poisson.calculate_cdf(50, 5), 0.48119, 'calculate_cdf does not return expected result')
+
+        self.poisson.calculate_mean()
+        self.poisson.calculate_stdev()
+
+        self.assertEqual(self.poisson.calculate_cdf(60), 0.91, \
+                'calculate_cdf does not return expected result after calculating mean and stdev')
+        self.assertEqual(self.poisson.calculate_cdf(75, 4), 0.9994, \
+                'calculate_cdf does not return expected result after calculating mean and stdev')
+
 
 class TestUniformClass(unittest.TestCase):
     def setUp(self):
