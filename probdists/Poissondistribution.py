@@ -14,9 +14,8 @@ class Poisson(Distribution):
         data (list of floats): extracted from the data file
 
         lmbda (float): rate of the poisson distribution (missing an 'a' to prevent name clash with Python keyword)
-
+        
     """
-
     def __init__(self, lmbda):
 
         self.lmbda = lmbda
@@ -129,4 +128,3 @@ class Poisson(Distribution):
         """
 
         return "mean {0}, standard deviation {1}, lambda {2}".format(self.mean, self.stdev, self.lmbda)
-
