@@ -21,7 +21,7 @@ class Poisson(Distribution):
 
         self.lmbda = lmbda
 
-        Distribution.__init__(self, self.calculate_mean()
+        Distribution.__init__(self, self.calculate_mean(),
                             self.calculate_stdev())
 
     def calculate_mean(self, round_to=2):
