@@ -50,8 +50,7 @@ class TestGaussianClass(unittest.TestCase):
     def test_meancalculation(self):
         self.gaussian.calculate_mean()
         self.assertEqual(self.gaussian.mean,
-                         sum(self.gaussian.data) /
-                         float(len(self.gaussian.data)),
+                         sum(self.gaussian.data) / float(len(self.gaussian.data)),
                          'calculated mean not as expected')
 
     def test_stdevcalculation(self):
@@ -182,10 +181,13 @@ class TestExponentialClass(unittest.TestCase):
         self.exponential.calculate_mean()
         self.exponential.calculate_stdev()
 
-        self.assertEqual(self.exponential.calculate_cdf(-1.3), 0, \
-                'calculate_cdf does not return expected result after calculating mean and stdev')
-        self.assertEqual(self.exponential.calculate_cdf(9.5, 4), 0.907, \
-                'calculate_cdf does not return expected result after calculating mean and stdev')
+        self.assertEqual(self.exponential.calculate_cdf(-1.3),
+                         0,
+                         'calculate_cdf does not return expected result after calculating mean and stdev')
+        self.assertEqual(self.exponential.calculate_cdf(9.5, 4),
+                         0.907,
+                         'calculate_cdf does not return expected result after calculating mean and stdev')
+
 
 class TestPoissonClass(unittest.TestCase):
     def setUp(self):
@@ -199,7 +201,7 @@ class TestPoissonClass(unittest.TestCase):
 
     def test_readdata(self):
         self.assertEqual(self.exponential.data,
-                         [i for i in range(1,101)],
+                         [i for i in range(1, 101)],
                          'data read incorrectly')
 
     def test_meancalculation(self):
@@ -230,15 +232,17 @@ class TestPoissonClass(unittest.TestCase):
         self.poisson.calculate_mean()
         self.poisson.calculate_stdev()
 
-        self.assertEqual(self.poisson.calculate_cdf(60), 0.91, \
-                'calculate_cdf does not return expected result after calculating mean and stdev')
-        self.assertEqual(self.poisson.calculate_cdf(75, 4), 0.9994, \
-                'calculate_cdf does not return expected result after calculating mean and stdev')
+        self.assertEqual(self.poisson.calculate_cdf(60),
+                         0.91,
+                         'calculate_cdf does not return expected result after calculating mean and stdev')
+        self.assertEqual(self.poisson.calculate_cdf(75, 4),
+                         0.9994,
+                         'calculate_cdf does not return expected result after calculating mean and stdev')
 
 
 class TestUniformClass(unittest.TestCase):
     def setUp(self):
-        self.uniform = Uniform(0,10)
+        self.uniform = Uniform(0, 10)
         self.uniform.read_data_file('probdists/numbers_uniform.txt')
 
     def test_initialization(self):
@@ -258,11 +262,10 @@ class TestUniformClass(unittest.TestCase):
         self.assertEqual(l, 1)
         self.assertEqual(h, 5)
 
-
     def test_meancalculation(self):
         self.uniform.calculate_mean()
         self.assertEqual(self.uniform.mean,
-                        5,
+                         5,
                          'calculated mean not as expected')
 
     def test_stdevcalculation(self):
@@ -286,7 +289,6 @@ class TestUniformClass(unittest.TestCase):
         self.assertEqual(self.uniform.calculate_cdf(0), 0, 'calculate_cdf function does not give expected result')
         self.assertEqual(self.uniform.calculate_cdf(7), 1, 'calculate_cdf function does not give expected result')
         self.assertEqual(self.uniform.calculate_cdf(4), 0.75, 'calculate_cdf function does not give expected result')
-
 
 
 class TestGammaClass(unittest.TestCase):
@@ -326,9 +328,9 @@ class TestGammaClass(unittest.TestCase):
                          'calculate_pdf function does not give expected result')
 
     def test_cdf(self):
-        self.assertEqual(self.gamma.calculate_cdf(4, False, 5), 1 - round(3/math.exp(2), 5),
+        self.assertEqual(self.gamma.calculate_cdf(4, False, 5), 1 - round(3 / math.exp(2), 5),
                          'cdf function does not give expected result')
-        self.assertEqual(self.gamma.calculate_cdf(4), round(3/math.exp(2), 2),
+        self.assertEqual(self.gamma.calculate_cdf(4), round(3 / math.exp(2), 2),
                          'cdf function does not give expected result')
 
     def test_add(self):
