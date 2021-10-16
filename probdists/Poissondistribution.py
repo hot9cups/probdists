@@ -80,7 +80,7 @@ class Poisson(Distribution):
                 float: probability density function output
         """
         value = 0
-        for i in range(x):
+        for i in range(0, x + 1):
             value += self._calc_discrete_pdf(i)
         return round(value, round_to)
 

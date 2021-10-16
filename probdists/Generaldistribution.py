@@ -59,7 +59,8 @@ class Distribution:
             'demo_uniform_data': 'numbers_uniform.txt',
             'demo_bernoulli_data': 'numbers_bernoulli.txt',
             'demo_triangular_data': 'numbers_triangular.txt',
-            'demo_poisson_data': 'numbers_poisson.txt'
+            'demo_poisson_data': 'numbers_poisson.txt',
+            'demo_bates_data': 'numbers_bates.txt'
         }
         if file_name in file_name_map:
             dirname = Path(__file__).parent.parent.absolute()
@@ -79,7 +80,7 @@ class Distribution:
             for i in df.iterrows():
                 try:
                     data_list.append(float(df.iat[i[0], 0]))
-                except:  # pylint: disable=W0702
+                except Exception:  # pylint: disable=W0702
                     traceback.print_exc()
                     print('Could not convert', df.iat[i[0], 0], ' to int.')
         else:
@@ -103,7 +104,7 @@ class Distribution:
                     for number in line:
                         try:
                             data_list.append(float(number))
-                        except:  # pylint: disable=W0702
+                        except Exception:  # pylint: disable=W0702
                             traceback.print_exc()
                             print('Could not convert', number, ' to int.')
                     line = file.readline()
