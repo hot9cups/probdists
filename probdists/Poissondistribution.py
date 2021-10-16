@@ -16,6 +16,7 @@ class Poisson(Distribution):
 
         lmbda (float): rate of the poisson distribution
         (missing an 'a' to prevent name clash with Python keyword)
+
     """
     def __init__(self, lmbda):
 
