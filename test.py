@@ -9,6 +9,7 @@ from probdists import Bernoulli
 from probdists import Uniform
 from probdists import Triangular, TriangularValueException
 from probdists import Poisson
+from probdists import Bates
 
 
 class TestGeneraldistribution(unittest.TestCase):
@@ -195,29 +196,29 @@ class TestPoissonClass(unittest.TestCase):
         self.poisson.read_data_file('probdists/numbers_poisson.txt')
 
     def test_initialization(self):
-        self.assertEqual(self.poisson.mean, 7.07, 'incorrect mean')
-        self.assertEqual(self.poisson.stdev, 7.07,
+        self.assertEqual(round(self.poisson.mean, 2), 7.07, 'incorrect mean')
+        self.assertEqual(round(self.poisson.stdev, 2), 7.07,
                          'incoorect standard deviation')
 
     def test_readdata(self):
-        self.assertEqual(self.exponential.data,
+        self.assertEqual(self.poisson.data,
                          [i for i in range(1, 101)],
                          'data read incorrectly')
 
     def test_meancalculation(self):
         self.poisson.calculate_mean()
-        self.assertEqual(self.poisson.mean,
+        self.assertEqual(round(self.poisson.mean, 2),
                          7.07,
                          'calculated mean not as expected')
 
     def test_stdevcalculation(self):
         self.poisson.calculate_stdev()
-        self.assertEqual(self.poisson.stdev,
+        self.assertEqual(round(self.poisson.stdev, 2),
                          7.07,
                          'calculated standard deviation incorrect')
 
     def test_pdf(self):
-        self.assertEqual(self.poisson.calculate_pdf(50, 5), 0.05632,
+        self.assertEqual(self.poisson.calculate_pdf(50, 5), 0.05633,
                          'calculate_pdf function does not give expected result')
         self.poisson.calculate_mean()
         self.poisson.calculate_stdev()
@@ -238,6 +239,43 @@ class TestPoissonClass(unittest.TestCase):
         self.assertEqual(self.poisson.calculate_cdf(75, 4),
                          0.9994,
                          'calculate_cdf does not return expected result after calculating mean and stdev')
+
+
+class TestBatesClass(unittest.TestCase):
+    def setUp(self):
+        self.bates = Bates(n=30)
+        self.bates.read_data_file('probdists/numbers_bates.txt')
+
+    def test_initialization(self):
+        self.assertEqual(self.bates.a, 0, 'incorrect initialization of interval start')
+        self.assertEqual(self.bates.b, 1, 'incorrect initialization of interval end')
+
+    def test_readdata(self):
+        self.assertEqual(self.bates.data,
+                         [0., 0.03448276, 0.06896552, 0.10344828, 0.13793103,
+                          0.17241379, 0.20689655, 0.24137931, 0.27586207, 0.31034483,
+                          0.34482759, 0.37931034, 0.4137931, 0.44827586, 0.48275862,
+                          0.51724138, 0.55172414, 0.5862069, 0.62068966, 0.65517241,
+                          0.68965517, 0.72413793, 0.75862069, 0.79310345, 0.82758621,
+                          0.86206897, 0.89655172, 0.93103448, 0.96551724, 1.],
+                         'data read incorrectly')
+
+    def test_meancalculation(self):
+        self.assertEqual(self.bates.mean, 0.5, 'incorrect mean')
+
+    def test_stdev(self):
+        self.assertEqual(round(self.bates.stdev, 2), 0.05)
+
+    def test_pdf(self):
+        self.bates.calculate_mean()
+        self.bates.calculate_stdev()
+        self.bates.calculate_pdf(0.06896552)
+        self.assertEqual(self.bates.pdf, 0, 'incorrect pdf')
+        self.bates.calculate_pdf(0.75862069)
+        self.assertEqual(self.bates.pdf, 0, 'incorrect pdf')
+
+    def test_cdf(self):
+        self.assertEqual(self.bates.cdf, 0, 'incorrect cdf')
 
 
 class TestUniformClass(unittest.TestCase):

@@ -102,6 +102,7 @@ class Bates(Distribution):
         value = 0
         for i in range(0, x + 1):
             value += self.calculate_pdf(i)
+        self.cdf = value
         return round(value, round_to)
 
     def plot_bar_pdf(self, samples=10**6):
