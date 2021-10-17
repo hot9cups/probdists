@@ -6,7 +6,6 @@ import traceback
 class Distribution:
     """ Generic distribution class for calculating and
         visualizing a probability distribution.
-
     Attributes:
         mean (float) representing the mean value of the distribution
         stdev (float) representing the standard deviation of the distribution
@@ -24,24 +23,18 @@ class Distribution:
         self.cdf = None
 
     def read_data_file(self, file_name, separator='\\n', header=None):
-
         """Function to read in data from a txt file, csv file
         and excel formats (xls, xlsx, xlsm, xlsb, odf, ods and odt)
-
         The txt file should have one number (float) per line or
         numbers should be separator seperated.
-
         No need for separator argument with csv file, it will
         by default be ',' so csv files should have , seperated
         numbers
-
         For excel file formats. There should only be one column
         containing numbers, and if 0th row is header then header
         argument should be 0. The numbers are taken from next row
         mentioned in header parameter.
-
         The numbers are stored in the data attribute.
-
         Args:
                 file_name (string): name of a file to read from
                 separator (character): custom separator to use if required
@@ -62,7 +55,8 @@ class Distribution:
         }
         if file_name in file_name_map:
             dirname = Path(__file__).parent.parent.absolute()
-            file_name = str(Path(dirname, 'probdists/' + file_name_map[file_name]))
+            file_name = str(
+                Path(dirname, 'probdists/' + file_name_map[file_name]))
 
         # Finding the file extension and selecting separator for csv file
         extension = file_name.split('.')[-1]

@@ -1,10 +1,11 @@
 import math
 import matplotlib.pyplot as plt
 from .Generaldistribution import Distribution
+import seaborn as sns
 
 
 class Binomial(Distribution):
-    """ Binomial distribution class for calculating and
+    """Binomial distribution class for calculating and
     visualizing a Binomial distribution.
 
     Attributes:
@@ -15,13 +16,12 @@ class Binomial(Distribution):
         n (int) number of trials
     """
 
-    def __init__(self, prob=.5, size=20):
+    def __init__(self, prob=0.5, size=20):
 
         self.n = size
         self.p = prob
 
-        Distribution.__init__(self, self.calculate_mean(),
-                              self.calculate_stdev())
+        Distribution.__init__(self, self.calculate_mean(), self.calculate_stdev())
 
     def calculate_mean(self, round_to=2):
         """Function to calculate the mean from p and n
@@ -71,7 +71,7 @@ class Binomial(Distribution):
 
     def plot_bar(self):
         """Function to output a histogram of the instance variable data using
-        matplotlib pyplot library.
+        seaborn library.
 
         Args:
             None
@@ -79,11 +79,10 @@ class Binomial(Distribution):
         Returns:
             None
         """
-
-        plt.bar(x=['0', '1'], height=[(1 - self.p) * self.n, self.p * self.n])
-        plt.title('Bar Chart of Data')
-        plt.xlabel('outcome')
-        plt.ylabel('count')
+        sns.barplot(x=[0, 1], y=[(1 - self.p) * self.n, self.p * self.n]).set(
+            title="Bar Chart of Data", xlabel="outcome", ylabel="count"
+        )
+        plt.show()
 
     def calculate_pdf(self, k, round_to=2):
         """Probability density function calculator for the binomial distribution.
@@ -115,7 +114,7 @@ class Binomial(Distribution):
         """
 
         total_p = 0
-        for i in range(k+1):
+        for i in range(k + 1):
             self.calculate_pdf(i)
             total_p += self.pdf
         self.cdf = total_p
@@ -142,10 +141,10 @@ class Binomial(Distribution):
             y.append(self.pdf)
 
         # make the plots
-        plt.bar(x, y)
-        plt.title('Distribution of Outcomes')
-        plt.ylabel('Probability')
-        plt.xlabel('Outcome')
+
+        sns.barplot(x=x, y=y).set(
+            title="Distribution of Outcomes", ylabel="Probability", xlabel="Outcome"
+        )
 
         plt.show()
 
@@ -162,7 +161,7 @@ class Binomial(Distribution):
         """
 
         try:
-            assert self.p == other.p, 'p values are not equal'
+            assert self.p == other.p, "p values are not equal"
         except AssertionError as error:
             raise
 
@@ -184,5 +183,5 @@ class Binomial(Distribution):
             string: characteristics of the Binomial
         """
 
-        return f'mean {self.mean}, standard deviation {self.stdev}, \
-            p {self.p}, n {self.n}'
+        return f"mean {self.mean}, standard deviation {self.stdev}, \
+            p {self.p}, n {self.n}"
