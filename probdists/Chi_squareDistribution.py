@@ -28,9 +28,9 @@ class Chi_squareDistribution():
 
         observed = self.data["observed"].values.tolist()
         expected = self.data["expected"].values.tolist()
-        sum = 0
-        for i in range(0, len(observed)):
-            sum = sum+((observed[i]-expected[i])**2)/expected[i]
+        chi = 0
+        for i in range(len(observed)):
+            chi = chi+((observed[i]-expected[i])**2)/expected[i]
 
-        print(sum)
-        return sum
+        print(chi)
+        return chi
