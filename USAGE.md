@@ -343,7 +343,7 @@
 
 ```
 
-# For chi Square distribution
+## For chi Square distribution
 
 ```
 # importing Chi_squareDistribution
