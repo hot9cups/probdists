@@ -348,9 +348,7 @@
 ```
 # importing Chi_squareDistribution
 >>>from probdists import Chi_squareDistribution
-
 >>>chi = Chi_squareDistribution()
-
 # to read data from csv
 >>>chi.read_data_file("filename.csv ")
 # to print chi Square value
