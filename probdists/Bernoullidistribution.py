@@ -20,7 +20,8 @@ class Bernoulli(Distribution):
 
         self.p = prob
 
-        Distribution.__init__(self, self.calculate_mean(), self.calculate_stdev())
+        Distribution.__init__(self, self.calculate_mean(),
+                              self.calculate_stdev())
 
     def calculate_mean(self, round_to=2):
         """Method to calculate the mean of a Bernoulli distribution

@@ -113,13 +113,13 @@
 
 # to calculate mean
 >>> print(exponential.calculate_mean(1))
-2.0 
+2.0
 
-# to calculate standard deviation 
+# to calculate standard deviation
 >>> print(exponential.calculate_stdev(1))
-2.0 
+2.0
 
-# to calculate pdf 
+# to calculate pdf
 >>> print(exponential.calculate_pdf(5, 5))
 0.04104
 
@@ -129,11 +129,12 @@
 >>> print(exponential.calculate_cdf(-2))
 0.0
 
-# plot pdf of exponential distribution 
->>> exponential.plot_bar_pdf() 
+# plot pdf of exponential distribution
+>>> exponential.plot_bar_pdf()
 ```
 
 ## For Gamma Distribution
+
 ```
 >>> from probdists import Gamma
 
@@ -185,33 +186,34 @@
 # The resulting gamma three will have k=3, theta=2.
 # This add magic method fails if thetas are not equal since they wouldn't be summable
 ```
-## For Uniform Distribution 
+
+## For Uniform Distribution
 
 ```
->>> from probdists import Uniform 
+>>> from probdists import Uniform
 
 # default value of the interval is (1,10)
 >>> uniform = Uniform()
 
 >>> uniform2 = Uniform(1, 5)
-# interval of uniform2 is (1,5) 
+# interval of uniform2 is (1,5)
 
 >>> uniform.read_data_file('demo_uniform_data')
 # pass in your filename to read data from filename
 
-# to access data 
+# to access data
 >>> print(uniform.data)
-[4,5,2,3,3,2,2,5,4,3,1,3,5,3,4] 
+[4,5,2,3,3,2,2,5,4,3,1,3,5,3,4]
 
 # to calculate mean
 >>> print(uniform.calculate_mean())
-5 
+5
 
-# to calculate standard deviation 
+# to calculate standard deviation
 >>> print(uniform.calculate_stdev())
-2.89 
+2.89
 
-# to calculate pdf 
+# to calculate pdf
 >>> print(uniform.calculate_pdf(5))
 0.1
 
@@ -225,10 +227,10 @@
 # plot histogram of data
 >>> uniform.plot_histogram()
 
-# plot pdf of uniform distribution 
->>> uniform.plot_bar_pdf() 
+# plot pdf of uniform distribution
+>>> uniform.plot_bar_pdf()
 
-# to calculate cdf 
+# to calculate cdf
 >>> uniform.replace_stats_with_data()
 >>> print(uniform.calculate_cdf(0))
 0
@@ -237,6 +239,7 @@
 >>> print(uniform.calculate_cdf(4))
 0.75
 ```
+
 ## For Bernoulli Distribution
 
 ```
@@ -271,9 +274,9 @@
 >>> print(bernoulli.calculate_pdf(1, 1))
 0.3
 
-# to calculate cdf 
+# to calculate cdf
 >>> print(bernoulli.calculate_cdf(0.7))
-0.7 
+0.7
 >>> print(bernoulli.calculate_cdf(2))
 1
 
@@ -297,6 +300,7 @@
 ```
 
 ## For Triangular Distribution
+
 ```
 >>> from probdists import Triangular
 
@@ -324,17 +328,31 @@
 >>> print(triangle.calculate_pdf(0.5))
 2
 
-# to calculate cdf 
+# to calculate cdf
 >>> print(triangle.calculate_cdf(0.5))
 0.5
 >>> print(triangle.calculate_cdf(1))
 1
 
-# to access data 
+# to access data
 >>> print(triangle.data)
 [1, 2, 3, 4, 5, 5, 6, 8, 9, 13]
 
-# plot pdf of triangular distribution 
->>> triangle.plot_bar_pdf() 
+# plot pdf of triangular distribution
+>>> triangle.plot_bar_pdf()
 
+```
+
+# For chi Square distribution
+
+```
+# importing Chi_squareDistribution
+>>>from probdists import Chi_squareDistribution
+
+>>>chi = Chi_squareDistribution()
+
+# to read data from csv
+>>>chi.read_data_file("filename.csv ")
+# to print chi Square value
+>>>chi.chi_square()
 ```
