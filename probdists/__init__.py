@@ -7,4 +7,3 @@ from .Bernoullidistribution import Bernoulli
 from .Uniformdistribution import Uniform
 from .Triangulardistribution import Triangular, TriangularValueException
 from .Poissondistribution import Poisson
-from .Batesdistribution import Bates
