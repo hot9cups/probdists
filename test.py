@@ -228,16 +228,16 @@ class TestPoissonClass(unittest.TestCase):
 
     def test_cdf(self):
         self.assertEqual(self.poisson.calculate_cdf(25), 0.0, 'calculate_cdf does not return expected result')
-        self.assertEqual(self.poisson.calculate_cdf(50, 5), 0.48119, 'calculate_cdf does not return expected result')
+        self.assertEqual(self.poisson.calculate_cdf(50, 5), 0.53752, 'calculate_cdf does not return expected result')
 
         self.poisson.calculate_mean()
         self.poisson.calculate_stdev()
 
         self.assertEqual(self.poisson.calculate_cdf(60),
-                         0.91,
+                         0.93,
                          'calculate_cdf does not return expected result after calculating mean and stdev')
         self.assertEqual(self.poisson.calculate_cdf(75, 4),
-                         0.9994,
+                         0.9996,
                          'calculate_cdf does not return expected result after calculating mean and stdev')
 
 
@@ -270,11 +270,12 @@ class TestBatesClass(unittest.TestCase):
         self.bates.calculate_mean()
         self.bates.calculate_stdev()
         self.bates.calculate_pdf(0.06896552)
-        self.assertEqual(self.bates.pdf, 0, 'incorrect pdf')
+        self.assertEqual(round(self.bates.pdf), 0, 'incorrect pdf')
         self.bates.calculate_pdf(0.75862069)
-        self.assertEqual(self.bates.pdf, 0, 'incorrect pdf')
+        self.assertEqual(round(self.bates.pdf), 0, 'incorrect pdf')
 
     def test_cdf(self):
+        self.bates.calculate_cdf(0.5)
         self.assertEqual(self.bates.cdf, 0, 'incorrect cdf')
 
 
