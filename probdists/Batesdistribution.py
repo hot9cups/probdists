@@ -100,7 +100,7 @@ class Bates(Distribution):
             float: probability density function output
         """
         value = 0
-        for i in range(0, x + 1):
+        for i in range(0, int(x) + 1):
             value += self.calculate_pdf(i)
         self.cdf = value
         return round(value, round_to)
