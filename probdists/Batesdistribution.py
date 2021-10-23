@@ -70,16 +70,9 @@ class Bates(Distribution):
         else:
             g = 0
             for i in range(0, int(self.n * x + 1)):
-                g += pow(-1, i) * self._comb(self.n, i) * pow(x - i / self.n, self.n - 1)
+                g += pow(-1, i) * _comb(self.n, i) * pow(x - i / self.n, self.n - 1)
             value = (self.n**self.n / math.factorial(self.n - 1)) * g
         return value
-
-    def _comb(self, n, k):
-        """Protected function to calculate nCk
-        math.comb(n,k) was added in Python v3.8
-        Hence, for backward compatibility with earlier versions
-        """
-        return math.factorial(n) / (math.factorial(n - k) * math.factorial(k))
 
     def calculate_pdf(self, x, round_to=2):
         """ Probability density function calculator for the Bates distribution.
@@ -145,3 +138,11 @@ class Bates(Distribution):
         """
         return "mean {0}, standard deviation {1}, n {2}".format(self.mean,
                                                                 self.stdev, self.n)
+
+
+def _comb(n, k):
+    """Protected function to calculate nCk
+    math.comb(n,k) was added in Python v3.8
+    Hence, for backward compatibility with earlier versions
+    """
+    return math.factorial(n) / (math.factorial(n - k) * math.factorial(k))
