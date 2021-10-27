@@ -1,3 +1,4 @@
+import enum
 import numpy as np
 import mpmath as mp
 import math
@@ -95,15 +96,15 @@ class StudentT(Distribution):
         Returns:
             float: cumulative distribution function output
         """
+        out = None
         if x**2 < self.v:
             numerator = x * math.gamma(self.v + 1 / 2)
             denominator = math.sqrt(math.pi * self.v) * math.gamma(self.v / 2)
             two_f_one = mp.hyp2f1(0.5, 0.5 * (self.v + 1), 1.5, -x**2 / self.v)
             cdf = float(0.5 + (numerator * two_f_one) / denominator)
             self.cdf = round(cdf, round_to)
-            return self.cdf
-        else:
-            return None
+            out = self.cdf
+        return out
 
     def plot_pdf(self, a=-4, b=4, samples=10**3):
         """Method to plot the pdf of the t-distribution.
@@ -146,8 +147,8 @@ class StudentT(Distribution):
         x = np.linspace(a, b, nunm=samples)
         y = np.zeroes_like(x)
 
-        for i in range(0, len(x)):
-            y[i] = self.calculate_cdf(x[i])
+        for i, item in enumerate(x):
+            y[i] = self.calculate_cdf(item)
 
         plt.plot(x, y, label=f"v={self.v}")
         plt.legend()
