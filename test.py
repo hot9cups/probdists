@@ -8,6 +8,9 @@ from probdists import Gamma
 from probdists import Bernoulli
 from probdists import Uniform
 from probdists import Triangular, TriangularValueException
+from probdists import Poisson
+from probdists import Bates
+from probdists import StudentT
 
 
 class TestGeneraldistribution(unittest.TestCase):
@@ -49,8 +52,7 @@ class TestGaussianClass(unittest.TestCase):
     def test_meancalculation(self):
         self.gaussian.calculate_mean()
         self.assertEqual(self.gaussian.mean,
-                         sum(self.gaussian.data) /
-                         float(len(self.gaussian.data)),
+                         sum(self.gaussian.data) / float(len(self.gaussian.data)),
                          'calculated mean not as expected')
 
     def test_stdevcalculation(self):
@@ -181,14 +183,140 @@ class TestExponentialClass(unittest.TestCase):
         self.exponential.calculate_mean()
         self.exponential.calculate_stdev()
 
-        self.assertEqual(self.exponential.calculate_cdf(-1.3), 0, \
-                'calculate_cdf does not return expected result after calculating mean and stdev')
-        self.assertEqual(self.exponential.calculate_cdf(9.5, 4), 0.907, \
-                'calculate_cdf does not return expected result after calculating mean and stdev')
+        self.assertEqual(self.exponential.calculate_cdf(-1.3),
+                         0,
+                         'calculate_cdf does not return expected result after calculating mean and stdev')
+        self.assertEqual(self.exponential.calculate_cdf(9.5, 4),
+                         0.907,
+                         'calculate_cdf does not return expected result after calculating mean and stdev')
+
+
+class TestPoissonClass(unittest.TestCase):
+    def setUp(self):
+        self.poisson = Poisson(50)
+        self.poisson.read_data_file('probdists/numbers_poisson.txt')
+
+    def test_initialization(self):
+        self.assertEqual(round(self.poisson.mean, 2), 7.07, 'incorrect mean')
+        self.assertEqual(round(self.poisson.stdev, 2), 7.07,
+                         'incoorect standard deviation')
+
+    def test_readdata(self):
+        self.assertEqual(self.poisson.data,
+                         [i for i in range(1, 101)],
+                         'data read incorrectly')
+
+    def test_meancalculation(self):
+        self.poisson.calculate_mean()
+        self.assertEqual(round(self.poisson.mean, 2),
+                         7.07,
+                         'calculated mean not as expected')
+
+    def test_stdevcalculation(self):
+        self.poisson.calculate_stdev()
+        self.assertEqual(round(self.poisson.stdev, 2),
+                         7.07,
+                         'calculated standard deviation incorrect')
+
+    def test_pdf(self):
+        self.assertEqual(self.poisson.calculate_pdf(50, 5), 0.05633,
+                         'calculate_pdf function does not give expected result')
+        self.poisson.calculate_mean()
+        self.poisson.calculate_stdev()
+        self.assertEqual(self.poisson.calculate_pdf(75, 5), 0.00021,
+                         'calculate_pdf function after calculating mean and \
+                             stdev does not give expected result')
+
+    def test_cdf(self):
+        self.assertEqual(self.poisson.calculate_cdf(25), 0.0, 'calculate_cdf does not return expected result')
+        self.assertEqual(self.poisson.calculate_cdf(50, 5), 0.53752, 'calculate_cdf does not return expected result')
+
+        self.poisson.calculate_mean()
+        self.poisson.calculate_stdev()
+
+        self.assertEqual(self.poisson.calculate_cdf(60),
+                         0.93,
+                         'calculate_cdf does not return expected result after calculating mean and stdev')
+        self.assertEqual(self.poisson.calculate_cdf(75, 4),
+                         0.9996,
+                         'calculate_cdf does not return expected result after calculating mean and stdev')
+
+
+class TestBatesClass(unittest.TestCase):
+    def setUp(self):
+        self.bates = Bates(n=30)
+        self.bates.read_data_file('probdists/numbers_bates.txt')
+
+    def test_initialization(self):
+        self.assertEqual(self.bates.a, 0, 'incorrect initialization of interval start')
+        self.assertEqual(self.bates.b, 1, 'incorrect initialization of interval end')
+
+    def test_readdata(self):
+        self.assertEqual(self.bates.data,
+                         [0., 0.03448276, 0.06896552, 0.10344828, 0.13793103,
+                          0.17241379, 0.20689655, 0.24137931, 0.27586207, 0.31034483,
+                          0.34482759, 0.37931034, 0.4137931, 0.44827586, 0.48275862,
+                          0.51724138, 0.55172414, 0.5862069, 0.62068966, 0.65517241,
+                          0.68965517, 0.72413793, 0.75862069, 0.79310345, 0.82758621,
+                          0.86206897, 0.89655172, 0.93103448, 0.96551724, 1.],
+                         'data read incorrectly')
+
+    def test_meancalculation(self):
+        self.assertEqual(self.bates.mean, 0.5, 'incorrect mean')
+
+    def test_stdev(self):
+        self.assertEqual(round(self.bates.stdev, 2), 0.05)
+
+    def test_pdf(self):
+        self.bates.calculate_mean()
+        self.bates.calculate_stdev()
+        self.bates.calculate_pdf(0.06896552)
+        self.assertEqual(round(self.bates.pdf), 0, 'incorrect pdf')
+        self.bates.calculate_pdf(0.75862069)
+        self.assertEqual(round(self.bates.pdf), 0, 'incorrect pdf')
+
+    def test_cdf(self):
+        self.bates.calculate_cdf(0.5)
+        self.assertEqual(self.bates.cdf, 0, 'incorrect cdf')
+
+
+class TestStudentTClass(unittest.TestCase):
+    def setUp(self):
+        self.student = StudentT()
+
+    def test_initialization(self):
+        self.assertEqual(self.student.v, 1, 'incorrect initialization of degree of freedom')
+
+    def test_meancalculation(self):
+        self.assertEqual(self.student.mean, None, 'incorrect mean')
+
+    def test_stdev(self):
+        self.assertEqual(self.student.stdev, None, 'incorrect stdev')
+
+    def test_pdf(self):
+        self.student.calculate_mean()
+        self.student.calculate_stdev()
+        self.student.calculate_pdf(-3.5)
+        self.assertEqual(self.student.pdf, 0.01, 'incorrect pdf')
+        self.student.calculate_pdf(0.0)
+        self.assertEqual(self.student.pdf, 0.28, 'incorrect pdf')
+        self.student.calculate_pdf(3.5)
+        self.assertEqual(self.student.pdf, 0.01, 'incorrect pdf')
+
+    def test_cdf(self):
+        self.student.calculate_cdf(0.0)
+        self.assertEqual(self.student.cdf, 0.5, 'incorrect cdf')
+
+        self.student.calculate_cdf(0.1, round_to=5)
+        self.assertEqual(self.student.cdf, 0.52812, 'incorrect cdf')
+
+        self.student.calculate_cdf(-0.1, 5)
+        self.assertEqual(self.student.cdf, 0.47188, 'incorrect cdf')
+
 
 class TestUniformClass(unittest.TestCase):
     def setUp(self):
-        self.uniform = Uniform(0,10)
+        self.uniform = Uniform(0, 10)
         self.uniform.read_data_file('probdists/numbers_uniform.txt')
 
     def test_initialization(self):
@@ -208,11 +336,10 @@ class TestUniformClass(unittest.TestCase):
         self.assertEqual(l, 1)
         self.assertEqual(h, 5)
 
-
     def test_meancalculation(self):
         self.uniform.calculate_mean()
         self.assertEqual(self.uniform.mean,
-                        5,
+                         5,
                          'calculated mean not as expected')
 
     def test_stdevcalculation(self):
@@ -236,7 +363,6 @@ class TestUniformClass(unittest.TestCase):
         self.assertEqual(self.uniform.calculate_cdf(0), 0, 'calculate_cdf function does not give expected result')
         self.assertEqual(self.uniform.calculate_cdf(7), 1, 'calculate_cdf function does not give expected result')
         self.assertEqual(self.uniform.calculate_cdf(4), 0.75, 'calculate_cdf function does not give expected result')
-
 
 
 class TestGammaClass(unittest.TestCase):
@@ -276,9 +402,9 @@ class TestGammaClass(unittest.TestCase):
                          'calculate_pdf function does not give expected result')
 
     def test_cdf(self):
-        self.assertEqual(self.gamma.calculate_cdf(4, False, 5), 1 - round(3/math.exp(2), 5),
+        self.assertEqual(self.gamma.calculate_cdf(4, False, 5), 1 - round(3 / math.exp(2), 5),
                          'cdf function does not give expected result')
-        self.assertEqual(self.gamma.calculate_cdf(4), round(3/math.exp(2), 2),
+        self.assertEqual(self.gamma.calculate_cdf(4), round(3 / math.exp(2), 2),
                          'cdf function does not give expected result')
 
     def test_add(self):
