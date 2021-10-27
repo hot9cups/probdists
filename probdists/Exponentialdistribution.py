@@ -124,7 +124,7 @@ class Exponential(Distribution):
     #
 
     def __repr__(self):
-        """ Method to outputthe characteristics of the Exponential instace.
+        """ Method to output the characteristics of the Exponential instace.
         Args:
             None
         Returns:
