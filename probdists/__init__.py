@@ -8,3 +8,4 @@ from .Uniformdistribution import Uniform
 from .Triangulardistribution import Triangular, TriangularValueException
 from .Poissondistribution import Poisson
 from .Batesdistribution import Bates
+from .StudentTdistribution import StudentT

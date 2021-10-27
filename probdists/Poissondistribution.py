@@ -96,7 +96,7 @@ class Poisson(Distribution):
         pdf = (math.exp(-self.lmbda) * self.lmbda ** x) / fact
         return pdf
 
-    def plot_bar_pdf(self, points=100):
+    def plot_pdf(self, points=100):
         """ Method to plot the pdf of the Poisson distribution.
 
         Args:

@@ -105,7 +105,7 @@ class Bates(Distribution):
         self.cdf = value
         return round(value, round_to)
 
-    def plot_bar_pdf(self, samples=10**6):
+    def plot_pdf(self, samples=10**6):
         """ Method to plot the pdf of the Bates distribution.
 
         Args:
