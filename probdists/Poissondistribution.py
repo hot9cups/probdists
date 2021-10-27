@@ -58,7 +58,7 @@ class Poisson(Distribution):
         """ Probability density function calculator for the Poisson distribution.
 
         Args:
-            x (float): point for caluclating the probability density function
+            x (float): point for calculating the probability density function
             round_to (int): Round the mean value.
             [Default value: 2 floating point]
 
@@ -70,14 +70,14 @@ class Poisson(Distribution):
         return round(self.pdf, round_to)
 
     def calculate_cdf(self, x, round_to=2):
-        """  Probability density function calculator for the Poisson distribution.
+        """  Cumulative distribution function calculator for the Poisson distribution.
             Args:
                 x (float): point for calculating the probability density function
                 round_to (int): Round the mean value.
                 [Default value: 2 floating point]
 
             Returns:
-                float: probability density function output
+                float: cumulative distribution function output
         """
         value = 0
         for i in range(0, x + 1):

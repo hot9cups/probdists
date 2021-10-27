@@ -8,6 +8,18 @@ from .Generaldistribution import Distribution
 class StudentT(Distribution):
 
     def __init__(self, v=1):
+        """ Student's t-distribution class for calculating and
+        visualizing a t-distribution.
+
+        Attributes:
+
+            mean (float): the mean value of the distribution
+            stdev (float): the standard deviation of the distribution
+
+            data (list of floats): extracted from the data file
+
+            v (float): degree of freedom [Default: 1]
+        """
 
         self.v = v
 
@@ -15,6 +27,16 @@ class StudentT(Distribution):
                               self.calculate_stdev())
 
     def calculate_mean(self, round_to=2):
+        """ Method to calculate the mean
+
+        Args:
+            round_to (int): Round the mean value.
+            [Default value: 2 floating point]
+
+        Returns:
+            float: mean of the distribution
+            None is used to represent "undefined"
+        """
         if self.v > 1:
             self.mean = 0
         else:
@@ -23,6 +45,16 @@ class StudentT(Distribution):
         return round(self.mean, round_to)
 
     def calculate_stdev(self, round_to=2):
+        """ Method to calculate the standard deviation
+
+        Args:
+            round_to (int): Round the mean value.
+            [Default value: 2 floating point]
+
+        Returns:
+            float: standard deviation of the distribution
+            None is used to represent "undefined"
+        """
         if self.v > 2:
             self.stdev = self.v / (self.v - 2)
         elif self.v > 1 and self.v <= 2:
@@ -33,16 +65,34 @@ class StudentT(Distribution):
         return round(self.stdev, round_to)
 
     def calculate_pdf(self, x, round_to=2):
+        """ Probability density function calculator for the t-distribution.
+
+        Args:
+            x (float): point for calculating the probability density function
+            round_to (int): Round the mean value.
+            [Default value: 2 floating point]
+
+        Returns:
+            float: probability density function
+        """
         denom = math.sqrt(self.v * math.pi) * math.gamma(self.v / 2)
         num = math.gamma(self.v + 1 / 2) * pow((1 + (x ** 2 / self.v)), -1 * (self.v + 1 / 2))
         pdf = num / denom
         return round(pdf, round_to)
 
     def calculate_cdf(self, x, round_to=2):
-        """
+        """Cumulative distribution function calculator for the Bates distribution.
         NOTE: This function is valid only for x**2 < v
         For other values of x, it returns None
         This shall be fixed in the future
+
+        Args:
+            x (float): point for calculating the probability density function
+            round_to (int): Round the mean value.
+            [Default value: 2 floating point]
+
+        Returns:
+            float: cumulative distribution function output
         """
         if x**2 < self.v:
             numerator = x * math.gamma(self.v + 1 / 2)
@@ -54,6 +104,18 @@ class StudentT(Distribution):
             return None
 
     def plot_pdf(self, a=-4, b=4, samples=10**3):
+        """Method to plot the pdf of the t-distribution.
+
+        Args:
+            a (float): left hand limit for the graph [Default: -4]
+            b (float): right hand limit for the graph [Default: 4]
+            samples (int): `samples` number of points evenly distributed
+            between a and b [Default: 10**3]
+
+        Returns:
+            y (np.array): list of PDFs for samples
+        """
+
         x = np.linspace(a, b, nunm=samples)
         y = np.zeroes_like(x)
 
@@ -68,6 +130,17 @@ class StudentT(Distribution):
         return y
 
     def plot_cdf(self, a=-4, b=4, samples=10**3):
+        """Method to plot the cdf of the t-distribution
+
+        Args:
+            a (float): left hand limit for the graph [Default: -4]
+            b (float): right hand limit for the graph [Default: 4]
+            samples (int): `samples` number of points evenly distributed
+            between a and b [Default: 10**3]
+
+        Returns:
+            y (np.array): list of CDFs for samples
+        """
         x = np.linspace(a, b, nunm=samples)
         y = np.zeroes_like(x)
 
