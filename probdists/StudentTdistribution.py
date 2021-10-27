@@ -1,5 +1,5 @@
 import numpy as np
-from mpmath import *
+import mpmath as mp
 import math
 from matplotlib import pyplot as plt
 from .Generaldistribution import Distribution
@@ -42,7 +42,7 @@ class StudentT(Distribution):
         else:
             self.mean = None
 
-        return round(self.mean, round_to)
+        return self.mean
 
     def calculate_stdev(self, round_to=2):
         """ Method to calculate the standard deviation
@@ -62,7 +62,7 @@ class StudentT(Distribution):
         else:
             self.stdev = None       # undefined
 
-        return round(self.stdev, round_to)
+        return self.stdev
 
     def calculate_pdf(self, x, round_to=2):
         """ Probability density function calculator for the t-distribution.
@@ -78,7 +78,8 @@ class StudentT(Distribution):
         denom = math.sqrt(self.v * math.pi) * math.gamma(self.v / 2)
         num = math.gamma(self.v + 1 / 2) * pow((1 + (x ** 2 / self.v)), -1 * (self.v + 1 / 2))
         pdf = num / denom
-        return round(pdf, round_to)
+        self.pdf = round(pdf, round_to)
+        return self.pdf
 
     def calculate_cdf(self, x, round_to=2):
         """Cumulative distribution function calculator for the Bates distribution.
@@ -97,9 +98,10 @@ class StudentT(Distribution):
         if x**2 < self.v:
             numerator = x * math.gamma(self.v + 1 / 2)
             denominator = math.sqrt(math.pi * self.v) * math.gamma(self.v / 2)
-            two_f_one = hyp2f1(0.5, 0.5 * (self.v + 1), 1.5, -x**2 / self.v)
-            out = 0.5 + (numerator * two_f_one) / denominator
-            return out
+            two_f_one = mp.hyp2f1(0.5, 0.5 * (self.v + 1), 1.5, -x**2 / self.v)
+            cdf = float(0.5 + (numerator * two_f_one) / denominator)
+            self.cdf = round(cdf, round_to)
+            return self.cdf
         else:
             return None
 

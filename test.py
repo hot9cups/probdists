@@ -10,6 +10,7 @@ from probdists import Uniform
 from probdists import Triangular, TriangularValueException
 from probdists import Poisson
 from probdists import Bates
+from probdists import StudentT
 
 
 class TestGeneraldistribution(unittest.TestCase):
@@ -277,6 +278,40 @@ class TestBatesClass(unittest.TestCase):
     def test_cdf(self):
         self.bates.calculate_cdf(0.5)
         self.assertEqual(self.bates.cdf, 0, 'incorrect cdf')
+
+
+class TestStudentTClass(unittest.TestCase):
+    def setUp(self):
+        self.student = StudentT()
+
+    def test_initialization(self):
+        self.assertEqual(self.student.v, 1, 'incorrect initialization of degree of freedom')
+
+    def test_meancalculation(self):
+        self.assertEqual(self.student.mean, None, 'incorrect mean')
+
+    def test_stdev(self):
+        self.assertEqual(self.student.stdev, None, 'incorrect stdev')
+
+    def test_pdf(self):
+        self.student.calculate_mean()
+        self.student.calculate_stdev()
+        self.student.calculate_pdf(-3.5)
+        self.assertEqual(self.student.pdf, 0.01, 'incorrect pdf')
+        self.student.calculate_pdf(0.0)
+        self.assertEqual(self.student.pdf, 0.28, 'incorrect pdf')
+        self.student.calculate_pdf(3.5)
+        self.assertEqual(self.student.pdf, 0.01, 'incorrect pdf')
+
+    def test_cdf(self):
+        self.student.calculate_cdf(0.0)
+        self.assertEqual(self.student.cdf, 0.5, 'incorrect cdf')
+
+        self.student.calculate_cdf(0.1, round_to=5)
+        self.assertEqual(self.student.cdf, 0.52812, 'incorrect cdf')
+
+        self.student.calculate_cdf(-0.1, 5)
+        self.assertEqual(self.student.cdf, 0.47188, 'incorrect cdf')
 
 
 class TestUniformClass(unittest.TestCase):
