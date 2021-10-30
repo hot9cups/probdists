@@ -34,6 +34,20 @@ class Weibull(Distribution):
       out = 1 - math.exp(-(x / self.lmbda) ** self.k)
     return out
 
+  def plot_pdf(self, samples=250):
+    x = np.linspace(0, 2.5, num=samples)
+    y = np.zeros_like(x)
+
+    for index, value in enumerate(x):
+      y[index] = self.calculate_pdf(value)
+
+    plt.plot(x, y, label=f"lambda={self.lmbda}; k={self.k}")
+    plt.legend()
+    plt.title(f"Probability Distribution Function for Weibull \
+              Distribution lambda={self.lmbda} k={self.k}")
+    plt.show()
+    return y
+
   def __repr__(self):
     return f"lambda: {self.lmbda}, k: {self.k}, mean: {self.mean}, \
             standard deviation: {self.stdev}"
