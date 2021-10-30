@@ -8,6 +8,7 @@ from probdists import Gamma
 from probdists import Bernoulli
 from probdists import Uniform
 from probdists import Triangular, TriangularValueException
+from probdists import Weibull
 
 
 class TestGeneraldistribution(unittest.TestCase):
