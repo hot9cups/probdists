@@ -8,6 +8,7 @@ from probdists import Gamma
 from probdists import Bernoulli
 from probdists import Uniform
 from probdists import Triangular, TriangularValueException
+from probdists import Weibull
 
 
 class TestGeneraldistribution(unittest.TestCase):
@@ -238,7 +239,6 @@ class TestUniformClass(unittest.TestCase):
         self.assertEqual(self.uniform.calculate_cdf(4), 0.75, 'calculate_cdf function does not give expected result')
 
 
-
 class TestGammaClass(unittest.TestCase):
     def setUp(self):
         self.gamma = Gamma()
@@ -405,6 +405,41 @@ class TestTriangularClass(unittest.TestCase):
         self.assertEqual(self.triangle.calculate_cdf(7), 0.5)
         self.assertEqual(self.triangle.calculate_cdf(9), 0.82)
         self.assertEqual(self.triangle.calculate_cdf(12), 1)
+
+
+class TestWeibullClass(unittest.TestCase):
+    def setUp(self):
+        self.weibull = Weibull()
+
+    def test_initialization(self):
+        self.assertEqual(self.weibull.k, 1.5, 'incorrect k')
+        self.assertEqual(self.weibull.lmbda, 1, 'incorrect lambda')
+
+    def test_meancalculation(self):
+        self.weibull.calculate_mean()
+        self.assertEqual(round(self.weibull.mean, 5), 0.90275,
+                         'calculated mean not as expected')
+
+    def test_stdevcalculation(self):
+        self.weibull.calculate_stdev()
+        self.assertEqual(round(self.weibull.stdev, 5), 0.61294,
+                         'calculated stdev not as expected')
+
+    def test_pdf(self):
+        self.assertEqual(self.weibull.calculate_pdf(0.5, 5), 0.74478,
+                         'unexpected pdf value')
+        self.weibull.calculate_mean()
+        self.weibull.calculate_stdev()
+        self.assertEqual(self.weibull.calculate_pdf(1, 5), 0.55182,
+                         'unexpected pdf value')
+        self.assertEqual(self.weibull.calculate_pdf(2.0, 5), 0.12538,
+                         'unexpected pdf')
+
+    def test_cdf(self):
+        self.assertEqual(self.weibull.calculate_cdf(0.5, 5), 0.29781,
+                         'unexpected cdf value')
+        self.assertEqual(self.weibull.calculate_cdf(1.0, 5), 0.63212,
+                         'unexpected cdf value')
 
 
 if __name__ == '__main__':
